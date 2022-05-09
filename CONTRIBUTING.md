@@ -46,11 +46,11 @@ git push origin feature/my-feature
 
 ## Reporting a bug
 
-We use [Issue Tracking](https://github.com/aprilahijriyan/getpay-api/issues) to report bugs/new feature requests.
+We use [Issue Tracking](https://github.com/getpay-id/getpay-api/issues) to report bugs/new feature requests.
 
 Before creating an issue, be sure to check for similar issues to avoid duplication. And please add details clearly so we can check it soon.
 
 
 ## Questions
 
-You can ask questions on the [GitHub Discussions](https://github.com/aprilahijriyan/getpay-api/discussions/categories/q-a)
+You can ask questions on the [GitHub Discussions](https://github.com/getpay-id/getpay-api/discussions/categories/q-a)
