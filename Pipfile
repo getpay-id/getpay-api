@@ -1,0 +1,30 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+motor = "*"
+python-jose = {extras = ["cryptography"], version = "*"}
+aioredis = "*"
+pydantic = {extras = ["email"], version = "*"}
+uvicorn = {extras = ["standard"], version = "*"}
+python-dotenv = "*"
+bcrypt = "*"
+fastapi = "*"
+xendit-python = "*"
+orjson = "*"
+ipython = "*"
+python-multipart = "*"
+faker = "*"
+typing-extensions = "*"
+
+[dev-packages]
+black = "*"
+pre-commit = "*"
+
+[requires]
+python_version = "3.9"
+
+[pipenv]
+allow_prereleases = true
