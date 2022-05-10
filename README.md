@@ -1,6 +1,6 @@
 # GetPay
 
-![Logo](https://raw.githubusercontent.com/getpay-id/getpay-api/main/images/logo-bg-black.png)
+<img src="https://raw.githubusercontent.com/getpay-id/getpay-api/main/images/logo-bg-black.png" alt="GetPay Logo" width="100%" height="100%">
 
 GetPay adalah layanan gratis untuk menangani pembayaran dari beberapa payment gateway yg mendukung mata uang indonesia (IDR).
 
