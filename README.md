@@ -1,12 +1,14 @@
 # GetPay
 
+![Logo](https://raw.githubusercontent.com/getpay-id/getpay-api/main/images/logo-bg-black.png)
+
 GetPay adalah layanan gratis untuk menangani pembayaran dari beberapa payment gateway yg mendukung mata uang indonesia (IDR).
 
 Goal dari proyek ini adalah:
 
 * Mempermudah pembayaran dari beberapa payment gateway di satu tempat (API)
 * Pengelola metode pembayaran
-* Tersedia API Key untuk digunakan service lain
+* Tersedia API Key untuk digunakan di service lain
 
 
 Saat ini kami hanya mendukung payment gateway dari:
