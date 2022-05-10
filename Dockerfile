@@ -6,6 +6,8 @@ ENV PIP_IGNORE_INSTALLED 1
 COPY ./app /space/app
 COPY ./Pipfile /space/Pipfile
 COPY ./Pipfile.lock /space/Pipfile.lock
+COPY ./.env /space/.env
+COPY ./install.py /space/install.py
 WORKDIR /space
 RUN pip install -U pip pipenv
 RUN pipenv install --system --deploy --ignore-pipfile
