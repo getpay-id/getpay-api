@@ -93,9 +93,27 @@ async def create_admin():
 
 
 async def create_payment_gateways():
-    await install_payment_gateway(PaymentGateway.ipaymu)
-    await install_payment_gateway(PaymentGateway.xendit)
-    await install_payment_gateway(PaymentGateway.duitku)
+    if (
+        settings.IPAYMU_API_KEY
+        and settings.IPAYMU_CALLBACK_URL
+        and settings.IPAYMU_URL
+        and settings.IPAYMU_VIRTUAL_ACCOUNT
+    ):
+        await install_payment_gateway(PaymentGateway.ipaymu)
+
+    if (
+        settings.XENDIT_API_KEY
+        and settings.XENDIT_QRCODE_CALLBACK_URL
+        and settings.XENDIT_SECRET_KEY
+    ):
+        await install_payment_gateway(PaymentGateway.xendit)
+
+    if (
+        settings.DUITKU_API_KEY
+        and settings.DUITKU_MERCHANT_CODE
+        and settings.DUITKU_URL
+    ):
+        await install_payment_gateway(PaymentGateway.duitku)
 
 
 async def main():
