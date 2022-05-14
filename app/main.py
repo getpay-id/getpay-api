@@ -1,11 +1,8 @@
-import dotenv
-
-dotenv.load_dotenv(".env")
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 
+import app.settings  # noqa # muat semua konfigurasi dari file .env
 from app.routers import init_routers
 
 app = FastAPI(

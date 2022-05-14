@@ -18,6 +18,7 @@ ipython = "*"
 python-multipart = "*"
 faker = "*"
 typing-extensions = "*"
+saq = {extras = ["hiredis"], version = "*"}
 
 [dev-packages]
 black = "*"

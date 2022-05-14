@@ -20,6 +20,7 @@ from app.core.enums import (
 )
 from app.core.fields import ObjectID
 from app.core.pagination import paginate
+from app.core.queue import q1
 from app.core.thirdparty import duitku, ipaymu, xendit
 from app.core.utils import generate_random_string, serialize_data
 
@@ -116,7 +117,8 @@ async def create(body: TransactionIn):
         )
 
     payment_code: str = pc_obj["code"]
-    expiration_date = timezone.now() + timedelta(hours=1)
+    exp_trx = timedelta(hours=1)
+    expiration_date = timezone.now() + exp_trx
     email = body.email or "gp-" + faker.email()
     amount = body.amount
     amount += pc_obj["fee"] or 0
@@ -314,6 +316,10 @@ async def create(body: TransactionIn):
     result: InsertOneResult = await collections.transactions.insert_one(payload)
     obj = await collections.transactions.find_one({"_id": result.inserted_id})
     data = serialize_data(obj)
+    scheduled = int((timezone.now() + exp_trx).timestamp())
+    await q1.queue.enqueue(
+        "update_transaction_status", trx_id=str(result.inserted_id), scheduled=scheduled
+    )
     return data
 
 

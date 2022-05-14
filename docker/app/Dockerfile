@@ -11,6 +11,6 @@ COPY ./install.py /space/install.py
 WORKDIR /space
 RUN pip install -U pip pipenv
 RUN pipenv install --system --deploy --ignore-pipfile
-COPY ./entrypoint.sh /entrypoint.sh
+COPY ./docker/app/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
