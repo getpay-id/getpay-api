@@ -2,7 +2,9 @@ version: '3'
 services:
   app:
     restart: always
-    build: .
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
     depends_on:
       - db
       - redis
@@ -37,6 +39,17 @@ services:
       - 6379
     volumes:
       - redis-data:/data
+
+  q1_worker:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./docker/q1_worker/Dockerfile
+    depends_on:
+      - redis
+    environment:
+      - MONGODB_HOST=db
+      - REDIS_HOST=redis
 
 volumes:
   redis-data:
