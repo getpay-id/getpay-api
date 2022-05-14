@@ -11,7 +11,7 @@ from urllib.parse import quote, quote_plus
 from app.core.queue.q1.config import Q1_SETTINGS  # noqa
 
 API_VERSION = os.environ.get("API_VERSION", "v1")
-DEBUG = "DEBUG" in os.environ
+DEBUG = os.environ.get("DEBUG", "1") == "1"
 
 ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME")
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD")
