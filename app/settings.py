@@ -1,5 +1,14 @@
 import os
+
+if "ENVFILE_LOADED" not in os.environ:
+    from dotenv import load_dotenv
+
+    load_dotenv(".env")
+    os.environ["ENVFILE_LOADED"] = "1"
+
 from urllib.parse import quote, quote_plus
+
+from app.core.queue.q1.config import Q1_SETTINGS  # noqa
 
 API_VERSION = os.environ.get("API_VERSION", "v1")
 DEBUG = "DEBUG" in os.environ
