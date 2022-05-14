@@ -10,7 +10,6 @@ class APIKeyDetail(Schema):
     description: str
     expiration_time: int
     expiration_type: ExpirationType
-    secret_key: str
     token: str
     expires_on: Optional[datetime]
 

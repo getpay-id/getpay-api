@@ -15,7 +15,7 @@ apikey_router.add_api_route(
     views.create,
     methods=["POST"],
     summary="Buat API Key baru",
-    response_model=schemas.PublicAPIKey,
+    response_model=schemas.APIKeyDetail,
 )
 apikey_router.add_api_route(
     "/{id}",
