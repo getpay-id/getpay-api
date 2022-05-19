@@ -21,7 +21,7 @@ class APIKeyIn(BaseModel):
 
     @validator("expiration_type")
     def validate_expiration_type(cls, v, values: dict, **kwargs):
-        if v != ExpirationType.unlimited and values["expiration_time"] < 0:
+        if v != ExpirationType.unlimited and values["expiration_time"] <= 0:
             raise ValueError("expiration_time must be greater than 0")
         elif v == ExpirationType.unlimited and values["expiration_time"] > 0:
             raise ValueError("expiration_time must be 0")
@@ -55,7 +55,7 @@ async def create(request: Request, body: APIKeyIn):
         secret_key, token = fernet.create(user_id)
 
     payload["secret_key"] = secret_key
-    payload["token"] = token
+    payload["api_key"] = token
     payload["expires_on"] = expires_on
     payload["date_created"] = timezone.now()
     payload["date_updated"] = None

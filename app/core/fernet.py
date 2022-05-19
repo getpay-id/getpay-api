@@ -3,6 +3,7 @@ from typing import Tuple
 
 from cryptography.fernet import Fernet
 
+from app.core import timezone
 from app.core.exceptions import TokenExpiredException
 
 
@@ -16,12 +17,13 @@ def create(message: str, exp: timedelta = None) -> Tuple[str, str]:
     """
     key = Fernet.generate_key().decode()
     fernet = Fernet(key)
+    message = message.encode()
     if exp:
-        seconds = (datetime.utcnow().replace(microsecond=0) + exp).timestamp()
-        pw = fernet.encrypt_at_time(message.encode(), int(seconds)).decode()
+        seconds = (timezone.now().replace(microsecond=0) + exp).timestamp()
+        pw = fernet.encrypt_at_time(message, int(seconds))
     else:
-        pw = fernet.encrypt(message.encode()).decode()
-    return key, pw
+        pw = fernet.encrypt_at_time(message, 0)
+    return key, pw.decode()
 
 
 def decrypt(token: str, key: str) -> str:
@@ -30,7 +32,7 @@ def decrypt(token: str, key: str) -> str:
         token (str): token.
         key (str): kunci untuk membuka fernet
     Raises:
-        TokenExpiredException: ketika token sudah kadaluwarsa.
+        TokenExpiredException: jika token sudah kadaluwarsa.
     Returns:
         str: data
     """
@@ -38,8 +40,9 @@ def decrypt(token: str, key: str) -> str:
     token = token.encode()
     fernet = Fernet(key.encode())
     timestamp = fernet.extract_timestamp(token)
-    exp = datetime.fromtimestamp(timestamp)
-    if exp and datetime.utcnow().replace(microsecond=0) > exp:
+    if timestamp and timezone.now().replace(microsecond=0) > datetime.fromtimestamp(
+        timestamp
+    ):
         raise TokenExpiredException("token has expired")
 
     data = fernet.decrypt(token).decode()
