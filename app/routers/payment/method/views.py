@@ -1,5 +1,5 @@
 from bson import ObjectId
-from fastapi import HTTPException, Query, status
+from fastapi import HTTPException, Path, Query, status
 from pydantic import BaseModel
 from pymongo import ReturnDocument
 
@@ -12,10 +12,12 @@ from app.core.utils import serialize_data
 
 
 class BodyPaymentMethod(BaseModel):
+    pg_id: ObjectID
     status: PaymentStatus
 
 
 async def get_all(
+    pg_id: ObjectID = Query(..., description="Payment gateway ID"),
     page: int = Query(1, ge=1, description="Page number"),
     size: int = Query(10, ge=1, le=100, description="Page size"),
     sort_by: SortBy = Query(
@@ -30,33 +32,43 @@ async def get_all(
         collections.payment_method,
         page,
         size,
+        query_filter={"pg_id": pg_id},
         sort_field=("date_created", sort_by),
     )
 
 
-async def get_one(id: ObjectID):
+async def get_one(
+    id: ObjectID = Path(..., description="Payment method ID"),
+    pg_id: ObjectID = Query(..., description="Payment gateway ID"),
+):
     """
     Mendapatkan rincian payment method.
     """
 
-    pm = await collections.payment_method.find_one({"_id": ObjectId(id)})
+    pm = await collections.payment_method.find_one(
+        {"_id": ObjectId(id), "pg_id": pg_id}
+    )
     if not pm:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found")
     data = serialize_data(pm)
     return data
 
 
-async def update(id: ObjectID, body: BodyPaymentMethod):
+async def update(
+    body: BodyPaymentMethod, id: ObjectID = Path(..., description="Payment method ID")
+):
     """
     Perbarui status payment method.
 
     Parameters:
 
+    * `pg_id`: ID payment gateway.
+
     * `status`: Status payment method. (0 = inactive, 1 = active)
     """
 
     pm = await collections.payment_method.find_one_and_update(
-        {"_id": ObjectId(id)},
+        {"_id": ObjectId(id), "pg_id": body.pg_id},
         {"$set": {"status": body.status, "date_updated": timezone.now()}},
         return_document=ReturnDocument.AFTER,
     )
