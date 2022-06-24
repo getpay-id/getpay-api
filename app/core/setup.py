@@ -1,5 +1,3 @@
-from typing import Optional
-
 from pymongo.results import InsertOneResult
 
 from app import collections, settings
@@ -68,9 +66,7 @@ async def get_or_create_payment_method(pg_id: str, pm_code: PaymentMethod) -> st
     return str(pm_id)
 
 
-async def create_payment_methods(
-    pg_id: str, name: PaymentGateway, *, xendit_api_key: Optional[str] = None
-):
+async def create_payment_methods(pg_id: str, name: PaymentGateway):
     for pm_code in PaymentMethod:
         if name == PaymentGateway.ipaymu:
             if pm_code == PaymentMethod.ewallet:
@@ -166,6 +162,7 @@ async def create_payment_channel(
     channel_name: str,
     channel_code: str,
     status: PaymentStatus = PaymentStatus.active,
+    min_amount: int = 0,
 ):
     channel_obj = await collections.payment_channel.find_one(
         {"pm_id": pm_id, "code": channel_code}
@@ -181,6 +178,7 @@ async def create_payment_channel(
                 "fee_percent": 0.0,
                 "img": None,
                 "status": int(status),
+                "min_amount": 0,
                 "date_created": timezone.now(),
                 "date_updated": None,
             }
