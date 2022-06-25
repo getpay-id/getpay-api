@@ -1,6 +1,6 @@
 import re
 
-from .enums import PaymentMethod
+from .enums import PaymentGateway, PaymentMethod
 
 MONGO_COLLECTIONS = [
     "users",
@@ -36,6 +36,15 @@ CONVENIENCE_STORES = {
     "indomaret": "Indomaret",
     "alfamart": "Alfamart",
 }
+IPAYMU_CONVENIENCE_STORES = CONVENIENCE_STORES.copy()
+IPAYMU_QRIS = {
+    "qris": "QRIS",
+}
+IPAYMU_BANK_TRANSFER = {
+    "bca": "Bank Central Asia",
+}
+XENDIT_QRIS = IPAYMU_QRIS.copy()
+XENDIT_CONVENIENCE_STORES = CONVENIENCE_STORES.copy()
 XENDIT_EWALLET = {
     "id_ovo": "OVO",
     "id_dana": "DANA",
@@ -82,4 +91,54 @@ DUITKU_QRIS = {
     "SP": "Shopee Pay",
     # "LQ": "Link Aja",
     # "NQ": "Nobu",
+}
+
+MIN_AMOUNT_PAYMENT_METHODS = {
+    PaymentGateway.ipaymu: {
+        # reference: https://documenter.getpostman.com/view/7508947/SWLfanD1?version=latest#79e948f6-66b0-4d45-be63-6320f020c834
+        PaymentMethod.va: {pc: 10000 for pc in IPAYMU_VIRTUAL_ACCOUNTS.keys()},
+        PaymentMethod.cstore: {pc: 10000 for pc in IPAYMU_CONVENIENCE_STORES.keys()},
+        PaymentMethod.qris: {pc: 10000 for pc in IPAYMU_QRIS.keys()},
+        PaymentMethod.bank_transfer: {pc: 10000 for pc in IPAYMU_BANK_TRANSFER.keys()},
+    },
+    PaymentGateway.xendit: {
+        PaymentMethod.va: {
+            # reference: https://developers.xendit.co/api-reference/#create-virtual-account
+            **{
+                pc: 1
+                for pc in [
+                    "MANDIRI",
+                    "BNI",
+                    "BJB",
+                    "BRI",
+                    "BSI",
+                    "SAHABAT_SAMPOERNA",
+                    "PERMATA",
+                ]
+            },
+            "BCA": 10000,
+        },
+        PaymentMethod.cstore: {
+            # reference: https://developers.xendit.co/api-reference/#create-fixed-payment-code
+            pc: 10000
+            for pc in XENDIT_CONVENIENCE_STORES.keys()
+        },
+        PaymentMethod.qris: {
+            # reference: https://developers.xendit.co/api-reference/#create-qr-code
+            pc: 1500
+            for pc in XENDIT_QRIS.keys()
+        },
+        PaymentMethod.ewallet: {
+            # reference: https://developers.xendit.co/api-reference/#create-ewallet-charge
+            pc: 100
+            for pc in XENDIT_EWALLET.keys()
+        },
+    },
+    PaymentGateway.duitku: {
+        # reference: https://docs.duitku.com/api/id/#metode-pembayaran
+        PaymentMethod.va: {pc: 10000 for pc in DUITKU_VIRTUAL_ACCOUNTS.keys()},
+        PaymentMethod.cstore: {pc: 10000 for pc in DUITKU_RETAIL_OUTLET.keys()},
+        PaymentMethod.qris: {pc: 10000 for pc in DUITKU_QRIS.keys()},
+        PaymentMethod.ewallet: {pc: 10000 for pc in DUITKU_EWALLET.keys()},
+    },
 }

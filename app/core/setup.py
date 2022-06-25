@@ -3,14 +3,19 @@ from pymongo.results import InsertOneResult
 from app import collections, settings
 from app.core import timezone
 from app.core.constants import (
-    CONVENIENCE_STORES,
     DUITKU_EWALLET,
     DUITKU_QRIS,
     DUITKU_RETAIL_OUTLET,
     DUITKU_VIRTUAL_ACCOUNTS,
+    IPAYMU_BANK_TRANSFER,
+    IPAYMU_CONVENIENCE_STORES,
+    IPAYMU_QRIS,
     IPAYMU_VIRTUAL_ACCOUNTS,
+    MIN_AMOUNT_PAYMENT_METHODS,
     PAYMENT_METHODS,
+    XENDIT_CONVENIENCE_STORES,
     XENDIT_EWALLET,
+    XENDIT_QRIS,
 )
 from app.core.enums import PaymentGateway, PaymentMethod, PaymentStatus
 from app.core.thirdparty import xendit
@@ -73,94 +78,110 @@ async def create_payment_methods(pg_id: str, name: PaymentGateway):
                 continue
 
             pm_id = await get_or_create_payment_method(pg_id, pm_code)
+            payment_data = {}
             if pm_code == PaymentMethod.va:
-                for channel_code, channel_name in IPAYMU_VIRTUAL_ACCOUNTS.items():
-                    await create_payment_channel(pm_id, channel_name, channel_code)
+                payment_data = IPAYMU_VIRTUAL_ACCOUNTS
 
             elif pm_code == PaymentMethod.cstore:
-                for (
-                    channel_code,
-                    channel_name,
-                ) in CONVENIENCE_STORES.items():
-                    await create_payment_channel(pm_id, channel_name, channel_code)
+                payment_data = IPAYMU_CONVENIENCE_STORES
 
             elif pm_code == PaymentMethod.qris:
-                channel_code = pm_code.value
-                channel_name = "QRIS"
-                await create_payment_channel(pm_id, channel_name, channel_code)
+                payment_data = IPAYMU_QRIS
 
             elif pm_code == PaymentMethod.bank_transfer:
-                channel_code = "bca"
-                channel_name = IPAYMU_VIRTUAL_ACCOUNTS[channel_code]
-                await create_payment_channel(pm_id, channel_name, channel_code)
+                payment_data = IPAYMU_BANK_TRANSFER
+
+            for (
+                channel_code,
+                channel_name,
+            ) in payment_data.items():
+                min_amount = get_min_amount_payment_method(name, pm_code, channel_code)
+                await create_payment_channel(
+                    pm_id, channel_name, channel_code, min_amount=min_amount
+                )
 
         elif name == PaymentGateway.xendit:
             if pm_code == PaymentMethod.bank_transfer:
                 continue
 
             pm_id = await get_or_create_payment_method(pg_id, pm_code)
+            payment_data = {}
+            va_status = {}
             if pm_code == PaymentMethod.va:
                 va_banks = xendit.get_virtual_account_banks(settings.XENDIT_API_KEY)
                 for bank in va_banks:
                     channel_name = bank.name
                     channel_code = bank.code
+                    payment_data[channel_code] = channel_name
                     status = (
                         PaymentStatus.active
                         if getattr(bank, "is_activated", False)
                         else PaymentStatus.inactive
                     )
-                    await create_payment_channel(
-                        pm_id, channel_name, channel_code, status
-                    )
+                    va_status[channel_code] = status
 
             elif pm_code == PaymentMethod.cstore:
-                for (
-                    channel_code,
-                    channel_name,
-                ) in CONVENIENCE_STORES.items():
-                    await create_payment_channel(pm_id, channel_name, channel_code)
+                payment_data = XENDIT_CONVENIENCE_STORES
 
             elif pm_code == PaymentMethod.qris:
-                channel_code = pm_code.value
-                channel_name = "QRIS"
-                await create_payment_channel(pm_id, channel_name, channel_code)
+                payment_data = XENDIT_QRIS
 
             elif pm_code == PaymentMethod.ewallet:
-                for channel_code, channel_name in XENDIT_EWALLET.items():
-                    await create_payment_channel(pm_id, channel_name, channel_code)
+                payment_data = XENDIT_EWALLET
+
+            for channel_code, channel_name in payment_data.items():
+                status = va_status.get(channel_code) or PaymentStatus.active
+                min_amount = get_min_amount_payment_method(name, pm_code, channel_code)
+                await create_payment_channel(
+                    pm_id,
+                    channel_name,
+                    channel_code,
+                    status=status,
+                    min_amount=min_amount,
+                )
 
         elif name == PaymentGateway.duitku:
             if pm_code == PaymentMethod.bank_transfer:
                 continue
 
             pm_id = await get_or_create_payment_method(pg_id, pm_code)
+            payment_data = {}
             if pm_code == PaymentMethod.va:
-                for channel_code, channel_name in DUITKU_VIRTUAL_ACCOUNTS.items():
-                    await create_payment_channel(pm_id, channel_name, channel_code)
+                payment_data = DUITKU_VIRTUAL_ACCOUNTS
 
             elif pm_code == PaymentMethod.cstore:
-                for (
-                    channel_code,
-                    channel_name,
-                ) in DUITKU_RETAIL_OUTLET.items():
-                    await create_payment_channel(pm_id, channel_name, channel_code)
+                payment_data = DUITKU_RETAIL_OUTLET
 
             elif pm_code == PaymentMethod.qris:
-                for (
-                    channel_code,
-                    channel_name,
-                ) in DUITKU_QRIS.items():
-                    await create_payment_channel(pm_id, channel_name, channel_code)
+                payment_data = DUITKU_QRIS
 
             elif pm_code == PaymentMethod.ewallet:
-                for channel_code, channel_name in DUITKU_EWALLET.items():
-                    await create_payment_channel(pm_id, channel_name, channel_code)
+                payment_data = DUITKU_EWALLET
+
+            for channel_code, channel_name in payment_data.items():
+                min_amount = get_min_amount_payment_method(name, pm_code, channel_code)
+                await create_payment_channel(
+                    pm_id, channel_name, channel_code, min_amount=min_amount
+                )
+
+
+def get_min_amount_payment_method(
+    payment_gateway: PaymentGateway, payment_method: PaymentMethod, channel_code: str
+) -> int:
+    for pg, pm_dict in MIN_AMOUNT_PAYMENT_METHODS.items():
+        if pg == payment_gateway:
+            pm_data = pm_dict.get(payment_method) or {}
+            value = pm_data.get(channel_code)
+            if value is not None:
+                return value
+    return 0
 
 
 async def create_payment_channel(
     pm_id: str,
     channel_name: str,
     channel_code: str,
+    *,
     status: PaymentStatus = PaymentStatus.active,
     min_amount: int = 0,
 ):
@@ -178,7 +199,7 @@ async def create_payment_channel(
                 "fee_percent": 0.0,
                 "img": None,
                 "status": int(status),
-                "min_amount": 0,
+                "min_amount": min_amount,
                 "date_created": timezone.now(),
                 "date_updated": None,
             }
@@ -186,3 +207,13 @@ async def create_payment_channel(
         print(f"  * Payment channel: {channel_name} created")
     else:
         print(f"  ! Payment channel: {channel_obj['name']} already exists")
+        print(f"  * added a new field to the payment channel collection...")
+        new_fields = {"min_amount": min_amount}
+        channel_obj = await collections.payment_channel.update_one(
+            {"pm_id": pm_id, "code": channel_code},
+            {"$set": new_fields},
+        )
+        if channel_obj:
+            print(f"  * Payment channel: {channel_name} updated")
+        else:
+            print(f"  ! Payment channel: {channel_name} not updated")
