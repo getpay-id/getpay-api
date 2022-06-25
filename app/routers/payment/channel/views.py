@@ -19,6 +19,7 @@ class PaymentChannelIn(BaseModel):
     status: PaymentStatus
     name: str
     img: Optional[Image]
+    min_amount: Optional[int]
 
 
 async def get_all(
@@ -72,6 +73,8 @@ async def update(
     * `name`: Nama payment channel
 
     * `img`: URL Gambar untuk payment channel
+
+    * `min_amount`: Jumlah minimum
     """
 
     payload = body.dict()

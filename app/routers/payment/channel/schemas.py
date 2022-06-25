@@ -13,3 +13,4 @@ class PaymentChannel(Schema):
     fee: Optional[StrictInt]
     fee_percent: Optional[StrictFloat]
     status: PaymentStatus
+    min_amount: Optional[int]

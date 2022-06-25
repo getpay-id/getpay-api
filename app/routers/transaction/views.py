@@ -31,7 +31,7 @@ class TransactionIn(BaseModel):
     name: str
     phone_number: str = Field(max_length=15)
     email: Optional[EmailStr]
-    amount: int = Field(ge=5000)
+    amount: int
     payment_method: str
     payment_channel: str
     ewallet_success_redirect_url: Optional[AnyHttpUrl]
@@ -123,6 +123,13 @@ async def create(body: TransactionIn):
     amount = body.amount
     amount += pc_obj["fee"] or 0
     amount += round(amount * (pc_obj["fee_percent"] or 0) // 100)
+    min_amount = pc_obj.get("min_amount") or 0
+    if amount < min_amount:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Amount must be greater than or equal to {}".format(min_amount),
+        )
+
     payload = {
         "name": body.name,
         "phone_number": body.phone_number,
