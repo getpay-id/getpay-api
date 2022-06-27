@@ -21,6 +21,10 @@ Saat ini kami hanya mendukung payment gateway dari:
 
 Lihat disini: https://github.com/getpay-id/getpay-api/wiki
 
+Atau
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/13971718-2fda8ed9-4db0-40d7-b8cb-1a106ca16ede?action=collection%2Ffork&collection-url=entityId%3D13971718-2fda8ed9-4db0-40d7-b8cb-1a106ca16ede%26entityType%3Dcollection%26workspaceId%3Ddfd5cc57-9ab2-4827-9d3c-3c8918e7e036)
+
 ## Support & Donate
 
 Jika proyek ini bermanfaat untuk kamu (dan perusahaanmu), kamu bisa berikan donasi untuk kami melalui:
