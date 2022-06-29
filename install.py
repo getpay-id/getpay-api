@@ -1,9 +1,12 @@
+from typing import List
+
 import dotenv
 
 dotenv.load_dotenv(".env")
 
 import asyncio
 import os
+import shutil
 
 from pydantic import EmailError, EmailStr
 from pymongo.errors import CollectionInvalid
@@ -11,7 +14,13 @@ from pymongo.results import InsertOneResult
 
 from app import collections, settings
 from app.core import passwd, timezone
-from app.core.constants import MONGO_COLLECTIONS, MONGO_TEXT_INDEXES
+from app.core.constants import (
+    MONGO_COLLECTIONS,
+    MONGO_TEXT_INDEXES,
+    PAYMENT_IMAGES_PATH,
+    STATIC_PAYMENT_IMAGES_PATH,
+    STATIC_ROOT,
+)
 from app.core.enums import PaymentGateway
 from app.core.setup import install_payment_gateway
 from app.extensions.mongodb import getpay_db
@@ -116,11 +125,97 @@ async def create_payment_gateways():
         await install_payment_gateway(PaymentGateway.duitku)
 
 
+async def init_payment_method_images():
+    os.makedirs(STATIC_PAYMENT_IMAGES_PATH, exist_ok=True)
+
+    def _check(key: str, items: List[str]):
+        key = key.lower()
+        for v in items:
+            if v.lower() in key:
+                return True
+        return False
+
+    print("* Initializing payment method images...")
+    cursor = collections.payment_channel.find({"img": {"$type": 10}})
+    for channel in await cursor.to_list(None):
+        logo = None
+        name: str = channel["name"].lower()
+        if "cimb" in name:
+            logo = "cimb.png"
+        elif _check(name, ("BNI", "Bank Negara Indonesia")):
+            logo = "bni.png"
+        elif _check(name, ("BAG", "Bank Artha Graha")):
+            logo = "bag.jpg"
+        elif "mandiri" in name:
+            logo = "mandiri.png"
+        elif "muamalat" in name:
+            logo = "muamalat.jpg"
+        elif _check(name, ("BRI", "Bank Rakyat Indonesia")):
+            logo = "bri.png"
+        elif _check(name, ("BCA", "Bank Central Asia")):
+            logo = "bca.png"
+        elif _check(name, ("Link Aja", "LINKAJA")):
+            logo = "linkaja.png"
+        elif "indomaret" in name:
+            logo = "indomaret.png"
+        elif "alfamart" in name:
+            logo = "alfamart.png"
+        elif "permata" in name:
+            logo = "permata.png"
+        elif "sahabat sampoerna" in name:
+            logo = "banksampoerna.png"
+        elif _check(name, ("BSI", "Bank Syariah Indonesia")):
+            logo = "bsi.png"
+        elif _check(name, ("BJB", "Bank Jabar Banten")):
+            logo = "bjb.png"
+        elif "ovo" in name:
+            logo = "ovo.png"
+        elif "dana" in name:
+            logo = "dana.png"
+        elif _check(name, ("sakuku", "saku ku")):
+            logo = "sakuku.png"
+        elif "shopee" in name:
+            logo = "shopeepay.png"
+        elif "qris" in name:
+            logo = "qris.svg"
+        elif "maybank" in name:
+            logo = "maybank.svg"
+        elif _check(name, ("BNC", "Neo")):
+            logo = "neo.png"
+        elif "atm bersama" in name:
+            logo = "atm_bersama.svg"
+
+        if logo is None:
+            print("! No logo found for:", name)
+        else:
+            src_img = PAYMENT_IMAGES_PATH / logo
+            if src_img.is_file():
+                dst_img = STATIC_PAYMENT_IMAGES_PATH / logo
+                if not dst_img.is_file():
+                    shutil.copyfile(src_img, dst_img)
+
+                img_path = f"/{STATIC_ROOT}/payments/{logo}"
+                print(" + Creating media file:", name, logo)
+                await collections.media.insert_one(
+                    {
+                        "file": img_path,
+                        "date_created": timezone.now(),
+                        "date_updated": None,
+                    }
+                )
+                await collections.payment_channel.update_one(
+                    {"_id": channel["_id"]}, {"$set": {"img": img_path}}
+                )
+            else:
+                print(f"! Payment method image for {name} not found")
+
+
 async def main():
     await drop_collections()
     await create_collections()
     await create_admin()
     await create_payment_gateways()
+    await init_payment_method_images()
 
 
 if __name__ == "__main__":

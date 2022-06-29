@@ -1,7 +1,12 @@
 import re
+from pathlib import Path
 
 from .enums import PaymentGateway, PaymentMethod
 
+BASE_PATH = Path(__file__).parent.parent.parent
+PAYMENT_IMAGES_PATH = BASE_PATH / "images" / "payments"
+STATIC_ROOT = "static"
+STATIC_PAYMENT_IMAGES_PATH = BASE_PATH / STATIC_ROOT / "payments"
 MONGO_COLLECTIONS = [
     "users",
     "api_keys",
@@ -9,6 +14,7 @@ MONGO_COLLECTIONS = [
     "payment_method",
     "payment_channel",
     "transactions",
+    "media",
 ]
 
 MONGO_TEXT_INDEXES = {

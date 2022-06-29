@@ -6,6 +6,7 @@ from app import settings
 from app.routers.apikey.router import apikey_router
 from app.routers.auth.router import auth_router
 from app.routers.callback.router import callback_router
+from app.routers.media.router import media_router
 from app.routers.payment.router import payment_router
 from app.routers.transaction.router import transaction_router
 
@@ -21,6 +22,7 @@ def init_routers(app: FastAPI):
     api.include_router(transaction_router)
     api.include_router(apikey_router)
     api.include_router(callback_router)
+    api.include_router(media_router)
 
     # include all websocket routers
     api.include_router(ws_router)
