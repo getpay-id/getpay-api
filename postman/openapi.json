@@ -1,0 +1,2483 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "GetPay API",
+    "description": "Your Payment Gateways Service!",
+    "version": "1.0"
+  },
+  "paths": {
+    "/v1/auth/signin": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Dapatkan akses token",
+        "description": "Dapatkan akses token.\n\nParameters:\n\n* `username`: Username (email)\n\n* `password`: Password",
+        "operationId": "signin_v1_auth_signin_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_signin_v1_auth_signin_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/payment/gateway/": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "Mendapatkan semua payment gateway",
+        "description": "Mendapatkan semua payment gateway.",
+        "operationId": "get_all_v1_payment_gateway__get",
+        "parameters": [
+          {
+            "description": "Page number",
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "minimum": 1,
+              "type": "integer",
+              "description": "Page number",
+              "default": 1
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "description": "Page size",
+            "required": false,
+            "schema": {
+              "title": "Size",
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "description": "Page size",
+              "default": 10
+            },
+            "name": "size",
+            "in": "query"
+          },
+          {
+            "description": "Sort by ASCENDING (1) or DESCENDING (-1)",
+            "required": false,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/SortBy"
+                }
+              ],
+              "description": "Sort by ASCENDING (1) or DESCENDING (-1)",
+              "default": -1
+            },
+            "name": "sort_by",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_PaymentGatewaySchema_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/payment/gateway/{id}": {
+      "put": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "Perbarui payment gateway",
+        "description": "Perbarui status payment gateway.\n\nParameters:\n\n* `status`: Status payment gateway. (0 = inactive, 1 = active)",
+        "operationId": "update_v1_payment_gateway__id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentGatewayIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentGatewaySchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/payment/method/": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "Mendapatkan semua payment method",
+        "description": "Mendapatkan semua payment methods.",
+        "operationId": "get_all_v1_payment_method__get",
+        "parameters": [
+          {
+            "description": "Payment gateway ID",
+            "required": true,
+            "schema": {
+              "title": "Pg Id",
+              "type": "string",
+              "description": "Payment gateway ID"
+            },
+            "name": "pg_id",
+            "in": "query"
+          },
+          {
+            "description": "Page number",
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "minimum": 1,
+              "type": "integer",
+              "description": "Page number",
+              "default": 1
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "description": "Page size",
+            "required": false,
+            "schema": {
+              "title": "Size",
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "description": "Page size",
+              "default": 10
+            },
+            "name": "size",
+            "in": "query"
+          },
+          {
+            "description": "Sort by ASCENDING (1) or DESCENDING (-1)",
+            "required": false,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/SortBy"
+                }
+              ],
+              "description": "Sort by ASCENDING (1) or DESCENDING (-1)",
+              "default": -1
+            },
+            "name": "sort_by",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_PaymentMethod_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/payment/method/{id}": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "Dapaatkan rincian payment method",
+        "description": "Mendapatkan rincian payment method.",
+        "operationId": "get_one_v1_payment_method__id__get",
+        "parameters": [
+          {
+            "description": "Payment method ID",
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string",
+              "description": "Payment method ID"
+            },
+            "name": "id",
+            "in": "path"
+          },
+          {
+            "description": "Payment gateway ID",
+            "required": true,
+            "schema": {
+              "title": "Pg Id",
+              "type": "string",
+              "description": "Payment gateway ID"
+            },
+            "name": "pg_id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentMethod"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "Perbarui payment method",
+        "description": "Perbarui status payment method.\n\nParameters:\n\n* `pg_id`: ID payment gateway.\n\n* `status`: Status payment method. (0 = inactive, 1 = active)",
+        "operationId": "update_v1_payment_method__id__put",
+        "parameters": [
+          {
+            "description": "Payment method ID",
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string",
+              "description": "Payment method ID"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BodyPaymentMethod"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentMethod"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/payment/channel/": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "Mendapatkan semua payment channel",
+        "description": "Mendapatkan semua payment channel di payment methods.",
+        "operationId": "get_all_v1_payment_channel__get",
+        "parameters": [
+          {
+            "description": "Payment Method ID",
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string",
+              "description": "Payment Method ID"
+            },
+            "name": "id",
+            "in": "query"
+          },
+          {
+            "description": "Page number",
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "minimum": 1,
+              "type": "integer",
+              "description": "Page number",
+              "default": 1
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "description": "Page size",
+            "required": false,
+            "schema": {
+              "title": "Size",
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "description": "Page size",
+              "default": 10
+            },
+            "name": "size",
+            "in": "query"
+          },
+          {
+            "description": "Sort by ASCENDING (1) or DESCENDING (-1)",
+            "required": false,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/SortBy"
+                }
+              ],
+              "description": "Sort by ASCENDING (1) or DESCENDING (-1)",
+              "default": -1
+            },
+            "name": "sort_by",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_PaymentChannel_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/payment/channel/{id}": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "Dapaatkan rincian payment channel",
+        "description": "Mendapatkan rincian payment channel.",
+        "operationId": "get_one_v1_payment_channel__id__get",
+        "parameters": [
+          {
+            "description": "Payment Channel ID",
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string",
+              "description": "Payment Channel ID"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentChannel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "Perbarui payment channel",
+        "description": "Memperbarui payment channel.\n\nParameters:\n\n* `fee`: Biaya transaksi tetap\n\n* `fee_percent`: Biaya transaksi dalam persen\n\n* `status`: Status payment channel (0 = inactive, 1 = active)\n\n* `name`: Nama payment channel\n\n* `img`: URL Gambar untuk payment channel\n\n* `min_amount`: Jumlah minimum",
+        "operationId": "update_v1_payment_channel__id__put",
+        "parameters": [
+          {
+            "description": "Payment Channel ID",
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string",
+              "description": "Payment Channel ID"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentChannelIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentChannel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/payment/active": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "Mendapatkan semua payment method yang aktif",
+        "description": "Mendapatkan semua payment method yang aktif.",
+        "operationId": "get_all_active_payment_methods_v1_payment_active_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get All Active Payment Methods V1 Payment Active Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublicPaymentMethodOut"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/transaction/": {
+      "get": {
+        "tags": [
+          "Transaction"
+        ],
+        "summary": "Mendapatkan semua transaksi",
+        "description": "Mendapatkan semua transaksi",
+        "operationId": "get_all_v1_transaction__get",
+        "parameters": [
+          {
+            "description": "Page number",
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "minimum": 1,
+              "type": "integer",
+              "description": "Page number",
+              "default": 1
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "description": "Page size",
+            "required": false,
+            "schema": {
+              "title": "Size",
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "description": "Page size",
+              "default": 10
+            },
+            "name": "size",
+            "in": "query"
+          },
+          {
+            "description": "Sort by ASCENDING (1) or DESCENDING (-1)",
+            "required": false,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/SortBy"
+                }
+              ],
+              "description": "Sort by ASCENDING (1) or DESCENDING (-1)",
+              "default": -1
+            },
+            "name": "sort_by",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_TransactionOut_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Transaction"
+        ],
+        "summary": "Buat transaksi baru",
+        "description": "Buat transaksi baru\n\nParameter:\n\n* `name`: Nama pembeli\n\n* `phone_number`: Nomor telepon pembeli\n\n* `email`: Email pembeli (optional)\n\n* `amount`: Jumlah yang dibayar\n\n* `payment_method`: Kode metode pembayaran (contoh: `va`, `cstore`, dll)\n\n* `payment_channel`: Kode channel pembayaran (contoh: `xQkS3l`, `9iLS23`, dll) (Catatan: ini adalah karakter acak dengan panjang 6 karakter)\n\n* `ewallet_success_redirect_url`: URL untuk di redirect jika pembayaran berhasil (optional) (required untuk metode pembayaran *ewallet*)",
+        "operationId": "create_v1_transaction__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/transaction/{id}": {
+      "get": {
+        "tags": [
+          "Transaction"
+        ],
+        "summary": "Dapatkan rincian transaksi",
+        "description": "Mendapatkan rincian transaksi",
+        "operationId": "get_one_v1_transaction__id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Transaction"
+        ],
+        "summary": "Perbarui transaksi",
+        "description": "Perbarui status transaksi.\n\nParameters:\n\n* `status`: Status transaksi. (0 = pending, 1 = success, 2 = expired)",
+        "operationId": "update_v1_transaction__id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTransactionIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateTransactionOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/apikey/": {
+      "get": {
+        "tags": [
+          "API Key"
+        ],
+        "summary": "Mendapatkan semua API Key",
+        "description": "Mendapatkan daftar API Key.\n\nParameters:\n\n* `q`: Pencarian berdasarkan nama dan deskripsi API Key",
+        "operationId": "get_all_v1_apikey__get",
+        "parameters": [
+          {
+            "description": "Page number",
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "minimum": 1,
+              "type": "integer",
+              "description": "Page number",
+              "default": 1
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "description": "Page size",
+            "required": false,
+            "schema": {
+              "title": "Size",
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "description": "Page size",
+              "default": 10
+            },
+            "name": "size",
+            "in": "query"
+          },
+          {
+            "description": "Sort by ASCENDING (1) or DESCENDING (-1)",
+            "required": false,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/SortBy"
+                }
+              ],
+              "description": "Sort by ASCENDING (1) or DESCENDING (-1)",
+              "default": -1
+            },
+            "name": "sort_by",
+            "in": "query"
+          },
+          {
+            "description": "Search query",
+            "required": false,
+            "schema": {
+              "title": "Q",
+              "type": "string",
+              "description": "Search query"
+            },
+            "name": "q",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_PublicAPIKey_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "API Key"
+        ],
+        "summary": "Buat API Key baru",
+        "description": "Buat API Key baru\n\nParameters:\n\n* `name`: Nama API Key\n\n* `description`: Deskripsi API Key\n\n* `expiration_time`: Lama aktif API Key (integer)\n\n* `expiration_type`: Tipe aktif API Key (unlimited, minutes, hours, months, years)",
+        "operationId": "create_v1_apikey__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/APIKeyIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIKeyDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/apikey/{id}": {
+      "get": {
+        "tags": [
+          "API Key"
+        ],
+        "summary": "Dapatkan rincian API Key",
+        "description": "Mendapatkan rincian API Key",
+        "operationId": "get_one_v1_apikey__id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicAPIKey"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "API Key"
+        ],
+        "summary": "Hapus API Key",
+        "description": "Hapus API Key",
+        "operationId": "delete_v1_apikey__id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/callback/ipaymu": {
+      "post": {
+        "tags": [
+          "Callback"
+        ],
+        "summary": "Ipaymu",
+        "description": "Endpoint to handle payments from ipaymu",
+        "operationId": "ipaymu_v1_callback_ipaymu_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_ipaymu_v1_callback_ipaymu_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/callback/duitku": {
+      "post": {
+        "tags": [
+          "Callback"
+        ],
+        "summary": "Duitku",
+        "description": "Endpoint to handle payments from duitku",
+        "operationId": "duitku_v1_callback_duitku_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_duitku_v1_callback_duitku_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/callback/xendit/virtual_account": {
+      "post": {
+        "tags": [
+          "Callback"
+        ],
+        "summary": "Virtual Account",
+        "description": "Endpoint to handle payments (Virtual Account) from xendit",
+        "operationId": "virtual_account_v1_callback_xendit_virtual_account_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/callback/xendit/ewallet": {
+      "post": {
+        "tags": [
+          "Callback"
+        ],
+        "summary": "Ewallet",
+        "description": "Endpoint to handle payments (E-Wallet) from xendit",
+        "operationId": "ewallet_v1_callback_xendit_ewallet_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/callback/xendit/convenience_store": {
+      "post": {
+        "tags": [
+          "Callback"
+        ],
+        "summary": "Convenience Store",
+        "description": "Endpoint to handle payments (Convenience Store) from xendit",
+        "operationId": "convenience_store_v1_callback_xendit_convenience_store_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/callback/xendit/qris": {
+      "post": {
+        "tags": [
+          "Callback"
+        ],
+        "summary": "Qris",
+        "description": "Endpoint to handle payments (QRCode) from xendit",
+        "operationId": "qris_v1_callback_xendit_qris_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/media/": {
+      "get": {
+        "tags": [
+          "Media"
+        ],
+        "summary": "Dapatkan semua file",
+        "description": "Mendapatkan semua objek media.",
+        "operationId": "get_all_v1_media__get",
+        "parameters": [
+          {
+            "description": "Page number",
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "minimum": 1,
+              "type": "integer",
+              "description": "Page number",
+              "default": 1
+            },
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "description": "Page size",
+            "required": false,
+            "schema": {
+              "title": "Size",
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "description": "Page size",
+              "default": 10
+            },
+            "name": "size",
+            "in": "query"
+          },
+          {
+            "description": "Sort by ASCENDING (1) or DESCENDING (-1)",
+            "required": false,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/SortBy"
+                }
+              ],
+              "description": "Sort by ASCENDING (1) or DESCENDING (-1)",
+              "default": -1
+            },
+            "name": "sort_by",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_MediaSchema_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Media"
+        ],
+        "summary": "Unggah file",
+        "description": "Mengunggah file.",
+        "operationId": "upload_v1_media__post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_v1_media__post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/media/{id}": {
+      "get": {
+        "tags": [
+          "Media"
+        ],
+        "summary": "Dapatkan rincian file",
+        "description": "Mendapatkan rincian objek media.",
+        "operationId": "get_one_v1_media__id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Media"
+        ],
+        "summary": "Perbarui file",
+        "description": "Perbarui data objek media.",
+        "operationId": "update_v1_media__id__post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_update_v1_media__id__post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Media"
+        ],
+        "summary": "Hapus file",
+        "description": "Menghapus objek media dengan ID.",
+        "operationId": "delete_v1_media__id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "APIKeyDetail": {
+        "title": "APIKeyDetail",
+        "required": [
+          "id",
+          "date_created",
+          "name",
+          "description",
+          "expiration_time",
+          "expiration_type",
+          "api_key"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "date_created": {
+            "title": "Date Created",
+            "type": "string",
+            "format": "date-time"
+          },
+          "date_updated": {
+            "title": "Date Updated",
+            "type": "string",
+            "format": "date-time"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "expiration_time": {
+            "title": "Expiration Time",
+            "type": "integer"
+          },
+          "expiration_type": {
+            "$ref": "#/components/schemas/ExpirationType"
+          },
+          "api_key": {
+            "title": "Api Key",
+            "type": "string"
+          },
+          "expires_on": {
+            "title": "Expires On",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "APIKeyIn": {
+        "title": "APIKeyIn",
+        "required": [
+          "name",
+          "description",
+          "expiration_time",
+          "expiration_type"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "expiration_time": {
+            "title": "Expiration Time",
+            "type": "integer"
+          },
+          "expiration_type": {
+            "$ref": "#/components/schemas/ExpirationType"
+          }
+        }
+      },
+      "BodyPaymentMethod": {
+        "title": "BodyPaymentMethod",
+        "required": [
+          "pg_id",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "pg_id": {
+            "title": "Pg Id",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PaymentStatus"
+          }
+        }
+      },
+      "Body_duitku_v1_callback_duitku_post": {
+        "title": "Body_duitku_v1_callback_duitku_post",
+        "required": [
+          "merchantCode",
+          "amount",
+          "merchantOrderId",
+          "paymentCode",
+          "resultCode",
+          "merchantUserId",
+          "reference",
+          "signature"
+        ],
+        "type": "object",
+        "properties": {
+          "merchantCode": {
+            "title": "Merchantcode",
+            "type": "string"
+          },
+          "amount": {
+            "title": "Amount",
+            "type": "integer"
+          },
+          "merchantOrderId": {
+            "title": "Merchantorderid",
+            "type": "string"
+          },
+          "productDetail": {
+            "title": "Productdetail",
+            "type": "string"
+          },
+          "additionalParam": {
+            "title": "Additionalparam",
+            "type": "string"
+          },
+          "paymentCode": {
+            "title": "Paymentcode",
+            "type": "string"
+          },
+          "resultCode": {
+            "title": "Resultcode",
+            "type": "string"
+          },
+          "merchantUserId": {
+            "title": "Merchantuserid",
+            "type": "string"
+          },
+          "reference": {
+            "title": "Reference",
+            "type": "string"
+          },
+          "signature": {
+            "title": "Signature",
+            "type": "string"
+          },
+          "spUserHash": {
+            "title": "Spuserhash",
+            "type": "string"
+          }
+        }
+      },
+      "Body_ipaymu_v1_callback_ipaymu_post": {
+        "title": "Body_ipaymu_v1_callback_ipaymu_post",
+        "required": [
+          "trx_id",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "trx_id": {
+            "title": "Trx Id",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/IPaymuStatus"
+          }
+        }
+      },
+      "Body_signin_v1_auth_signin_post": {
+        "title": "Body_signin_v1_auth_signin_post",
+        "required": [
+          "username",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "grant_type": {
+            "title": "Grant Type",
+            "pattern": "password",
+            "type": "string"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string",
+            "description": "Username (email)",
+            "format": "email"
+          },
+          "password": {
+            "title": "Password",
+            "minLength": 8,
+            "type": "string",
+            "description": "Password"
+          },
+          "scope": {
+            "title": "Scope",
+            "type": "string",
+            "default": ""
+          },
+          "client_id": {
+            "title": "Client Id",
+            "type": "string"
+          },
+          "client_secret": {
+            "title": "Client Secret",
+            "type": "string"
+          }
+        }
+      },
+      "Body_update_v1_media__id__post": {
+        "title": "Body_update_v1_media__id__post",
+        "required": [
+          "file"
+        ],
+        "type": "object",
+        "properties": {
+          "file": {
+            "title": "File",
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "Body_upload_v1_media__post": {
+        "title": "Body_upload_v1_media__post",
+        "required": [
+          "file"
+        ],
+        "type": "object",
+        "properties": {
+          "file": {
+            "title": "File",
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "ExpirationType": {
+        "title": "ExpirationType",
+        "enum": [
+          "unlimited",
+          "minutes",
+          "hours",
+          "months",
+          "years"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "IPaymuStatus": {
+        "title": "IPaymuStatus",
+        "enum": [
+          "berhasil",
+          "pending"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "MediaSchema": {
+        "title": "MediaSchema",
+        "required": [
+          "id",
+          "date_created",
+          "file"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "date_created": {
+            "title": "Date Created",
+            "type": "string",
+            "format": "date-time"
+          },
+          "date_updated": {
+            "title": "Date Updated",
+            "type": "string",
+            "format": "date-time"
+          },
+          "file": {
+            "title": "File",
+            "type": "string"
+          }
+        }
+      },
+      "Page_MediaSchema_": {
+        "title": "Page[MediaSchema]",
+        "required": [
+          "total",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MediaSchema"
+            }
+          }
+        }
+      },
+      "Page_PaymentChannel_": {
+        "title": "Page[PaymentChannel]",
+        "required": [
+          "total",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentChannel"
+            }
+          }
+        }
+      },
+      "Page_PaymentGatewaySchema_": {
+        "title": "Page[PaymentGatewaySchema]",
+        "required": [
+          "total",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentGatewaySchema"
+            }
+          }
+        }
+      },
+      "Page_PaymentMethod_": {
+        "title": "Page[PaymentMethod]",
+        "required": [
+          "total",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentMethod"
+            }
+          }
+        }
+      },
+      "Page_PublicAPIKey_": {
+        "title": "Page[PublicAPIKey]",
+        "required": [
+          "total",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublicAPIKey"
+            }
+          }
+        }
+      },
+      "Page_TransactionOut_": {
+        "title": "Page[TransactionOut]",
+        "required": [
+          "total",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransactionOut"
+            }
+          }
+        }
+      },
+      "PaymentChannel": {
+        "title": "PaymentChannel",
+        "required": [
+          "id",
+          "date_created",
+          "pm_id",
+          "name",
+          "unique_code",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "date_created": {
+            "title": "Date Created",
+            "type": "string",
+            "format": "date-time"
+          },
+          "date_updated": {
+            "title": "Date Updated",
+            "type": "string",
+            "format": "date-time"
+          },
+          "pm_id": {
+            "title": "Pm Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "unique_code": {
+            "title": "Unique Code",
+            "type": "string"
+          },
+          "fee": {
+            "title": "Fee",
+            "type": "integer"
+          },
+          "fee_percent": {
+            "title": "Fee Percent",
+            "type": "number"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PaymentStatus"
+          },
+          "min_amount": {
+            "title": "Min Amount",
+            "type": "integer"
+          }
+        }
+      },
+      "PaymentChannelIn": {
+        "title": "PaymentChannelIn",
+        "required": [
+          "status",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "fee": {
+            "title": "Fee",
+            "type": "integer"
+          },
+          "fee_percent": {
+            "title": "Fee Percent",
+            "type": "number"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PaymentStatus"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "img": {
+            "title": "Img",
+            "maxLength": 65536,
+            "minLength": 1,
+            "type": "string",
+            "format": "uri"
+          },
+          "min_amount": {
+            "title": "Min Amount",
+            "type": "integer"
+          }
+        }
+      },
+      "PaymentGatewayIn": {
+        "title": "PaymentGatewayIn",
+        "required": [
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/PaymentStatus"
+          }
+        }
+      },
+      "PaymentGatewaySchema": {
+        "title": "PaymentGatewaySchema",
+        "required": [
+          "id",
+          "date_created",
+          "name",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "date_created": {
+            "title": "Date Created",
+            "type": "string",
+            "format": "date-time"
+          },
+          "date_updated": {
+            "title": "Date Updated",
+            "type": "string",
+            "format": "date-time"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PaymentStatus"
+          }
+        }
+      },
+      "PaymentMethod": {
+        "title": "PaymentMethod",
+        "required": [
+          "id",
+          "date_created",
+          "code",
+          "name",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "date_created": {
+            "title": "Date Created",
+            "type": "string",
+            "format": "date-time"
+          },
+          "date_updated": {
+            "title": "Date Updated",
+            "type": "string",
+            "format": "date-time"
+          },
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "integer"
+          }
+        }
+      },
+      "PaymentStatus": {
+        "title": "PaymentStatus",
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "description": "An enumeration."
+      },
+      "PublicAPIKey": {
+        "title": "PublicAPIKey",
+        "required": [
+          "id",
+          "date_created",
+          "name",
+          "description",
+          "expiration_time",
+          "expiration_type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "date_created": {
+            "title": "Date Created",
+            "type": "string",
+            "format": "date-time"
+          },
+          "date_updated": {
+            "title": "Date Updated",
+            "type": "string",
+            "format": "date-time"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "expiration_time": {
+            "title": "Expiration Time",
+            "type": "integer"
+          },
+          "expiration_type": {
+            "$ref": "#/components/schemas/ExpirationType"
+          },
+          "expires_on": {
+            "title": "Expires On",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "PublicPaymentChannelOut": {
+        "title": "PublicPaymentChannelOut",
+        "required": [
+          "name",
+          "code"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "fee": {
+            "title": "Fee",
+            "type": "integer"
+          },
+          "fee_percent": {
+            "title": "Fee Percent",
+            "type": "number"
+          },
+          "img": {
+            "title": "Img",
+            "maxLength": 65536,
+            "minLength": 1,
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "PublicPaymentMethodOut": {
+        "title": "PublicPaymentMethodOut",
+        "required": [
+          "name",
+          "code",
+          "channels"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "channels": {
+            "title": "Channels",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublicPaymentChannelOut"
+            }
+          }
+        }
+      },
+      "SortBy": {
+        "title": "SortBy",
+        "enum": [
+          1,
+          -1
+        ],
+        "type": "integer",
+        "description": "An enumeration."
+      },
+      "TransactionIn": {
+        "title": "TransactionIn",
+        "required": [
+          "name",
+          "phone_number",
+          "amount",
+          "payment_method",
+          "payment_channel"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "phone_number": {
+            "title": "Phone Number",
+            "maxLength": 15,
+            "type": "string"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string",
+            "format": "email"
+          },
+          "amount": {
+            "title": "Amount",
+            "type": "integer"
+          },
+          "payment_method": {
+            "title": "Payment Method",
+            "type": "string"
+          },
+          "payment_channel": {
+            "title": "Payment Channel",
+            "type": "string"
+          },
+          "ewallet_success_redirect_url": {
+            "title": "Ewallet Success Redirect Url",
+            "maxLength": 65536,
+            "minLength": 1,
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "TransactionOut": {
+        "title": "TransactionOut",
+        "required": [
+          "id",
+          "date_created",
+          "name",
+          "email",
+          "phone_number",
+          "amount",
+          "payment_method",
+          "payment_channel",
+          "expiration_date",
+          "status",
+          "trx_id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "date_created": {
+            "title": "Date Created",
+            "type": "string",
+            "format": "date-time"
+          },
+          "date_updated": {
+            "title": "Date Updated",
+            "type": "string",
+            "format": "date-time"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string",
+            "format": "email"
+          },
+          "phone_number": {
+            "title": "Phone Number",
+            "type": "string"
+          },
+          "amount": {
+            "title": "Amount",
+            "type": "integer"
+          },
+          "payment_method": {
+            "title": "Payment Method",
+            "type": "string"
+          },
+          "payment_channel": {
+            "$ref": "#/components/schemas/TransactionPaymentChannelOut"
+          },
+          "payment_number": {
+            "title": "Payment Number"
+          },
+          "expiration_date": {
+            "title": "Expiration Date",
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "$ref": "#/components/schemas/TransactionStatus"
+          },
+          "trx_id": {
+            "title": "Trx Id",
+            "type": "string"
+          }
+        }
+      },
+      "TransactionPaymentChannelOut": {
+        "title": "TransactionPaymentChannelOut",
+        "required": [
+          "name",
+          "fee",
+          "fee_percent"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "fee": {
+            "title": "Fee",
+            "type": "integer"
+          },
+          "fee_percent": {
+            "title": "Fee Percent",
+            "type": "number"
+          }
+        }
+      },
+      "TransactionStatus": {
+        "title": "TransactionStatus",
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "description": "An enumeration."
+      },
+      "UpdateTransactionIn": {
+        "title": "UpdateTransactionIn",
+        "required": [
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/TransactionStatus"
+          }
+        }
+      },
+      "UpdateTransactionOut": {
+        "title": "UpdateTransactionOut",
+        "required": [
+          "success",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "title": "Success",
+            "type": "boolean"
+          },
+          "data": {
+            "$ref": "#/components/schemas/TransactionOut"
+          }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "OAuth2PasswordBearer": {
+        "type": "oauth2",
+        "flows": {
+          "password": {
+            "scopes": {},
+            "tokenUrl": "/v1/auth/signin"
+          }
+        }
+      }
+    }
+  }
+}
