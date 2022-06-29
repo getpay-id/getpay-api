@@ -26,7 +26,7 @@ Lihat disini: https://github.com/getpay-id/getpay-api/wiki
 
 Atau
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/13971718-44e9d5b8-843d-4a88-b216-03844125d22f?action=collection%2Ffork&collection-url=entityId%3D13971718-44e9d5b8-843d-4a88-b216-03844125d22f%26entityType%3Dcollection%26workspaceId%3Ddfd5cc57-9ab2-4827-9d3c-3c8918e7e036)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/13971718-09ea4d3b-ada6-442a-a3ab-6f298f9ac5f7?action=collection%2Ffork&collection-url=entityId%3D13971718-09ea4d3b-ada6-442a-a3ab-6f298f9ac5f7%26entityType%3Dcollection%26workspaceId%3Ddfd5cc57-9ab2-4827-9d3c-3c8918e7e036)
 
 ## Support & Donate
 
