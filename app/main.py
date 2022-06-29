@@ -1,13 +1,16 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 
 import app.settings  # noqa # muat semua konfigurasi dari file .env
+from app.core.constants import STATIC_ROOT
 from app.routers import init_routers
 
 app = FastAPI(
     title="GetPay API", description="Your Payment Gateways Service!", version="1.0"
 )
+app.mount(f"/{STATIC_ROOT}", StaticFiles(directory=STATIC_ROOT), name=STATIC_ROOT)
 app.add_middleware(
     CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"]
 )

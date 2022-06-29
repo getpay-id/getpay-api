@@ -6,3 +6,4 @@ payment_gateway = getpay_db.payment_gateway
 payment_method = getpay_db.payment_method
 payment_channel = getpay_db.payment_channel
 transactions = getpay_db.transactions
+media = getpay_db.media
