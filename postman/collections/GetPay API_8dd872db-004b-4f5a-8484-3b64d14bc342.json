@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "44e9d5b8-843d-4a88-b216-03844125d22f",
+		"_postman_id": "09ea4d3b-ada6-442a-a3ab-6f298f9ac5f7",
 		"name": "GetPay API",
 		"description": "Your Payment Gateways Service!",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -27,11 +27,14 @@
 							}
 						}
 					],
-					"id": "5cf21eee-b40e-40de-b044-ca197f90cbee",
+					"id": "665d489b-cfdc-4cc8-b912-a71ef4267c72",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -89,7 +92,7 @@
 					},
 					"response": [
 						{
-							"id": "39d03251-16eb-4f50-9e68-8979297911b6",
+							"id": "8e316741-4eed-4d4a-819f-3c66f08ff165",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "POST",
@@ -151,7 +154,7 @@
 							"body": "{}"
 						},
 						{
-							"id": "37a70896-fc7c-4f3f-aef9-9dadc3f26432",
+							"id": "a994ff64-9c46-4fa6-b97f-e8c1c7ceef1f",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "POST",
@@ -215,14 +218,14 @@
 					]
 				}
 			],
-			"id": "d5766a6b-af84-4c90-9404-ed1178dbe253"
+			"id": "51b54aa7-152b-468e-8352-01044d274899"
 		},
 		{
 			"name": "Payment",
 			"item": [
 				{
 					"name": "Mendapatkan semua payment gateway",
-					"id": "ac2d16b5-2494-49c0-b3dd-e8f7f507c3fc",
+					"id": "67a84882-63ba-4d7e-90db-34caa3d9954e",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -264,7 +267,7 @@
 					},
 					"response": [
 						{
-							"id": "13d92ec3-cfdd-4bc1-b4e3-1344e32a5ee5",
+							"id": "1295405b-3a28-441c-a229-4d6770c4a12a",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "GET",
@@ -316,7 +319,7 @@
 							"body": "{\n  \"total\": 74731418,\n  \"data\": [\n    {\n      \"id\": \"Duis elit culpa\",\n      \"date_created\": \"2009-06-08T03:35:40.368Z\",\n      \"name\": \"do amet\",\n      \"status\": 0,\n      \"date_updated\": \"2012-04-10T01:47:56.317Z\"\n    },\n    {\n      \"id\": \"proident quis deserunt labore\",\n      \"date_created\": \"2018-11-30T06:09:58.049Z\",\n      \"name\": \"Ut dolore voluptate Lorem\",\n      \"status\": 0,\n      \"date_updated\": \"2012-05-20T13:24:05.864Z\"\n    }\n  ]\n}"
 						},
 						{
-							"id": "ebbfa4c1-7ddc-4406-b2ce-3663c1add3e7",
+							"id": "019178c6-258e-45b9-b590-7168806258f7",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "GET",
@@ -371,7 +374,7 @@
 				},
 				{
 					"name": "Perbarui payment gateway",
-					"id": "12a2c741-5a88-4587-94a0-0dd05997e1f3",
+					"id": "06425177-f72f-49de-b3fa-c0ae9a279483",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -409,7 +412,7 @@
 							],
 							"variable": [
 								{
-									"id": "4be38611-ca3d-4315-90dc-308ec30d9766",
+									"id": "0322d15a-fd31-4d27-8446-f4bb7c51f354",
 									"key": "id",
 									"value": "ipsum d",
 									"description": "(Required) "
@@ -420,7 +423,7 @@
 					},
 					"response": [
 						{
-							"id": "6f42837d-8460-4dee-8862-9188c562f28e",
+							"id": "8216a261-d7ac-44c9-a727-3521c6c60207",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "PUT",
@@ -474,7 +477,7 @@
 							"body": "{\n  \"id\": \"sunt Duis est\",\n  \"date_created\": \"1974-07-26T21:29:42.019Z\",\n  \"name\": \"ea\",\n  \"status\": 0,\n  \"date_updated\": \"1981-05-28T15:27:29.799Z\"\n}"
 						},
 						{
-							"id": "abe91d31-ab7f-4b2d-9cc3-8a6278341ddc",
+							"id": "352ddb51-1ab3-4b2c-9c90-d4d7aca601a7",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "PUT",
@@ -531,7 +534,7 @@
 				},
 				{
 					"name": "Mendapatkan semua payment method",
-					"id": "2c413b86-cb83-4372-998f-88a295f185c0",
+					"id": "216e3254-8f66-419e-b56b-ab74bfe9de56",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -578,7 +581,7 @@
 					},
 					"response": [
 						{
-							"id": "bcd8b6a9-9eee-40e4-9c0a-0a6ceadaddf2",
+							"id": "95d3f929-4a7a-41e9-a975-d3671d76ab64",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "GET",
@@ -634,7 +637,7 @@
 							"body": "{\n  \"total\": 43335810,\n  \"data\": [\n    {\n      \"id\": \"eiusmod reprehenderit ipsum ullamco\",\n      \"date_created\": \"1966-07-02T13:09:47.939Z\",\n      \"code\": \"elit eu ullamco magna quis\",\n      \"name\": \"cillu\",\n      \"status\": 79455125,\n      \"date_updated\": \"1967-12-13T11:34:57.809Z\"\n    },\n    {\n      \"id\": \"magna\",\n      \"date_created\": \"1949-01-21T01:14:14.923Z\",\n      \"code\": \"velit amet labore deserunt\",\n      \"name\": \"elit dolore\",\n      \"status\": -97194941,\n      \"date_updated\": \"1965-01-02T02:48:54.695Z\"\n    }\n  ]\n}"
 						},
 						{
-							"id": "99eedc40-e2f4-4698-93be-4f9576050597",
+							"id": "d91bf30d-e6ff-45f5-8666-8ace3c324daf",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "GET",
@@ -693,7 +696,7 @@
 				},
 				{
 					"name": "Dapaatkan rincian payment method",
-					"id": "c0b1eb35-f3b8-4516-a249-1fcdeb01496e",
+					"id": "ba6c0de7-1c04-41ad-afd5-44a9ba6c9534",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -722,7 +725,7 @@
 							],
 							"variable": [
 								{
-									"id": "547ab1a9-504f-4a75-bbf5-45e246fb67fc",
+									"id": "592392df-2d64-413b-934f-cfd1d6c8a53f",
 									"key": "id",
 									"value": "deserunt commodo Duis",
 									"description": "(Required) Payment method ID"
@@ -733,7 +736,7 @@
 					},
 					"response": [
 						{
-							"id": "131adc13-9631-414f-9db6-ed59848cb1e1",
+							"id": "c9187f4e-eeef-4310-b113-904e40f37281",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "GET",
@@ -784,7 +787,7 @@
 							"body": "{\n  \"id\": \"eiusmod dolore quis\",\n  \"date_created\": \"1963-01-24T02:08:49.064Z\",\n  \"code\": \"aliqua Duis in proident\",\n  \"name\": \"dolor magna ad\",\n  \"status\": -73245285,\n  \"date_updated\": \"1967-03-30T20:39:54.281Z\"\n}"
 						},
 						{
-							"id": "281fa39a-1794-4ca1-9736-72e342ad5956",
+							"id": "158a3f8a-e331-4d37-8c05-022e6d686a17",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "GET",
@@ -838,7 +841,7 @@
 				},
 				{
 					"name": "Perbarui payment method",
-					"id": "77e7bddb-4f39-4364-96f6-364b2c7cbc36",
+					"id": "e43054e6-1271-4f87-9d56-bf291a934f7c",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -876,7 +879,7 @@
 							],
 							"variable": [
 								{
-									"id": "bcb83ab6-8b48-40ea-8c99-3af15cd82a68",
+									"id": "98049d6d-6fc4-4da6-9343-09763bc95713",
 									"key": "id",
 									"value": "deserunt commodo Duis",
 									"description": "(Required) Payment method ID"
@@ -887,7 +890,7 @@
 					},
 					"response": [
 						{
-							"id": "fbfa0378-3757-4af8-99d5-60029d37ab12",
+							"id": "3076e8ae-e11b-492e-8bdb-d802cbceb655",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "PUT",
@@ -941,7 +944,7 @@
 							"body": "{\n  \"id\": \"eiusmod dolore quis\",\n  \"date_created\": \"1963-01-24T02:08:49.064Z\",\n  \"code\": \"aliqua Duis in proident\",\n  \"name\": \"dolor magna ad\",\n  \"status\": -73245285,\n  \"date_updated\": \"1967-03-30T20:39:54.281Z\"\n}"
 						},
 						{
-							"id": "927958fa-8749-4cd4-84fb-0f9e6734d2d9",
+							"id": "8ab7cb1c-0acd-491c-a0db-5acfa1f7011e",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "PUT",
@@ -998,7 +1001,7 @@
 				},
 				{
 					"name": "Mendapatkan semua payment channel",
-					"id": "2f82abd7-321e-44b5-82c3-2c33005e714a",
+					"id": "a07ea5d7-82f2-49f9-bea3-1af23b9786e1",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1045,7 +1048,7 @@
 					},
 					"response": [
 						{
-							"id": "fdd25b61-be7e-4bd4-96f6-04373805ea4b",
+							"id": "b924cd87-20ad-4b6b-8d27-f8333b510333",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "GET",
@@ -1101,7 +1104,7 @@
 							"body": "{\n  \"total\": -26230239,\n  \"data\": [\n    {\n      \"id\": \"ex Duis laboris aliqua\",\n      \"date_created\": \"1961-06-09T00:14:41.084Z\",\n      \"pm_id\": \"Ut\",\n      \"name\": \"dolore adipisicing officia\",\n      \"unique_code\": \"nostrud ut laboris\",\n      \"status\": 0,\n      \"date_updated\": \"2011-10-31T00:39:37.984Z\",\n      \"fee\": -86602135,\n      \"fee_percent\": 3812377.4517008364,\n      \"min_amount\": -30594665\n    },\n    {\n      \"id\": \"Exc\",\n      \"date_created\": \"2007-10-24T18:17:55.770Z\",\n      \"pm_id\": \"nisi nulla\",\n      \"name\": \"irure qui\",\n      \"unique_code\": \"sint\",\n      \"status\": 0,\n      \"date_updated\": \"2007-10-30T05:19:31.728Z\",\n      \"fee\": 64136722,\n      \"fee_percent\": -76958375.60257414,\n      \"min_amount\": -91776773\n    }\n  ]\n}"
 						},
 						{
-							"id": "82fd9530-1634-4957-af42-3cb8226f3359",
+							"id": "0c142cd1-1729-42a4-8f7d-2d8f3fe6a1cd",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "GET",
@@ -1160,7 +1163,7 @@
 				},
 				{
 					"name": "Dapaatkan rincian payment channel",
-					"id": "2b450af4-1346-4554-b800-1b5715d272c7",
+					"id": "9d430296-97e2-49d3-ad24-344b527f97af",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1182,7 +1185,7 @@
 							],
 							"variable": [
 								{
-									"id": "56a95356-e143-48fc-95f2-ae183729592c",
+									"id": "15c99413-74cb-41c8-93c7-863a01ea8099",
 									"key": "id",
 									"value": "anim ullamco incididu",
 									"description": "(Required) Payment Channel ID"
@@ -1193,7 +1196,7 @@
 					},
 					"response": [
 						{
-							"id": "7f2fe700-a38d-4073-9766-aa2be24a1e5f",
+							"id": "16ba1b93-3095-4f47-8561-2b0e8d669181",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "GET",
@@ -1238,7 +1241,7 @@
 							"body": "{\n  \"id\": \"consequat\",\n  \"date_created\": \"1959-07-18T12:28:42.745Z\",\n  \"pm_id\": \"amet\",\n  \"name\": \"sint dolor\",\n  \"unique_code\": \"dolor et sed proident consectetur\",\n  \"status\": 0,\n  \"date_updated\": \"2014-05-17T07:23:19.897Z\",\n  \"fee\": 342543,\n  \"fee_percent\": -88243283.27242537,\n  \"min_amount\": 12449568\n}"
 						},
 						{
-							"id": "14e4f138-c3e9-424c-8cbd-8aaa4b1ee34b",
+							"id": "c905642e-0f2e-4a4b-b835-4b6a8bc74658",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "GET",
@@ -1286,7 +1289,7 @@
 				},
 				{
 					"name": "Perbarui payment channel",
-					"id": "6077139e-3167-41d4-b1da-3cecc6e194f1",
+					"id": "68b59c1b-385a-4976-803f-6278274c1aff",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1324,7 +1327,7 @@
 							],
 							"variable": [
 								{
-									"id": "94ad9501-e7de-4a57-8279-57f190a947ff",
+									"id": "a5ce372a-aa1c-4130-b9e1-b8909efd6f8a",
 									"key": "id",
 									"value": "anim ullamco incididu",
 									"description": "(Required) Payment Channel ID"
@@ -1335,7 +1338,7 @@
 					},
 					"response": [
 						{
-							"id": "f52f2ee9-8a4d-47c7-82e3-7c98c9871ed4",
+							"id": "ce1e43b2-15c1-444f-8a80-d0f577a16f6f",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "PUT",
@@ -1389,7 +1392,7 @@
 							"body": "{\n  \"id\": \"consequat\",\n  \"date_created\": \"1959-07-18T12:28:42.745Z\",\n  \"pm_id\": \"amet\",\n  \"name\": \"sint dolor\",\n  \"unique_code\": \"dolor et sed proident consectetur\",\n  \"status\": 0,\n  \"date_updated\": \"2014-05-17T07:23:19.897Z\",\n  \"fee\": 342543,\n  \"fee_percent\": -88243283.27242537,\n  \"min_amount\": 12449568\n}"
 						},
 						{
-							"id": "5ac2d4b9-2903-4cb8-a016-fcf705425231",
+							"id": "e8c0814e-561b-4a19-90d3-b9d6d994638f",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "PUT",
@@ -1446,7 +1449,7 @@
 				},
 				{
 					"name": "Mendapatkan semua payment method yang aktif",
-					"id": "9e887624-0df8-413e-bb74-796c3517e217",
+					"id": "6f85f1ae-b406-400d-a5e4-9b43f6b30253",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1470,7 +1473,7 @@
 					},
 					"response": [
 						{
-							"id": "3749076a-d5d7-4f77-99ce-54add8b6443b",
+							"id": "8663e631-0fd4-4b03-85db-b0d4dbad8ec4",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "GET",
@@ -1509,14 +1512,14 @@
 					]
 				}
 			],
-			"id": "21a93844-c5e3-42d5-9c80-2f21734a4f86"
+			"id": "db823167-4358-45d0-9dbd-53543967f2b8"
 		},
 		{
 			"name": "Transaction",
 			"item": [
 				{
 					"name": "Mendapatkan semua transaksi",
-					"id": "e552d592-1e3d-4264-aab6-f9920d9c7369",
+					"id": "ff743894-dc25-490f-9162-1f7c370c3bd7",
 					"request": {
 						"auth": {
 							"type": "oauth2"
@@ -1560,7 +1563,7 @@
 					},
 					"response": [
 						{
-							"id": "55a3353a-cb7f-41bf-a729-084ac7617b4f",
+							"id": "716da7ed-ae5c-475a-b3bd-a2a19c38aeec",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "GET",
@@ -1611,7 +1614,7 @@
 							"body": "{\n  \"total\": 57894371,\n  \"data\": [\n    {\n      \"id\": \"magna minim\",\n      \"date_created\": \"1942-11-27T12:01:08.298Z\",\n      \"name\": \"aliqua consequat nulla\",\n      \"email\": \"tqENM3ns@YHqHlpcHfKPLpKIlIp.pb\",\n      \"phone_number\": \"qui tempor laborum\",\n      \"amount\": 20572414,\n      \"payment_method\": \"nulla tempor\",\n      \"payment_channel\": {\n        \"name\": \"in consequat tempor aute\",\n        \"fee\": -92039834,\n        \"fee_percent\": -27107021.065638825\n      },\n      \"expiration_date\": \"1996-11-16T23:04:30.049Z\",\n      \"status\": 0,\n      \"trx_id\": \"ut anim non\",\n      \"date_updated\": \"2007-07-06T03:55:45.513Z\",\n      \"payment_number\": {}\n    },\n    {\n      \"id\": \"labore adipisicing amet ut\",\n      \"date_created\": \"1951-03-21T05:59:23.106Z\",\n      \"name\": \"magna elit esse eiusmod in\",\n      \"email\": \"BrEPHf@EXZFYbrRJLuhkXeCEFLYPtwHREBxIHZXc.dy\",\n      \"phone_number\": \"consectetur adipisicing ut officia\",\n      \"amount\": -95411773,\n      \"payment_method\": \"sed non qui mollit incid\",\n      \"payment_channel\": {\n        \"name\": \"dolor deserunt Duis laboris adipisicing\",\n        \"fee\": -53596686,\n        \"fee_percent\": -14393035.310149968\n      },\n      \"expiration_date\": \"2018-01-08T15:37:51.468Z\",\n      \"status\": 0,\n      \"trx_id\": \"et minim in consectetur quis\",\n      \"date_updated\": \"1958-05-14T03:11:29.555Z\",\n      \"payment_number\": {}\n    }\n  ]\n}"
 						},
 						{
-							"id": "eb157b0c-fd39-4a2f-ad61-1206b220bff1",
+							"id": "a8c01331-6c18-4f45-9cb5-6e9c4cdf7c01",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "GET",
@@ -1665,7 +1668,7 @@
 				},
 				{
 					"name": "Buat transaksi baru",
-					"id": "158ec6d2-2dee-4543-b699-b3098515da71",
+					"id": "c597bfe1-7646-49fd-9b3e-af73ae3b1d08",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1708,7 +1711,7 @@
 					},
 					"response": [
 						{
-							"id": "86f3d6ae-fe98-4503-941a-f68e39108574",
+							"id": "2d167b83-2f60-4086-9702-c21d08d9c565",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "POST",
@@ -1754,7 +1757,7 @@
 							"body": "{\n  \"id\": \"dolor qui\",\n  \"date_created\": \"1999-11-07T00:20:31.620Z\",\n  \"name\": \"incididunt sint\",\n  \"email\": \"6jys@blPAqVzzJQeWglxwbpL.exml\",\n  \"phone_number\": \"sunt\",\n  \"amount\": -97559140,\n  \"payment_method\": \"laboris\",\n  \"payment_channel\": {\n    \"name\": \"sit eu non in\",\n    \"fee\": 6026229,\n    \"fee_percent\": 8184535.934422061\n  },\n  \"expiration_date\": \"1982-07-21T05:40:17.312Z\",\n  \"status\": 0,\n  \"trx_id\": \"anim do\",\n  \"date_updated\": \"1975-01-23T16:47:59.880Z\",\n  \"payment_number\": {}\n}"
 						},
 						{
-							"id": "ca1e0e8b-b472-4541-86c3-c645e62ac0ac",
+							"id": "29d73fa7-2b98-4e4a-8e82-075dbf5dea82",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "POST",
@@ -1803,7 +1806,7 @@
 				},
 				{
 					"name": "Dapatkan rincian transaksi",
-					"id": "a9b4fc4c-eaa5-4951-9dd6-fc3c033aceee",
+					"id": "41320f97-e0a5-45fa-b959-233572521825",
 					"request": {
 						"auth": {
 							"type": "oauth2"
@@ -1827,7 +1830,7 @@
 							],
 							"variable": [
 								{
-									"id": "87c28894-1937-4d46-8ed9-3e0fbd4e8d63",
+									"id": "53e97b4c-0e56-4b2b-b35a-013a63fa7f09",
 									"key": "id",
 									"value": "ipsum d",
 									"description": "(Required) "
@@ -1838,7 +1841,7 @@
 					},
 					"response": [
 						{
-							"id": "e01f8452-ae49-4451-9576-654d6b94bbe8",
+							"id": "1934ca35-877a-4b56-b2e3-40fa683ee2c6",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "GET",
@@ -1882,7 +1885,7 @@
 							"body": "{\n  \"id\": \"dolor qui\",\n  \"date_created\": \"1999-11-07T00:20:31.620Z\",\n  \"name\": \"incididunt sint\",\n  \"email\": \"6jys@blPAqVzzJQeWglxwbpL.exml\",\n  \"phone_number\": \"sunt\",\n  \"amount\": -97559140,\n  \"payment_method\": \"laboris\",\n  \"payment_channel\": {\n    \"name\": \"sit eu non in\",\n    \"fee\": 6026229,\n    \"fee_percent\": 8184535.934422061\n  },\n  \"expiration_date\": \"1982-07-21T05:40:17.312Z\",\n  \"status\": 0,\n  \"trx_id\": \"anim do\",\n  \"date_updated\": \"1975-01-23T16:47:59.880Z\",\n  \"payment_number\": {}\n}"
 						},
 						{
-							"id": "ca4f20b9-27ac-4415-a819-521cac3c5615",
+							"id": "70981395-09b7-4953-b20d-3a80e1473652",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "GET",
@@ -1929,7 +1932,7 @@
 				},
 				{
 					"name": "Perbarui transaksi",
-					"id": "4cff8ab6-ed24-43e9-a706-b81ecd9bce49",
+					"id": "907b2a9e-0e13-4e70-aa47-e44fe99eb8e9",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1969,7 +1972,7 @@
 							],
 							"variable": [
 								{
-									"id": "37988176-5b38-47d8-be37-3b0feaf3b01e",
+									"id": "eb2e5909-80cc-4d57-b6f6-a5f63d5252ab",
 									"key": "id",
 									"value": "ipsum d",
 									"description": "(Required) "
@@ -1980,7 +1983,7 @@
 					},
 					"response": [
 						{
-							"id": "72371567-d099-4594-97b3-4292a92e02ce",
+							"id": "cfb27092-a6c1-4817-89b5-ae4d6c470049",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "PUT",
@@ -2033,7 +2036,7 @@
 							"body": "{\n  \"success\": false,\n  \"data\": {\n    \"id\": \"ad dolore\",\n    \"date_created\": \"2002-09-06T21:13:26.087Z\",\n    \"name\": \"ea Ut et\",\n    \"email\": \"BA7Je46j1ObB3HX@cYeQq.jsk\",\n    \"phone_number\": \"magna deserunt Ut\",\n    \"amount\": -45010918,\n    \"payment_method\": \"pariatur\",\n    \"payment_channel\": {\n      \"name\": \"amet incididunt\",\n      \"fee\": -93367093,\n      \"fee_percent\": 2985339.0170064867\n    },\n    \"expiration_date\": \"1953-02-04T13:24:22.732Z\",\n    \"status\": 0,\n    \"trx_id\": \"in occaecat eiusmod commodo mi\",\n    \"date_updated\": \"1954-06-07T16:40:34.330Z\",\n    \"payment_number\": {}\n  }\n}"
 						},
 						{
-							"id": "d8864a61-3b90-4635-bfaa-517a155e8890",
+							"id": "706f7730-c379-47e3-9bd0-d6cd8a8da18a",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "PUT",
@@ -2088,14 +2091,14 @@
 					]
 				}
 			],
-			"id": "8cba5a1f-6374-4064-994b-a366b0f1b33e"
+			"id": "90ff20c5-4f90-41cc-a60f-4df7ba579932"
 		},
 		{
 			"name": "API Key",
 			"item": [
 				{
 					"name": "Mendapatkan semua API Key",
-					"id": "6c95a1c6-35f7-4e32-bbc2-bd0ae7ec8512",
+					"id": "b26c18f6-bc1b-4526-b757-17a92a9e129e",
 					"request": {
 						"auth": {
 							"type": "oauth2"
@@ -2144,7 +2147,7 @@
 					},
 					"response": [
 						{
-							"id": "96ff9da0-ed2c-4558-ace0-121b447d0664",
+							"id": "b35b3e48-e7cd-4205-84a1-612609cd0c66",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "GET",
@@ -2199,7 +2202,7 @@
 							"body": "{\n  \"total\": 21480383,\n  \"data\": [\n    {\n      \"id\": \"mollit anim ullamco dolor\",\n      \"date_created\": \"1996-12-17T14:11:53.945Z\",\n      \"name\": \"in mollit laborum labore proident\",\n      \"description\": \"nisi Lorem reprehenderit\",\n      \"expiration_time\": -93276613,\n      \"expiration_type\": \"hours\",\n      \"date_updated\": \"2016-03-27T16:11:39.126Z\",\n      \"expires_on\": \"1945-09-03T17:49:13.195Z\"\n    },\n    {\n      \"id\": \"cupidatat esse dolor amet\",\n      \"date_created\": \"1977-07-22T06:05:12.569Z\",\n      \"name\": \"dolore officia ea \",\n      \"description\": \"sed in\",\n      \"expiration_time\": 67856838,\n      \"expiration_type\": \"months\",\n      \"date_updated\": \"1978-08-15T10:09:55.573Z\",\n      \"expires_on\": \"1979-01-21T03:58:11.624Z\"\n    }\n  ]\n}"
 						},
 						{
-							"id": "244f8807-b467-4609-92d0-b1bc5d7d245a",
+							"id": "95358ec5-075e-4d60-8219-51486130879a",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "GET",
@@ -2257,7 +2260,7 @@
 				},
 				{
 					"name": "Buat API Key baru",
-					"id": "28714ebf-0f77-4482-b06c-6fff29358638",
+					"id": "a378b141-c335-432a-b8b1-a915c5d05cc6",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2300,7 +2303,7 @@
 					},
 					"response": [
 						{
-							"id": "332b90c6-ecf6-4774-bca2-54211b12a758",
+							"id": "d98ae9e8-79f1-452d-bb2d-876e959225b2",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "POST",
@@ -2346,7 +2349,7 @@
 							"body": "{\n  \"id\": \"amet magna reprehenderit dolore in\",\n  \"date_created\": \"1970-02-03T09:30:13.828Z\",\n  \"name\": \"quis enim proident\",\n  \"description\": \"officia esse sunt magna\",\n  \"expiration_time\": 71095445,\n  \"expiration_type\": \"months\",\n  \"api_key\": \"sint\",\n  \"date_updated\": \"1947-02-03T20:38:23.860Z\",\n  \"expires_on\": \"1947-07-01T08:40:33.511Z\"\n}"
 						},
 						{
-							"id": "49803269-b007-49c6-8385-2df6baec4320",
+							"id": "c62423ee-6eaf-4e3b-998c-ccc487b387c2",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "POST",
@@ -2395,7 +2398,7 @@
 				},
 				{
 					"name": "Dapatkan rincian API Key",
-					"id": "d06dce37-3bc5-43cd-be62-f5783566463d",
+					"id": "e13d0381-a27a-4480-8db0-50c2ac08cc85",
 					"request": {
 						"auth": {
 							"type": "oauth2"
@@ -2419,7 +2422,7 @@
 							],
 							"variable": [
 								{
-									"id": "c9cc1056-69ff-4166-847b-1aa9a23e677b",
+									"id": "37e134c7-e962-4eb5-ac11-2eee7b93870f",
 									"key": "id",
 									"value": "ipsum d",
 									"description": "(Required) "
@@ -2430,7 +2433,7 @@
 					},
 					"response": [
 						{
-							"id": "434923cf-c909-4732-81fe-8d9bf47808c1",
+							"id": "42e2fdd3-4d6f-41ab-ae8f-5c0a3764947f",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "GET",
@@ -2474,7 +2477,7 @@
 							"body": "{\n  \"id\": \"id adipisicing pariatur ut occaecat\",\n  \"date_created\": \"2004-04-16T02:00:48.592Z\",\n  \"name\": \"eiusmod adipisicing sed eu\",\n  \"description\": \"fugiat pariatur labore\",\n  \"expiration_time\": 43017988,\n  \"expiration_type\": \"unlimited\",\n  \"date_updated\": \"1961-02-01T00:46:03.843Z\",\n  \"expires_on\": \"2014-03-27T17:24:03.562Z\"\n}"
 						},
 						{
-							"id": "0392b2f2-0dd8-4e5e-af98-a4f0a35d9f60",
+							"id": "242f2d13-d7b2-4c35-adff-1808fa4020ee",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "GET",
@@ -2521,7 +2524,7 @@
 				},
 				{
 					"name": "Hapus API Key",
-					"id": "0c3e561f-bf07-43e3-b34c-d8b4a6ef80bd",
+					"id": "82c6a705-6427-4e77-bd4a-df18f4ea3e0c",
 					"request": {
 						"auth": {
 							"type": "oauth2"
@@ -2545,7 +2548,7 @@
 							],
 							"variable": [
 								{
-									"id": "9b39605f-d12c-4c76-ade7-bd77eaf469bd",
+									"id": "725bb5a4-9507-4171-88d9-372bfcea1b80",
 									"key": "id",
 									"value": "ipsum d",
 									"description": "(Required) "
@@ -2556,7 +2559,7 @@
 					},
 					"response": [
 						{
-							"id": "8f2d6fce-84d6-4e93-bbdf-f80f0959c637",
+							"id": "ee2b0210-a12d-40d7-b1f9-ddf23a647f04",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "DELETE",
@@ -2600,7 +2603,7 @@
 							"body": "{}"
 						},
 						{
-							"id": "d3d04973-d2f9-4ec0-a797-e6f5701eeb2b",
+							"id": "84dd67b1-603f-40b8-a3f9-f27e96dba45b",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "DELETE",
@@ -2646,14 +2649,14 @@
 					]
 				}
 			],
-			"id": "d261b1a6-ba49-4f38-a6fb-bf55efca0e67"
+			"id": "5be5466b-2f49-4052-9b21-8339fbaa614d"
 		},
 		{
 			"name": "Callback",
 			"item": [
 				{
 					"name": "Ipaymu",
-					"id": "0e747801-8278-40d2-be4a-1f89f7b2e7c7",
+					"id": "c41f7d81-baa1-4b58-8790-42bb726fc691",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2699,7 +2702,7 @@
 					},
 					"response": [
 						{
-							"id": "e2e546e2-beb5-43b3-8a92-40a91dbb889b",
+							"id": "8d2a81ee-a7c6-4a64-ac90-e78e9574f85e",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "POST",
@@ -2745,7 +2748,7 @@
 							"body": "{}"
 						},
 						{
-							"id": "9b68e9a4-c85e-4a81-a338-6138468cfe6d",
+							"id": "64c85527-33b4-410c-874d-f242ad60db39",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "POST",
@@ -2794,7 +2797,7 @@
 				},
 				{
 					"name": "Duitku",
-					"id": "ae80c12c-367e-41ef-9052-d021e506b95d",
+					"id": "9ea51204-e3c4-468a-9b9d-e0e5d6644583",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2882,7 +2885,7 @@
 					},
 					"response": [
 						{
-							"id": "99acaa7d-7eda-4908-92a6-a690a7f6ae8b",
+							"id": "8a992ece-7c17-4f38-8f3e-cee0d2c9f7e4",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "POST",
@@ -2970,7 +2973,7 @@
 							"body": "{}"
 						},
 						{
-							"id": "99d540b4-fc35-4ec5-ac0f-f39c202fcd56",
+							"id": "e1cb6e52-5da5-4b8e-ba03-43031fc48e43",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "POST",
@@ -3061,7 +3064,7 @@
 				},
 				{
 					"name": "Virtual Account",
-					"id": "29f6f65a-355b-4d93-b2ed-e25d0dfef432",
+					"id": "ceff767f-6e11-4d3e-b80d-204032a1efb9",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -3086,7 +3089,7 @@
 					},
 					"response": [
 						{
-							"id": "3b001cd0-daa4-45ce-ae40-aa12aa8acc0b",
+							"id": "255c5fb0-4359-4d61-9b4a-cd346ccd6965",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "POST",
@@ -3121,7 +3124,7 @@
 				},
 				{
 					"name": "Ewallet",
-					"id": "a54ca0f7-739a-4866-9670-2348c70bc6c0",
+					"id": "b62658df-f322-4e87-8b85-6fc5235b8a2d",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -3146,7 +3149,7 @@
 					},
 					"response": [
 						{
-							"id": "d59fa748-bbf0-4846-ba27-c9f78b7702bf",
+							"id": "b4104536-9aad-47b9-af8e-a035561b19cf",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "POST",
@@ -3181,7 +3184,7 @@
 				},
 				{
 					"name": "Convenience Store",
-					"id": "26e0833b-e909-453b-8698-06e01819c270",
+					"id": "8d8e429b-6681-41ae-8cb8-4cff8c753989",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -3206,7 +3209,7 @@
 					},
 					"response": [
 						{
-							"id": "64bb09be-a442-4c4e-9e61-da40001662d9",
+							"id": "ad59d990-4e71-4fed-8113-f95a593ae6c7",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "POST",
@@ -3241,7 +3244,7 @@
 				},
 				{
 					"name": "Qris",
-					"id": "6474dfc9-b18a-4a4d-bff2-96fde6713dac",
+					"id": "cdd92080-e8ff-4df3-8e80-273dc9d7960c",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -3266,7 +3269,7 @@
 					},
 					"response": [
 						{
-							"id": "cb63bedc-97a7-4b36-a0bc-86c125d51aa0",
+							"id": "d64a4b39-c213-460e-acdd-d8f9d36b8838",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "POST",
@@ -3300,14 +3303,14 @@
 					]
 				}
 			],
-			"id": "c9aea446-5f73-4e8f-a291-3909eca5c1ba"
+			"id": "7f1291f5-79e6-43d1-8668-fe2d0c38ff00"
 		},
 		{
 			"name": "Media",
 			"item": [
 				{
 					"name": "Dapatkan semua file",
-					"id": "dbe995b0-b768-43bd-87ef-2948952b4205",
+					"id": "a1f0c87b-0956-4d62-a850-6010a4098687",
 					"request": {
 						"auth": {
 							"type": "oauth2"
@@ -3351,7 +3354,7 @@
 					},
 					"response": [
 						{
-							"id": "a3bcdfba-0dd9-458f-9df5-2030c7d710f2",
+							"id": "c33d9200-5f69-460f-aea8-1008b9419c21",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "GET",
@@ -3402,7 +3405,7 @@
 							"body": "{\n  \"total\": 59567397,\n  \"data\": [\n    {\n      \"id\": \"voluptate\",\n      \"date_created\": \"1954-04-21T12:49:44.707Z\",\n      \"file\": \"elit offi\",\n      \"date_updated\": \"2010-12-13T07:26:29.150Z\"\n    },\n    {\n      \"id\": \"sunt \",\n      \"date_created\": \"1995-07-18T22:22:08.732Z\",\n      \"file\": \"proident commodo\",\n      \"date_updated\": \"1956-11-20T06:07:10.824Z\"\n    }\n  ]\n}"
 						},
 						{
-							"id": "236c6162-3236-4045-81e8-e4d148c59102",
+							"id": "9e1ef5fc-93af-4df9-ac95-d8a619f114e2",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "GET",
@@ -3456,7 +3459,7 @@
 				},
 				{
 					"name": "Unggah file",
-					"id": "bd7dac2a-c776-45f4-a2e9-e103c8a64b4f",
+					"id": "2cfe6815-6cfd-4901-afaf-3a1d2ae52741",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -3501,7 +3504,7 @@
 					},
 					"response": [
 						{
-							"id": "7b912a88-b48a-4a65-a230-3db587633793",
+							"id": "b02bac69-a8d8-4689-845b-ac0f7f06b81d",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "POST",
@@ -3549,7 +3552,7 @@
 							"body": "{\n  \"id\": \"nisi Ut\",\n  \"date_created\": \"1987-11-28T13:03:51.118Z\",\n  \"file\": \"adipisici\",\n  \"date_updated\": \"1960-12-26T16:52:17.161Z\"\n}"
 						},
 						{
-							"id": "43552f23-7701-4a84-a924-946f02f1d4e9",
+							"id": "6b7d8a39-fd64-4db3-97ee-f6a3a40a18d3",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "POST",
@@ -3600,7 +3603,7 @@
 				},
 				{
 					"name": "Dapatkan rincian file",
-					"id": "7e09c6cd-af35-4dc7-b410-0de1a0580785",
+					"id": "c8dd6e75-4fc0-42d0-a9bc-267193919e86",
 					"request": {
 						"auth": {
 							"type": "oauth2"
@@ -3624,7 +3627,7 @@
 							],
 							"variable": [
 								{
-									"id": "c9a2d5c4-863c-4b4d-922c-e917f333463c",
+									"id": "7e7206ba-888c-4140-b132-b8810b99f6b6",
 									"key": "id",
 									"value": "ipsum d",
 									"description": "(Required) "
@@ -3635,7 +3638,7 @@
 					},
 					"response": [
 						{
-							"id": "ffc75cc9-1ec2-40db-b3b9-fe11316b51e9",
+							"id": "00589e5e-db71-4e01-8de5-11fcb1ee4eea",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "GET",
@@ -3679,7 +3682,7 @@
 							"body": "{\n  \"id\": \"nisi Ut\",\n  \"date_created\": \"1987-11-28T13:03:51.118Z\",\n  \"file\": \"adipisici\",\n  \"date_updated\": \"1960-12-26T16:52:17.161Z\"\n}"
 						},
 						{
-							"id": "5b10e1ca-4afb-4062-8ef9-e5669ed2b2bc",
+							"id": "9a8cb370-1e95-4f38-9438-49e7a2cfcc0b",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "GET",
@@ -3726,7 +3729,7 @@
 				},
 				{
 					"name": "Perbarui file",
-					"id": "50d51415-8dd8-479e-994e-b03e1575436f",
+					"id": "8ad7263b-1294-48b6-a9c3-e603689458be",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -3768,7 +3771,7 @@
 							],
 							"variable": [
 								{
-									"id": "1b14619a-0107-4d02-8edf-e27472cec3f8",
+									"id": "d83b4595-83f5-485c-8a4b-1860ed88dc6a",
 									"key": "id",
 									"value": "ipsum d",
 									"description": "(Required) "
@@ -3779,7 +3782,7 @@
 					},
 					"response": [
 						{
-							"id": "8fbcaae5-29ff-4f6c-add3-ca09bb5834de",
+							"id": "eb54c9ac-6e75-4264-b8ef-204c6239d021",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "POST",
@@ -3834,7 +3837,7 @@
 							"body": "{\n  \"id\": \"nisi Ut\",\n  \"date_created\": \"1987-11-28T13:03:51.118Z\",\n  \"file\": \"adipisici\",\n  \"date_updated\": \"1960-12-26T16:52:17.161Z\"\n}"
 						},
 						{
-							"id": "f1907e3a-4a2c-4fda-a9a6-61a9a799ba34",
+							"id": "e8b4eb5f-5ac9-431c-873f-946ffb4a6b1c",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "POST",
@@ -3892,7 +3895,7 @@
 				},
 				{
 					"name": "Hapus file",
-					"id": "822e95c5-4b41-4c51-aeec-13e564ad755a",
+					"id": "ea397a2b-4b1f-41ff-9d97-79c6a26f58f9",
 					"request": {
 						"auth": {
 							"type": "oauth2"
@@ -3916,7 +3919,7 @@
 							],
 							"variable": [
 								{
-									"id": "61d8cdbc-8aa3-41af-a6f4-13b64faeed8c",
+									"id": "9a7a34b8-23c9-47d6-9b36-53b37372cda6",
 									"key": "id",
 									"value": "ipsum d",
 									"description": "(Required) "
@@ -3927,7 +3930,7 @@
 					},
 					"response": [
 						{
-							"id": "4b011f8d-1a01-459b-b5fb-eabced10259a",
+							"id": "666a5695-f030-4f58-a74e-a4cf413f0041",
 							"name": "Successful Response",
 							"originalRequest": {
 								"method": "DELETE",
@@ -3971,7 +3974,7 @@
 							"body": "{}"
 						},
 						{
-							"id": "33eba3dc-1d14-414e-acdf-a44edac83f50",
+							"id": "b386d988-2db7-4a53-b6e9-64014aa7b4d8",
 							"name": "Validation Error",
 							"originalRequest": {
 								"method": "DELETE",
@@ -4017,7 +4020,7 @@
 					]
 				}
 			],
-			"id": "2fe7410b-73b2-40a5-b40c-37122fa50b5d"
+			"id": "4ec7c90b-971e-4013-96d9-b6ef90699cfd"
 		}
 	],
 	"auth": {
@@ -4054,25 +4057,25 @@
 	],
 	"variable": [
 		{
-			"id": "445bc856-96c7-406a-a4fa-edbf05a64f76",
+			"id": "89f830c1-70c0-4fab-8855-08329cdc8b54",
 			"key": "baseUrl",
 			"value": "http://localhost:5000",
 			"type": "string"
 		},
 		{
-			"id": "523e21f6-1735-4ccb-98fa-92f70a2d5211",
+			"id": "c9e69d38-26ff-4e7a-8a41-806da91b6a8a",
 			"key": "email",
 			"value": "test@localhost.com",
 			"type": "string"
 		},
 		{
-			"id": "8dbae87e-c814-4bf9-abf9-f42bcd54fe28",
+			"id": "2d834bc5-c4d3-4b02-81e5-2f204c24712d",
 			"key": "password",
 			"value": "test123456",
 			"type": "string"
 		},
 		{
-			"id": "ea089180-2c68-43da-8a30-16b1596e409a",
+			"id": "ecfef501-6c23-4cf3-9a97-cc668fef184a",
 			"key": "access_token",
 			"value": "",
 			"type": "string"
