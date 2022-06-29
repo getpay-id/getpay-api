@@ -9,6 +9,7 @@ Goal dari proyek ini adalah:
 * Mempermudah pembayaran dari beberapa payment gateway di satu tempat (API)
 * Pengelola metode pembayaran
 * Tersedia API Key untuk digunakan di service lain
+* Dan masih banyak lagi...
 
 
 Saat ini kami hanya mendukung payment gateway dari:
@@ -17,17 +18,19 @@ Saat ini kami hanya mendukung payment gateway dari:
 - [x] [Xendit](https://xendit.co)
 - [x] [DuitKu](https://duitku.com)
 
+Proyek ini dibuat menggunakan FastAPI, MongoDB dan beberapa library lainnya. Bisa dilihat di [Pipfile](https://github.com/getpay-id/getpay-api/blob/main/Pipfile) untuk rinciannya.
+
 ## Documentation
 
 Lihat disini: https://github.com/getpay-id/getpay-api/wiki
 
 Atau
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/13971718-2fda8ed9-4db0-40d7-b8cb-1a106ca16ede?action=collection%2Ffork&collection-url=entityId%3D13971718-2fda8ed9-4db0-40d7-b8cb-1a106ca16ede%26entityType%3Dcollection%26workspaceId%3Ddfd5cc57-9ab2-4827-9d3c-3c8918e7e036)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/13971718-44e9d5b8-843d-4a88-b216-03844125d22f?action=collection%2Ffork&collection-url=entityId%3D13971718-44e9d5b8-843d-4a88-b216-03844125d22f%26entityType%3Dcollection%26workspaceId%3Ddfd5cc57-9ab2-4827-9d3c-3c8918e7e036)
 
 ## Support & Donate
 
-Jika proyek ini bermanfaat untuk kamu (dan perusahaanmu), kamu bisa berikan donasi untuk kami melalui:
+Jika proyek ini bermanfaat, kamu bisa berikan donasi melalui:
 
 * [Trakteer](https://trakteer.id/apriladev/tip)
 * [PayPal](https://paypal.me/aprilahijriyan)
