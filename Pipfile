@@ -19,6 +19,7 @@ python-multipart = "*"
 faker = "*"
 typing-extensions = "*"
 saq = {extras = ["hiredis"], version = "*"}
+filetype = "*"
 
 [dev-packages]
 black = "*"
