@@ -65,7 +65,6 @@ def direct_payment(
         "paymentMethod": paymentMethod,
         "paymentChannel": paymentChannel,
     }
-    print(url, body)
     if comments:
         body["comments"] = comments
 
@@ -84,7 +83,6 @@ def direct_payment(
     signature = create_signature(data_body, va_account, api_key)
     headers = create_headers(signature, va_account)
     resp = requests.post(url, data=data_body, headers=headers).json()
-    print(resp)
     return resp
 
 

@@ -63,7 +63,6 @@ def create_virtual_account_payment(
         expiration_date=expiration_date,
         **kwargs
     )
-    print("xendit va:", resp)
     return resp
 
 
@@ -85,7 +84,6 @@ def create_qris_payment(
         type=type,
         **kwargs
     )
-    print("xendit qris:", resp)
     return resp
 
 
@@ -109,7 +107,6 @@ def create_retail_outlet_payment(
         expiration_date=expiration_date,
         **kwargs
     )
-    print("xendit cstore:", resp)
     return resp
 
 
@@ -133,5 +130,4 @@ def create_ewallet_payment(
         channel_properties=channel_properties,
         **kwargs
     )
-    print("xendit ewallet:", resp)
     return resp
