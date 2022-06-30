@@ -1,3 +1,4 @@
+from getpass import getpass
 from typing import List
 
 import dotenv
@@ -89,16 +90,19 @@ async def create_user(username: str, password: str) -> str:
 
 
 async def create_admin():
+    answer = input("Do you want to create an admin user? (y/n): ").lower()
+    if not answer.startswith("y"):
+        print("Skip...")
+        return
+
     print("Creating admin...")
-    username = settings.ADMIN_USERNAME
-    password = settings.ADMIN_PASSWORD
+    username = input("Username: ")
+    password = getpass("Password: ")
     if username and password:
         await create_user(username, password)
     else:
-        print(
-            "Admin user not found. Please set ADMIN_USERNAME and ADMIN_PASSWORD in .env"
-        )
-        exit(1)
+        print("Username and password are required to create an admin user. Skip...")
+        return
 
 
 async def create_payment_gateways():
