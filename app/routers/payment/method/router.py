@@ -8,14 +8,14 @@ method_router.add_api_route(
     "/",
     views.get_all,
     methods=["GET"],
-    summary="Mendapatkan semua payment method",
+    summary="Daftar payment method",
     response_model=Page[schemas.PaymentMethod],
 )
 method_router.add_api_route(
     "/{id}",
     views.get_one,
     methods=["GET"],
-    summary="Dapaatkan rincian payment method",
+    summary="Dapatkan rincian payment method",
     response_model=schemas.PaymentMethod,
 )
 method_router.add_api_route(

@@ -28,7 +28,7 @@ apikey_router.add_api_route(
     "/",
     views.get_all,
     methods=["GET"],
-    summary="Mendapatkan semua API Key",
+    summary="Daftar API Key",
     response_model=Page[schemas.PublicAPIKey],
 )
 apikey_router.add_api_route(

@@ -15,7 +15,7 @@ media_router.add_api_route(
     "/",
     views.get_all,
     methods=["GET"],
-    summary="Dapatkan semua file",
+    summary="Daftar file",
     response_model=Page[schemas.MediaSchema],
 )
 media_router.add_api_route(

@@ -15,6 +15,6 @@ payment_router.add_api_route(
     "/active",
     views.get_all_active_payment_methods,
     methods=["GET"],
-    summary="Mendapatkan semua payment method yang aktif",
+    summary="Daftar payment method yang aktif",
     response_model=List[schemas.PublicPaymentMethodOut],
 )

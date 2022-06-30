@@ -8,14 +8,14 @@ channel_router.add_api_route(
     "/",
     views.get_all,
     methods=["GET"],
-    summary="Mendapatkan semua payment channel",
+    summary="Daftar payment channel",
     response_model=Page[schemas.PaymentChannel],
 )
 channel_router.add_api_route(
     "/{id}",
     views.get_one,
     methods=["GET"],
-    summary="Dapaatkan rincian payment channel",
+    summary="Dapatkan rincian payment channel",
     response_model=schemas.PaymentChannel,
 )
 channel_router.add_api_route(

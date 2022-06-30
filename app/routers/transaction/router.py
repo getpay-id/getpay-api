@@ -8,7 +8,7 @@ transaction_router.add_api_route(
     "/",
     views.get_all,
     methods=["GET"],
-    summary="Mendapatkan semua transaksi",
+    summary="Daftar transaksi",
     response_model=Page[schemas.TransactionOut],
 )
 transaction_router.add_api_route(

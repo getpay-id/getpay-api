@@ -8,7 +8,7 @@ gateway_router.add_api_route(
     "/",
     views.get_all,
     methods=["GET"],
-    summary="Mendapatkan semua payment gateway",
+    summary="Daftar payment gateway",
     response_model=Page[schemas.PaymentGatewaySchema],
 )
 gateway_router.add_api_route(
