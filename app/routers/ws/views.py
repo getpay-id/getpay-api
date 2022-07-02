@@ -8,10 +8,12 @@ from app.extensions.cache import redis_cache
 
 class GetTransactionStatus(BaseWebSocket):
     async def on_receive(self, websocket: WebSocket, data: dict) -> None:
-        await super().on_receive(websocket, data)
+        if not isinstance(data, dict):
+            await self.throw(websocket, status.WS_1007_INVALID_FRAME_PAYLOAD_DATA)
+
         trans_id = data.get("id")
         if not trans_id:
-            await self.throw(status.WS_1003_UNSUPPORTED_DATA)
+            await self.throw(websocket, status.WS_1003_UNSUPPORTED_DATA)
 
         pubsub = redis_cache.pubsub()
         async with pubsub as ps:
