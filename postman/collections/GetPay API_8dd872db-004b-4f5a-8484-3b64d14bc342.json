@@ -224,62 +224,38 @@
 			"name": "Payment",
 			"item": [
 				{
-					"name": "Mendapatkan semua payment gateway",
-					"id": "67a84882-63ba-4d7e-90db-34caa3d9954e",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/v1/payment/gateway/?page=1&size=10&sort_by=<integer>",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v1",
-								"payment",
-								"gateway",
-								""
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1",
-									"description": "Page number"
-								},
-								{
-									"key": "size",
-									"value": "10",
-									"description": "Page size"
-								},
-								{
-									"key": "sort_by",
-									"value": "<integer>",
-									"description": "Sort by ASCENDING (1) or DESCENDING (-1)"
-								}
-							]
-						},
-						"description": "Mendapatkan semua payment gateway."
-					},
-					"response": [
+					"name": "Gateway",
+					"item": [
 						{
-							"id": "1295405b-3a28-441c-a229-4d6770c4a12a",
-							"name": "Successful Response",
-							"originalRequest": {
+							"name": "Daftar payment gateway",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "48383ae4-3643-4763-b80a-d7c7056eeddb",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"    var jsonData = pm.response.json();",
+											"    var payment_gateway = jsonData.data[jsonData.data.length * Math.random() | 0]",
+											"    pm.collectionVariables.set(\"pg_id\", payment_gateway.id)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "67a84882-63ba-4d7e-90db-34caa3d9954e",
+							"request": {
 								"method": "GET",
 								"header": [
 									{
-										"description": "Added as a part of security scheme: oauth2",
-										"key": "Authorization",
-										"value": "<token>"
+										"key": "Accept",
+										"value": "application/json"
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/v1/payment/gateway/?page=1&size=10&sort_by=<integer>",
+									"raw": "{{baseUrl}}/v1/payment/gateway/?page=1&size=10&sort_by=-1",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -292,146 +268,146 @@
 									"query": [
 										{
 											"key": "page",
-											"value": "1"
+											"value": "1",
+											"description": "Page number"
 										},
 										{
 											"key": "size",
-											"value": "10"
+											"value": "10",
+											"description": "Page size"
 										},
 										{
 											"key": "sort_by",
-											"value": "<integer>"
+											"value": "-1",
+											"description": "Sort by ASCENDING (1) or DESCENDING (-1)"
 										}
 									]
-								}
+								},
+								"description": "Mendapatkan semua payment gateway."
 							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
+							"response": [
 								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"responseTime": null,
-							"body": "{\n  \"total\": 74731418,\n  \"data\": [\n    {\n      \"id\": \"Duis elit culpa\",\n      \"date_created\": \"2009-06-08T03:35:40.368Z\",\n      \"name\": \"do amet\",\n      \"status\": 0,\n      \"date_updated\": \"2012-04-10T01:47:56.317Z\"\n    },\n    {\n      \"id\": \"proident quis deserunt labore\",\n      \"date_created\": \"2018-11-30T06:09:58.049Z\",\n      \"name\": \"Ut dolore voluptate Lorem\",\n      \"status\": 0,\n      \"date_updated\": \"2012-05-20T13:24:05.864Z\"\n    }\n  ]\n}"
-						},
-						{
-							"id": "019178c6-258e-45b9-b590-7168806258f7",
-							"name": "Validation Error",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"description": "Added as a part of security scheme: oauth2",
-										"key": "Authorization",
-										"value": "<token>"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/v1/payment/gateway/?page=1&size=10&sort_by=<integer>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v1",
-										"payment",
-										"gateway",
-										""
-									],
-									"query": [
-										{
-											"key": "page",
-											"value": "1"
-										},
-										{
-											"key": "size",
-											"value": "10"
-										},
-										{
-											"key": "sort_by",
-											"value": "<integer>"
+									"id": "1295405b-3a28-441c-a229-4d6770c4a12a",
+									"name": "Successful Response",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: oauth2",
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v1/payment/gateway/?page=1&size=10&sort_by=<integer>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1",
+												"payment",
+												"gateway",
+												""
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "1"
+												},
+												{
+													"key": "size",
+													"value": "10"
+												},
+												{
+													"key": "sort_by",
+													"value": "<integer>"
+												}
+											]
 										}
-									]
-								}
-							},
-							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-							"code": 422,
-							"_postman_previewlanguage": "json",
-							"header": [
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n  \"total\": 74731418,\n  \"data\": [\n    {\n      \"id\": \"Duis elit culpa\",\n      \"date_created\": \"2009-06-08T03:35:40.368Z\",\n      \"name\": \"do amet\",\n      \"status\": 0,\n      \"date_updated\": \"2012-04-10T01:47:56.317Z\"\n    },\n    {\n      \"id\": \"proident quis deserunt labore\",\n      \"date_created\": \"2018-11-30T06:09:58.049Z\",\n      \"name\": \"Ut dolore voluptate Lorem\",\n      \"status\": 0,\n      \"date_updated\": \"2012-05-20T13:24:05.864Z\"\n    }\n  ]\n}"
+								},
 								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"responseTime": null,
-							"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"ea consectetur\",\n        \"ex\"\n      ],\n      \"msg\": \"dolore aliquip exercitation qui\",\n      \"type\": \"exercitation in\"\n    },\n    {\n      \"loc\": [\n        \"aliquip est\",\n        \"non reprehenderit Lorem\"\n      ],\n      \"msg\": \"dolore ut sit aliquip\",\n      \"type\": \"tempor moll\"\n    }\n  ]\n}"
-						}
-					]
-				},
-				{
-					"name": "Perbarui payment gateway",
-					"id": "06425177-f72f-49de-b3fa-c0ae9a279483",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"status\": 0\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/v1/payment/gateway/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v1",
-								"payment",
-								"gateway",
-								":id"
-							],
-							"variable": [
-								{
-									"id": "0322d15a-fd31-4d27-8446-f4bb7c51f354",
-									"key": "id",
-									"value": "ipsum d",
-									"description": "(Required) "
+									"id": "019178c6-258e-45b9-b590-7168806258f7",
+									"name": "Validation Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: oauth2",
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v1/payment/gateway/?page=1&size=10&sort_by=<integer>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1",
+												"payment",
+												"gateway",
+												""
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "1"
+												},
+												{
+													"key": "size",
+													"value": "10"
+												},
+												{
+													"key": "sort_by",
+													"value": "<integer>"
+												}
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"ea consectetur\",\n        \"ex\"\n      ],\n      \"msg\": \"dolore aliquip exercitation qui\",\n      \"type\": \"exercitation in\"\n    },\n    {\n      \"loc\": [\n        \"aliquip est\",\n        \"non reprehenderit Lorem\"\n      ],\n      \"msg\": \"dolore ut sit aliquip\",\n      \"type\": \"tempor moll\"\n    }\n  ]\n}"
 								}
 							]
 						},
-						"description": "Perbarui status payment gateway.\n\nParameters:\n\n* `status`: Status payment gateway. (0 = inactive, 1 = active)"
-					},
-					"response": [
 						{
-							"id": "8216a261-d7ac-44c9-a727-3521c6c60207",
-							"name": "Successful Response",
-							"originalRequest": {
+							"name": "Perbarui payment gateway",
+							"id": "06425177-f72f-49de-b3fa-c0ae9a279483",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
 								"method": "PUT",
 								"header": [
 									{
-										"description": "Added as a part of security scheme: oauth2",
-										"key": "Authorization",
-										"value": "<token>"
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
 									}
 								],
 								"body": {
@@ -457,139 +433,139 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "ipsum d",
+											"value": "{{pg_id}}",
 											"description": "(Required) "
 										}
 									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"responseTime": null,
-							"body": "{\n  \"id\": \"sunt Duis est\",\n  \"date_created\": \"1974-07-26T21:29:42.019Z\",\n  \"name\": \"ea\",\n  \"status\": 0,\n  \"date_updated\": \"1981-05-28T15:27:29.799Z\"\n}"
-						},
-						{
-							"id": "352ddb51-1ab3-4b2c-9c90-d4d7aca601a7",
-							"name": "Validation Error",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [
-									{
-										"description": "Added as a part of security scheme: oauth2",
-										"key": "Authorization",
-										"value": "<token>"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"status\": 0\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/v1/payment/gateway/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v1",
-										"payment",
-										"gateway",
-										":id"
-									],
-									"variable": [
+								"description": "Perbarui status payment gateway.\n\nParameters:\n\n* `status`: Status payment gateway. (0 = inactive, 1 = active)"
+							},
+							"response": [
+								{
+									"id": "8216a261-d7ac-44c9-a727-3521c6c60207",
+									"name": "Successful Response",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: oauth2",
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"status\": 0\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/v1/payment/gateway/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1",
+												"payment",
+												"gateway",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "ipsum d",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
 										{
-											"key": "id",
-											"value": "ipsum d",
-											"description": "(Required) "
+											"key": "Content-Type",
+											"value": "application/json"
 										}
-									]
-								}
-							},
-							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-							"code": 422,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"responseTime": null,
-							"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"ea consectetur\",\n        \"ex\"\n      ],\n      \"msg\": \"dolore aliquip exercitation qui\",\n      \"type\": \"exercitation in\"\n    },\n    {\n      \"loc\": [\n        \"aliquip est\",\n        \"non reprehenderit Lorem\"\n      ],\n      \"msg\": \"dolore ut sit aliquip\",\n      \"type\": \"tempor moll\"\n    }\n  ]\n}"
-						}
-					]
-				},
-				{
-					"name": "Mendapatkan semua payment method",
-					"id": "216e3254-8f66-419e-b56b-ab74bfe9de56",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/v1/payment/method/?pg_id=dolor Lorem do sint ut&page=1&size=10&sort_by=<integer>",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v1",
-								"payment",
-								"method",
-								""
-							],
-							"query": [
-								{
-									"key": "pg_id",
-									"value": "dolor Lorem do sint ut",
-									"description": "(Required) Payment gateway ID"
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n  \"id\": \"sunt Duis est\",\n  \"date_created\": \"1974-07-26T21:29:42.019Z\",\n  \"name\": \"ea\",\n  \"status\": 0,\n  \"date_updated\": \"1981-05-28T15:27:29.799Z\"\n}"
 								},
 								{
-									"key": "page",
-									"value": "1",
-									"description": "Page number"
-								},
-								{
-									"key": "size",
-									"value": "10",
-									"description": "Page size"
-								},
-								{
-									"key": "sort_by",
-									"value": "<integer>",
-									"description": "Sort by ASCENDING (1) or DESCENDING (-1)"
+									"id": "352ddb51-1ab3-4b2c-9c90-d4d7aca601a7",
+									"name": "Validation Error",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: oauth2",
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"status\": 0\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/v1/payment/gateway/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1",
+												"payment",
+												"gateway",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "ipsum d",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"ea consectetur\",\n        \"ex\"\n      ],\n      \"msg\": \"dolore aliquip exercitation qui\",\n      \"type\": \"exercitation in\"\n    },\n    {\n      \"loc\": [\n        \"aliquip est\",\n        \"non reprehenderit Lorem\"\n      ],\n      \"msg\": \"dolore ut sit aliquip\",\n      \"type\": \"tempor moll\"\n    }\n  ]\n}"
 								}
 							]
-						},
-						"description": "Mendapatkan semua payment methods."
-					},
-					"response": [
+						}
+					],
+					"id": "de53119e-cd4c-433d-98e6-e5e0a3fcd086"
+				},
+				{
+					"name": "Method",
+					"item": [
 						{
-							"id": "95d3f929-4a7a-41e9-a975-d3671d76ab64",
-							"name": "Successful Response",
-							"originalRequest": {
+							"name": "Daftar payment method",
+							"id": "216e3254-8f66-419e-b56b-ab74bfe9de56",
+							"request": {
 								"method": "GET",
 								"header": [
 									{
-										"description": "Added as a part of security scheme: oauth2",
-										"key": "Authorization",
-										"value": "<token>"
+										"key": "Accept",
+										"value": "application/json"
 									}
 								],
 								"url": {
@@ -606,299 +582,159 @@
 									"query": [
 										{
 											"key": "pg_id",
-											"value": "dolor Lorem do sint ut"
+											"value": "dolor Lorem do sint ut",
+											"description": "(Required) Payment gateway ID"
 										},
 										{
 											"key": "page",
-											"value": "1"
+											"value": "1",
+											"description": "Page number"
 										},
 										{
 											"key": "size",
-											"value": "10"
+											"value": "10",
+											"description": "Page size"
 										},
 										{
 											"key": "sort_by",
-											"value": "<integer>"
+											"value": "<integer>",
+											"description": "Sort by ASCENDING (1) or DESCENDING (-1)"
 										}
 									]
-								}
+								},
+								"description": "Mendapatkan semua payment methods."
 							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
+							"response": [
 								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"responseTime": null,
-							"body": "{\n  \"total\": 43335810,\n  \"data\": [\n    {\n      \"id\": \"eiusmod reprehenderit ipsum ullamco\",\n      \"date_created\": \"1966-07-02T13:09:47.939Z\",\n      \"code\": \"elit eu ullamco magna quis\",\n      \"name\": \"cillu\",\n      \"status\": 79455125,\n      \"date_updated\": \"1967-12-13T11:34:57.809Z\"\n    },\n    {\n      \"id\": \"magna\",\n      \"date_created\": \"1949-01-21T01:14:14.923Z\",\n      \"code\": \"velit amet labore deserunt\",\n      \"name\": \"elit dolore\",\n      \"status\": -97194941,\n      \"date_updated\": \"1965-01-02T02:48:54.695Z\"\n    }\n  ]\n}"
-						},
-						{
-							"id": "d91bf30d-e6ff-45f5-8666-8ace3c324daf",
-							"name": "Validation Error",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"description": "Added as a part of security scheme: oauth2",
-										"key": "Authorization",
-										"value": "<token>"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/v1/payment/method/?pg_id=dolor Lorem do sint ut&page=1&size=10&sort_by=<integer>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v1",
-										"payment",
-										"method",
-										""
-									],
-									"query": [
-										{
-											"key": "pg_id",
-											"value": "dolor Lorem do sint ut"
-										},
-										{
-											"key": "page",
-											"value": "1"
-										},
-										{
-											"key": "size",
-											"value": "10"
-										},
-										{
-											"key": "sort_by",
-											"value": "<integer>"
+									"id": "95d3f929-4a7a-41e9-a975-d3671d76ab64",
+									"name": "Successful Response",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: oauth2",
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v1/payment/method/?pg_id=dolor Lorem do sint ut&page=1&size=10&sort_by=<integer>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1",
+												"payment",
+												"method",
+												""
+											],
+											"query": [
+												{
+													"key": "pg_id",
+													"value": "dolor Lorem do sint ut"
+												},
+												{
+													"key": "page",
+													"value": "1"
+												},
+												{
+													"key": "size",
+													"value": "10"
+												},
+												{
+													"key": "sort_by",
+													"value": "<integer>"
+												}
+											]
 										}
-									]
-								}
-							},
-							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-							"code": 422,
-							"_postman_previewlanguage": "json",
-							"header": [
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n  \"total\": 43335810,\n  \"data\": [\n    {\n      \"id\": \"eiusmod reprehenderit ipsum ullamco\",\n      \"date_created\": \"1966-07-02T13:09:47.939Z\",\n      \"code\": \"elit eu ullamco magna quis\",\n      \"name\": \"cillu\",\n      \"status\": 79455125,\n      \"date_updated\": \"1967-12-13T11:34:57.809Z\"\n    },\n    {\n      \"id\": \"magna\",\n      \"date_created\": \"1949-01-21T01:14:14.923Z\",\n      \"code\": \"velit amet labore deserunt\",\n      \"name\": \"elit dolore\",\n      \"status\": -97194941,\n      \"date_updated\": \"1965-01-02T02:48:54.695Z\"\n    }\n  ]\n}"
+								},
 								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"responseTime": null,
-							"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"ea consectetur\",\n        \"ex\"\n      ],\n      \"msg\": \"dolore aliquip exercitation qui\",\n      \"type\": \"exercitation in\"\n    },\n    {\n      \"loc\": [\n        \"aliquip est\",\n        \"non reprehenderit Lorem\"\n      ],\n      \"msg\": \"dolore ut sit aliquip\",\n      \"type\": \"tempor moll\"\n    }\n  ]\n}"
-						}
-					]
-				},
-				{
-					"name": "Dapaatkan rincian payment method",
-					"id": "ba6c0de7-1c04-41ad-afd5-44a9ba6c9534",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/v1/payment/method/:id?pg_id=dolor Lorem do sint ut",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v1",
-								"payment",
-								"method",
-								":id"
-							],
-							"query": [
-								{
-									"key": "pg_id",
-									"value": "dolor Lorem do sint ut",
-									"description": "(Required) Payment gateway ID"
-								}
-							],
-							"variable": [
-								{
-									"id": "592392df-2d64-413b-934f-cfd1d6c8a53f",
-									"key": "id",
-									"value": "deserunt commodo Duis",
-									"description": "(Required) Payment method ID"
+									"id": "d91bf30d-e6ff-45f5-8666-8ace3c324daf",
+									"name": "Validation Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: oauth2",
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v1/payment/method/?pg_id=dolor Lorem do sint ut&page=1&size=10&sort_by=<integer>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1",
+												"payment",
+												"method",
+												""
+											],
+											"query": [
+												{
+													"key": "pg_id",
+													"value": "dolor Lorem do sint ut"
+												},
+												{
+													"key": "page",
+													"value": "1"
+												},
+												{
+													"key": "size",
+													"value": "10"
+												},
+												{
+													"key": "sort_by",
+													"value": "<integer>"
+												}
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"ea consectetur\",\n        \"ex\"\n      ],\n      \"msg\": \"dolore aliquip exercitation qui\",\n      \"type\": \"exercitation in\"\n    },\n    {\n      \"loc\": [\n        \"aliquip est\",\n        \"non reprehenderit Lorem\"\n      ],\n      \"msg\": \"dolore ut sit aliquip\",\n      \"type\": \"tempor moll\"\n    }\n  ]\n}"
 								}
 							]
 						},
-						"description": "Mendapatkan rincian payment method."
-					},
-					"response": [
 						{
-							"id": "c9187f4e-eeef-4310-b113-904e40f37281",
-							"name": "Successful Response",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"description": "Added as a part of security scheme: oauth2",
-										"key": "Authorization",
-										"value": "<token>"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/v1/payment/method/:id?pg_id=dolor Lorem do sint ut",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v1",
-										"payment",
-										"method",
-										":id"
-									],
-									"query": [
-										{
-											"key": "pg_id",
-											"value": "dolor Lorem do sint ut"
-										}
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "deserunt commodo Duis",
-											"description": "(Required) Payment method ID"
-										}
-									]
-								}
+							"name": "Perbarui payment method",
+							"id": "e43054e6-1271-4f87-9d56-bf291a934f7c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
 							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"responseTime": null,
-							"body": "{\n  \"id\": \"eiusmod dolore quis\",\n  \"date_created\": \"1963-01-24T02:08:49.064Z\",\n  \"code\": \"aliqua Duis in proident\",\n  \"name\": \"dolor magna ad\",\n  \"status\": -73245285,\n  \"date_updated\": \"1967-03-30T20:39:54.281Z\"\n}"
-						},
-						{
-							"id": "158a3f8a-e331-4d37-8c05-022e6d686a17",
-							"name": "Validation Error",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"description": "Added as a part of security scheme: oauth2",
-										"key": "Authorization",
-										"value": "<token>"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/v1/payment/method/:id?pg_id=dolor Lorem do sint ut",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v1",
-										"payment",
-										"method",
-										":id"
-									],
-									"query": [
-										{
-											"key": "pg_id",
-											"value": "dolor Lorem do sint ut"
-										}
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "deserunt commodo Duis",
-											"description": "(Required) Payment method ID"
-										}
-									]
-								}
-							},
-							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-							"code": 422,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"responseTime": null,
-							"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"ea consectetur\",\n        \"ex\"\n      ],\n      \"msg\": \"dolore aliquip exercitation qui\",\n      \"type\": \"exercitation in\"\n    },\n    {\n      \"loc\": [\n        \"aliquip est\",\n        \"non reprehenderit Lorem\"\n      ],\n      \"msg\": \"dolore ut sit aliquip\",\n      \"type\": \"tempor moll\"\n    }\n  ]\n}"
-						}
-					]
-				},
-				{
-					"name": "Perbarui payment method",
-					"id": "e43054e6-1271-4f87-9d56-bf291a934f7c",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"pg_id\": \"nostrud\",\n  \"status\": 0\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/v1/payment/method/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v1",
-								"payment",
-								"method",
-								":id"
-							],
-							"variable": [
-								{
-									"id": "98049d6d-6fc4-4da6-9343-09763bc95713",
-									"key": "id",
-									"value": "deserunt commodo Duis",
-									"description": "(Required) Payment method ID"
-								}
-							]
-						},
-						"description": "Perbarui status payment method.\n\nParameters:\n\n* `pg_id`: ID payment gateway.\n\n* `status`: Status payment method. (0 = inactive, 1 = active)"
-					},
-					"response": [
-						{
-							"id": "3076e8ae-e11b-492e-8bdb-d802cbceb655",
-							"name": "Successful Response",
-							"originalRequest": {
+							"request": {
 								"method": "PUT",
 								"header": [
 									{
-										"description": "Added as a part of security scheme: oauth2",
-										"key": "Authorization",
-										"value": "<token>"
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
 									}
 								],
 								"body": {
@@ -923,49 +759,139 @@
 									],
 									"variable": [
 										{
+											"id": "98049d6d-6fc4-4da6-9343-09763bc95713",
 											"key": "id",
 											"value": "deserunt commodo Duis",
 											"description": "(Required) Payment method ID"
 										}
 									]
-								}
+								},
+								"description": "Perbarui status payment method.\n\nParameters:\n\n* `pg_id`: ID payment gateway.\n\n* `status`: Status payment method. (0 = inactive, 1 = active)"
 							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
+							"response": [
 								{
-									"key": "Content-Type",
-									"value": "application/json"
+									"id": "3076e8ae-e11b-492e-8bdb-d802cbceb655",
+									"name": "Successful Response",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: oauth2",
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"pg_id\": \"nostrud\",\n  \"status\": 0\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/v1/payment/method/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1",
+												"payment",
+												"method",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "deserunt commodo Duis",
+													"description": "(Required) Payment method ID"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n  \"id\": \"eiusmod dolore quis\",\n  \"date_created\": \"1963-01-24T02:08:49.064Z\",\n  \"code\": \"aliqua Duis in proident\",\n  \"name\": \"dolor magna ad\",\n  \"status\": -73245285,\n  \"date_updated\": \"1967-03-30T20:39:54.281Z\"\n}"
+								},
+								{
+									"id": "8ab7cb1c-0acd-491c-a0db-5acfa1f7011e",
+									"name": "Validation Error",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: oauth2",
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"pg_id\": \"nostrud\",\n  \"status\": 0\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/v1/payment/method/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1",
+												"payment",
+												"method",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "deserunt commodo Duis",
+													"description": "(Required) Payment method ID"
+												}
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"ea consectetur\",\n        \"ex\"\n      ],\n      \"msg\": \"dolore aliquip exercitation qui\",\n      \"type\": \"exercitation in\"\n    },\n    {\n      \"loc\": [\n        \"aliquip est\",\n        \"non reprehenderit Lorem\"\n      ],\n      \"msg\": \"dolore ut sit aliquip\",\n      \"type\": \"tempor moll\"\n    }\n  ]\n}"
 								}
-							],
-							"cookie": [],
-							"responseTime": null,
-							"body": "{\n  \"id\": \"eiusmod dolore quis\",\n  \"date_created\": \"1963-01-24T02:08:49.064Z\",\n  \"code\": \"aliqua Duis in proident\",\n  \"name\": \"dolor magna ad\",\n  \"status\": -73245285,\n  \"date_updated\": \"1967-03-30T20:39:54.281Z\"\n}"
+							]
 						},
 						{
-							"id": "8ab7cb1c-0acd-491c-a0db-5acfa1f7011e",
-							"name": "Validation Error",
-							"originalRequest": {
-								"method": "PUT",
+							"name": "Dapaatkan rincian payment method",
+							"id": "ba6c0de7-1c04-41ad-afd5-44a9ba6c9534",
+							"request": {
+								"method": "GET",
 								"header": [
 									{
-										"description": "Added as a part of security scheme: oauth2",
-										"key": "Authorization",
-										"value": "<token>"
+										"key": "Accept",
+										"value": "application/json"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"pg_id\": \"nostrud\",\n  \"status\": 0\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
-									"raw": "{{baseUrl}}/v1/payment/method/:id",
+									"raw": "{{baseUrl}}/v1/payment/method/:id?pg_id=dolor Lorem do sint ut",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -975,88 +901,144 @@
 										"method",
 										":id"
 									],
+									"query": [
+										{
+											"key": "pg_id",
+											"value": "dolor Lorem do sint ut",
+											"description": "(Required) Payment gateway ID"
+										}
+									],
 									"variable": [
 										{
+											"id": "592392df-2d64-413b-934f-cfd1d6c8a53f",
 											"key": "id",
 											"value": "deserunt commodo Duis",
 											"description": "(Required) Payment method ID"
 										}
 									]
-								}
+								},
+								"description": "Mendapatkan rincian payment method."
 							},
-							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-							"code": 422,
-							"_postman_previewlanguage": "json",
-							"header": [
+							"response": [
 								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"responseTime": null,
-							"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"ea consectetur\",\n        \"ex\"\n      ],\n      \"msg\": \"dolore aliquip exercitation qui\",\n      \"type\": \"exercitation in\"\n    },\n    {\n      \"loc\": [\n        \"aliquip est\",\n        \"non reprehenderit Lorem\"\n      ],\n      \"msg\": \"dolore ut sit aliquip\",\n      \"type\": \"tempor moll\"\n    }\n  ]\n}"
-						}
-					]
-				},
-				{
-					"name": "Mendapatkan semua payment channel",
-					"id": "a07ea5d7-82f2-49f9-bea3-1af23b9786e1",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/v1/payment/channel/?id=tempor laboris pariatur dolore&page=1&size=10&sort_by=<integer>",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v1",
-								"payment",
-								"channel",
-								""
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "tempor laboris pariatur dolore",
-									"description": "(Required) Payment Method ID"
+									"id": "c9187f4e-eeef-4310-b113-904e40f37281",
+									"name": "Successful Response",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: oauth2",
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v1/payment/method/:id?pg_id=dolor Lorem do sint ut",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1",
+												"payment",
+												"method",
+												":id"
+											],
+											"query": [
+												{
+													"key": "pg_id",
+													"value": "dolor Lorem do sint ut"
+												}
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "deserunt commodo Duis",
+													"description": "(Required) Payment method ID"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n  \"id\": \"eiusmod dolore quis\",\n  \"date_created\": \"1963-01-24T02:08:49.064Z\",\n  \"code\": \"aliqua Duis in proident\",\n  \"name\": \"dolor magna ad\",\n  \"status\": -73245285,\n  \"date_updated\": \"1967-03-30T20:39:54.281Z\"\n}"
 								},
 								{
-									"key": "page",
-									"value": "1",
-									"description": "Page number"
-								},
-								{
-									"key": "size",
-									"value": "10",
-									"description": "Page size"
-								},
-								{
-									"key": "sort_by",
-									"value": "<integer>",
-									"description": "Sort by ASCENDING (1) or DESCENDING (-1)"
+									"id": "158a3f8a-e331-4d37-8c05-022e6d686a17",
+									"name": "Validation Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: oauth2",
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v1/payment/method/:id?pg_id=dolor Lorem do sint ut",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1",
+												"payment",
+												"method",
+												":id"
+											],
+											"query": [
+												{
+													"key": "pg_id",
+													"value": "dolor Lorem do sint ut"
+												}
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "deserunt commodo Duis",
+													"description": "(Required) Payment method ID"
+												}
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"ea consectetur\",\n        \"ex\"\n      ],\n      \"msg\": \"dolore aliquip exercitation qui\",\n      \"type\": \"exercitation in\"\n    },\n    {\n      \"loc\": [\n        \"aliquip est\",\n        \"non reprehenderit Lorem\"\n      ],\n      \"msg\": \"dolore ut sit aliquip\",\n      \"type\": \"tempor moll\"\n    }\n  ]\n}"
 								}
 							]
-						},
-						"description": "Mendapatkan semua payment channel di payment methods."
-					},
-					"response": [
+						}
+					],
+					"id": "dca7f1f0-386f-4830-8257-37cba5f6f105"
+				},
+				{
+					"name": "Channel",
+					"item": [
 						{
-							"id": "b924cd87-20ad-4b6b-8d27-f8333b510333",
-							"name": "Successful Response",
-							"originalRequest": {
+							"name": "Daftar payment channel",
+							"id": "a07ea5d7-82f2-49f9-bea3-1af23b9786e1",
+							"request": {
 								"method": "GET",
 								"header": [
 									{
-										"description": "Added as a part of security scheme: oauth2",
-										"key": "Authorization",
-										"value": "<token>"
+										"key": "Accept",
+										"value": "application/json"
 									}
 								],
 								"url": {
@@ -1073,138 +1055,152 @@
 									"query": [
 										{
 											"key": "id",
-											"value": "tempor laboris pariatur dolore"
+											"value": "tempor laboris pariatur dolore",
+											"description": "(Required) Payment Method ID"
 										},
 										{
 											"key": "page",
-											"value": "1"
+											"value": "1",
+											"description": "Page number"
 										},
 										{
 											"key": "size",
-											"value": "10"
+											"value": "10",
+											"description": "Page size"
 										},
 										{
 											"key": "sort_by",
-											"value": "<integer>"
+											"value": "<integer>",
+											"description": "Sort by ASCENDING (1) or DESCENDING (-1)"
 										}
 									]
-								}
+								},
+								"description": "Mendapatkan semua payment channel di payment methods."
 							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
+							"response": [
 								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"responseTime": null,
-							"body": "{\n  \"total\": -26230239,\n  \"data\": [\n    {\n      \"id\": \"ex Duis laboris aliqua\",\n      \"date_created\": \"1961-06-09T00:14:41.084Z\",\n      \"pm_id\": \"Ut\",\n      \"name\": \"dolore adipisicing officia\",\n      \"unique_code\": \"nostrud ut laboris\",\n      \"status\": 0,\n      \"date_updated\": \"2011-10-31T00:39:37.984Z\",\n      \"fee\": -86602135,\n      \"fee_percent\": 3812377.4517008364,\n      \"min_amount\": -30594665\n    },\n    {\n      \"id\": \"Exc\",\n      \"date_created\": \"2007-10-24T18:17:55.770Z\",\n      \"pm_id\": \"nisi nulla\",\n      \"name\": \"irure qui\",\n      \"unique_code\": \"sint\",\n      \"status\": 0,\n      \"date_updated\": \"2007-10-30T05:19:31.728Z\",\n      \"fee\": 64136722,\n      \"fee_percent\": -76958375.60257414,\n      \"min_amount\": -91776773\n    }\n  ]\n}"
-						},
-						{
-							"id": "0c142cd1-1729-42a4-8f7d-2d8f3fe6a1cd",
-							"name": "Validation Error",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"description": "Added as a part of security scheme: oauth2",
-										"key": "Authorization",
-										"value": "<token>"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/v1/payment/channel/?id=tempor laboris pariatur dolore&page=1&size=10&sort_by=<integer>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v1",
-										"payment",
-										"channel",
-										""
-									],
-									"query": [
-										{
-											"key": "id",
-											"value": "tempor laboris pariatur dolore"
-										},
-										{
-											"key": "page",
-											"value": "1"
-										},
-										{
-											"key": "size",
-											"value": "10"
-										},
-										{
-											"key": "sort_by",
-											"value": "<integer>"
+									"id": "b924cd87-20ad-4b6b-8d27-f8333b510333",
+									"name": "Successful Response",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: oauth2",
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v1/payment/channel/?id=tempor laboris pariatur dolore&page=1&size=10&sort_by=<integer>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1",
+												"payment",
+												"channel",
+												""
+											],
+											"query": [
+												{
+													"key": "id",
+													"value": "tempor laboris pariatur dolore"
+												},
+												{
+													"key": "page",
+													"value": "1"
+												},
+												{
+													"key": "size",
+													"value": "10"
+												},
+												{
+													"key": "sort_by",
+													"value": "<integer>"
+												}
+											]
 										}
-									]
-								}
-							},
-							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-							"code": 422,
-							"_postman_previewlanguage": "json",
-							"header": [
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n  \"total\": -26230239,\n  \"data\": [\n    {\n      \"id\": \"ex Duis laboris aliqua\",\n      \"date_created\": \"1961-06-09T00:14:41.084Z\",\n      \"pm_id\": \"Ut\",\n      \"name\": \"dolore adipisicing officia\",\n      \"unique_code\": \"nostrud ut laboris\",\n      \"status\": 0,\n      \"date_updated\": \"2011-10-31T00:39:37.984Z\",\n      \"fee\": -86602135,\n      \"fee_percent\": 3812377.4517008364,\n      \"min_amount\": -30594665\n    },\n    {\n      \"id\": \"Exc\",\n      \"date_created\": \"2007-10-24T18:17:55.770Z\",\n      \"pm_id\": \"nisi nulla\",\n      \"name\": \"irure qui\",\n      \"unique_code\": \"sint\",\n      \"status\": 0,\n      \"date_updated\": \"2007-10-30T05:19:31.728Z\",\n      \"fee\": 64136722,\n      \"fee_percent\": -76958375.60257414,\n      \"min_amount\": -91776773\n    }\n  ]\n}"
+								},
 								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"responseTime": null,
-							"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"ea consectetur\",\n        \"ex\"\n      ],\n      \"msg\": \"dolore aliquip exercitation qui\",\n      \"type\": \"exercitation in\"\n    },\n    {\n      \"loc\": [\n        \"aliquip est\",\n        \"non reprehenderit Lorem\"\n      ],\n      \"msg\": \"dolore ut sit aliquip\",\n      \"type\": \"tempor moll\"\n    }\n  ]\n}"
-						}
-					]
-				},
-				{
-					"name": "Dapaatkan rincian payment channel",
-					"id": "9d430296-97e2-49d3-ad24-344b527f97af",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/v1/payment/channel/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v1",
-								"payment",
-								"channel",
-								":id"
-							],
-							"variable": [
-								{
-									"id": "15c99413-74cb-41c8-93c7-863a01ea8099",
-									"key": "id",
-									"value": "anim ullamco incididu",
-									"description": "(Required) Payment Channel ID"
+									"id": "0c142cd1-1729-42a4-8f7d-2d8f3fe6a1cd",
+									"name": "Validation Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: oauth2",
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v1/payment/channel/?id=tempor laboris pariatur dolore&page=1&size=10&sort_by=<integer>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1",
+												"payment",
+												"channel",
+												""
+											],
+											"query": [
+												{
+													"key": "id",
+													"value": "tempor laboris pariatur dolore"
+												},
+												{
+													"key": "page",
+													"value": "1"
+												},
+												{
+													"key": "size",
+													"value": "10"
+												},
+												{
+													"key": "sort_by",
+													"value": "<integer>"
+												}
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"ea consectetur\",\n        \"ex\"\n      ],\n      \"msg\": \"dolore aliquip exercitation qui\",\n      \"type\": \"exercitation in\"\n    },\n    {\n      \"loc\": [\n        \"aliquip est\",\n        \"non reprehenderit Lorem\"\n      ],\n      \"msg\": \"dolore ut sit aliquip\",\n      \"type\": \"tempor moll\"\n    }\n  ]\n}"
 								}
 							]
 						},
-						"description": "Mendapatkan rincian payment channel."
-					},
-					"response": [
 						{
-							"id": "16ba1b93-3095-4f47-8561-2b0e8d669181",
-							"name": "Successful Response",
-							"originalRequest": {
+							"name": "Dapatkan rincian payment channel",
+							"id": "9d430296-97e2-49d3-ad24-344b527f97af",
+							"request": {
 								"method": "GET",
 								"header": [
 									{
-										"description": "Added as a part of security scheme: oauth2",
-										"key": "Authorization",
-										"value": "<token>"
+										"key": "Accept",
+										"value": "application/json"
 									}
 								],
 								"url": {
@@ -1220,133 +1216,124 @@
 									],
 									"variable": [
 										{
+											"id": "15c99413-74cb-41c8-93c7-863a01ea8099",
 											"key": "id",
 											"value": "anim ullamco incididu",
 											"description": "(Required) Payment Channel ID"
 										}
 									]
-								}
+								},
+								"description": "Mendapatkan rincian payment channel."
 							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
+							"response": [
 								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"responseTime": null,
-							"body": "{\n  \"id\": \"consequat\",\n  \"date_created\": \"1959-07-18T12:28:42.745Z\",\n  \"pm_id\": \"amet\",\n  \"name\": \"sint dolor\",\n  \"unique_code\": \"dolor et sed proident consectetur\",\n  \"status\": 0,\n  \"date_updated\": \"2014-05-17T07:23:19.897Z\",\n  \"fee\": 342543,\n  \"fee_percent\": -88243283.27242537,\n  \"min_amount\": 12449568\n}"
-						},
-						{
-							"id": "c905642e-0f2e-4a4b-b835-4b6a8bc74658",
-							"name": "Validation Error",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"description": "Added as a part of security scheme: oauth2",
-										"key": "Authorization",
-										"value": "<token>"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/v1/payment/channel/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v1",
-										"payment",
-										"channel",
-										":id"
-									],
-									"variable": [
+									"id": "16ba1b93-3095-4f47-8561-2b0e8d669181",
+									"name": "Successful Response",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: oauth2",
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v1/payment/channel/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1",
+												"payment",
+												"channel",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "anim ullamco incididu",
+													"description": "(Required) Payment Channel ID"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
 										{
-											"key": "id",
-											"value": "anim ullamco incididu",
-											"description": "(Required) Payment Channel ID"
+											"key": "Content-Type",
+											"value": "application/json"
 										}
-									]
-								}
-							},
-							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-							"code": 422,
-							"_postman_previewlanguage": "json",
-							"header": [
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n  \"id\": \"consequat\",\n  \"date_created\": \"1959-07-18T12:28:42.745Z\",\n  \"pm_id\": \"amet\",\n  \"name\": \"sint dolor\",\n  \"unique_code\": \"dolor et sed proident consectetur\",\n  \"status\": 0,\n  \"date_updated\": \"2014-05-17T07:23:19.897Z\",\n  \"fee\": 342543,\n  \"fee_percent\": -88243283.27242537,\n  \"min_amount\": 12449568\n}"
+								},
 								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"responseTime": null,
-							"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"ea consectetur\",\n        \"ex\"\n      ],\n      \"msg\": \"dolore aliquip exercitation qui\",\n      \"type\": \"exercitation in\"\n    },\n    {\n      \"loc\": [\n        \"aliquip est\",\n        \"non reprehenderit Lorem\"\n      ],\n      \"msg\": \"dolore ut sit aliquip\",\n      \"type\": \"tempor moll\"\n    }\n  ]\n}"
-						}
-					]
-				},
-				{
-					"name": "Perbarui payment channel",
-					"id": "68b59c1b-385a-4976-803f-6278274c1aff",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"status\": 0,\n  \"name\": \"exercitation\",\n  \"fee\": 15222984,\n  \"fee_percent\": -41436460.176815346,\n  \"img\": \"http://NPNbKyUdymKTCZLMw.gmbek2f+F.n8N\",\n  \"min_amount\": -19561805\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/v1/payment/channel/:id",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v1",
-								"payment",
-								"channel",
-								":id"
-							],
-							"variable": [
-								{
-									"id": "a5ce372a-aa1c-4130-b9e1-b8909efd6f8a",
-									"key": "id",
-									"value": "anim ullamco incididu",
-									"description": "(Required) Payment Channel ID"
+									"id": "c905642e-0f2e-4a4b-b835-4b6a8bc74658",
+									"name": "Validation Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: oauth2",
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v1/payment/channel/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1",
+												"payment",
+												"channel",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "anim ullamco incididu",
+													"description": "(Required) Payment Channel ID"
+												}
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"ea consectetur\",\n        \"ex\"\n      ],\n      \"msg\": \"dolore aliquip exercitation qui\",\n      \"type\": \"exercitation in\"\n    },\n    {\n      \"loc\": [\n        \"aliquip est\",\n        \"non reprehenderit Lorem\"\n      ],\n      \"msg\": \"dolore ut sit aliquip\",\n      \"type\": \"tempor moll\"\n    }\n  ]\n}"
 								}
 							]
 						},
-						"description": "Memperbarui payment channel.\n\nParameters:\n\n* `fee`: Biaya transaksi tetap\n\n* `fee_percent`: Biaya transaksi dalam persen\n\n* `status`: Status payment channel (0 = inactive, 1 = active)\n\n* `name`: Nama payment channel\n\n* `img`: URL Gambar untuk payment channel\n\n* `min_amount`: Jumlah minimum"
-					},
-					"response": [
 						{
-							"id": "ce1e43b2-15c1-444f-8a80-d0f577a16f6f",
-							"name": "Successful Response",
-							"originalRequest": {
+							"name": "Perbarui payment channel",
+							"id": "68b59c1b-385a-4976-803f-6278274c1aff",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
 								"method": "PUT",
 								"header": [
 									{
-										"description": "Added as a part of security scheme: oauth2",
-										"key": "Authorization",
-										"value": "<token>"
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
 									}
 								],
 								"body": {
@@ -1371,84 +1358,150 @@
 									],
 									"variable": [
 										{
+											"id": "a5ce372a-aa1c-4130-b9e1-b8909efd6f8a",
 											"key": "id",
 											"value": "anim ullamco incididu",
 											"description": "(Required) Payment Channel ID"
 										}
 									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"responseTime": null,
-							"body": "{\n  \"id\": \"consequat\",\n  \"date_created\": \"1959-07-18T12:28:42.745Z\",\n  \"pm_id\": \"amet\",\n  \"name\": \"sint dolor\",\n  \"unique_code\": \"dolor et sed proident consectetur\",\n  \"status\": 0,\n  \"date_updated\": \"2014-05-17T07:23:19.897Z\",\n  \"fee\": 342543,\n  \"fee_percent\": -88243283.27242537,\n  \"min_amount\": 12449568\n}"
-						},
-						{
-							"id": "e8c0814e-561b-4a19-90d3-b9d6d994638f",
-							"name": "Validation Error",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [
-									{
-										"description": "Added as a part of security scheme: oauth2",
-										"key": "Authorization",
-										"value": "<token>"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"status\": 0,\n  \"name\": \"exercitation\",\n  \"fee\": 15222984,\n  \"fee_percent\": -41436460.176815346,\n  \"img\": \"http://NPNbKyUdymKTCZLMw.gmbek2f+F.n8N\",\n  \"min_amount\": -19561805\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/v1/payment/channel/:id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v1",
-										"payment",
-										"channel",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "anim ullamco incididu",
-											"description": "(Required) Payment Channel ID"
-										}
-									]
-								}
+								"description": "Memperbarui payment channel.\n\nParameters:\n\n* `fee`: Biaya transaksi tetap\n\n* `fee_percent`: Biaya transaksi dalam persen\n\n* `status`: Status payment channel (0 = inactive, 1 = active)\n\n* `name`: Nama payment channel\n\n* `img`: URL Gambar untuk payment channel\n\n* `min_amount`: Jumlah minimum"
 							},
-							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-							"code": 422,
-							"_postman_previewlanguage": "json",
-							"header": [
+							"response": [
 								{
-									"key": "Content-Type",
-									"value": "application/json"
+									"id": "ce1e43b2-15c1-444f-8a80-d0f577a16f6f",
+									"name": "Successful Response",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: oauth2",
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"status\": 0,\n  \"name\": \"exercitation\",\n  \"fee\": 15222984,\n  \"fee_percent\": -41436460.176815346,\n  \"img\": \"http://NPNbKyUdymKTCZLMw.gmbek2f+F.n8N\",\n  \"min_amount\": -19561805\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/v1/payment/channel/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1",
+												"payment",
+												"channel",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "anim ullamco incididu",
+													"description": "(Required) Payment Channel ID"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n  \"id\": \"consequat\",\n  \"date_created\": \"1959-07-18T12:28:42.745Z\",\n  \"pm_id\": \"amet\",\n  \"name\": \"sint dolor\",\n  \"unique_code\": \"dolor et sed proident consectetur\",\n  \"status\": 0,\n  \"date_updated\": \"2014-05-17T07:23:19.897Z\",\n  \"fee\": 342543,\n  \"fee_percent\": -88243283.27242537,\n  \"min_amount\": 12449568\n}"
+								},
+								{
+									"id": "e8c0814e-561b-4a19-90d3-b9d6d994638f",
+									"name": "Validation Error",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: oauth2",
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"status\": 0,\n  \"name\": \"exercitation\",\n  \"fee\": 15222984,\n  \"fee_percent\": -41436460.176815346,\n  \"img\": \"http://NPNbKyUdymKTCZLMw.gmbek2f+F.n8N\",\n  \"min_amount\": -19561805\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/v1/payment/channel/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1",
+												"payment",
+												"channel",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "anim ullamco incididu",
+													"description": "(Required) Payment Channel ID"
+												}
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"ea consectetur\",\n        \"ex\"\n      ],\n      \"msg\": \"dolore aliquip exercitation qui\",\n      \"type\": \"exercitation in\"\n    },\n    {\n      \"loc\": [\n        \"aliquip est\",\n        \"non reprehenderit Lorem\"\n      ],\n      \"msg\": \"dolore ut sit aliquip\",\n      \"type\": \"tempor moll\"\n    }\n  ]\n}"
 								}
-							],
-							"cookie": [],
-							"responseTime": null,
-							"body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"ea consectetur\",\n        \"ex\"\n      ],\n      \"msg\": \"dolore aliquip exercitation qui\",\n      \"type\": \"exercitation in\"\n    },\n    {\n      \"loc\": [\n        \"aliquip est\",\n        \"non reprehenderit Lorem\"\n      ],\n      \"msg\": \"dolore ut sit aliquip\",\n      \"type\": \"tempor moll\"\n    }\n  ]\n}"
+							]
 						}
-					]
+					],
+					"id": "cb840d52-fd57-4587-ab1c-3f8ba7d26fa8"
 				},
 				{
-					"name": "Mendapatkan semua payment method yang aktif",
+					"name": "Daftar payment method yang aktif",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4010f010-8848-483f-bc83-a02b4029db92",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    var paymentMethod = jsonData[jsonData.length * Math.random() | 0]",
+									"    var paymentChannel = paymentMethod.channels[paymentMethod.channels.length * Math.random() | 0]",
+									"    pm.collectionVariables.set(\"payment_method\", paymentMethod.code)",
+									"    pm.collectionVariables.set(\"payment_channel\", paymentChannel.code)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"id": "6f85f1ae-b406-400d-a5e4-9b43f6b30253",
 					"request": {
 						"method": "GET",
@@ -1521,9 +1574,6 @@
 					"name": "Mendapatkan semua transaksi",
 					"id": "ff743894-dc25-490f-9162-1f7c370c3bd7",
 					"request": {
-						"auth": {
-							"type": "oauth2"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -1532,7 +1582,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/v1/transaction/?page=1&size=10&sort_by=<integer>",
+							"raw": "{{baseUrl}}/v1/transaction/?page=1&size=10&sort_by=-1",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1554,7 +1604,7 @@
 								},
 								{
 									"key": "sort_by",
-									"value": "<integer>",
+									"value": "-1",
 									"description": "Sort by ASCENDING (1) or DESCENDING (-1)"
 								}
 							]
@@ -1668,14 +1718,28 @@
 				},
 				{
 					"name": "Buat transaksi baru",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bd05aae3-0db5-4069-b6b1-b92599914915",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.collectionVariables.set(\"trx_id\", jsonData.id);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"id": "c597bfe1-7646-49fd-9b3e-af73ae3b1d08",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
-						"auth": {
-							"type": "oauth2"
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -1689,7 +1753,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"veniam est eiusmod in\",\n  \"phone_number\": \"ad id fugiat\",\n  \"amount\": -2809516,\n  \"payment_method\": \"deserunt esse pariatur dolore ullamco\",\n  \"payment_channel\": \"commodo irure dolore\",\n  \"email\": \"ikit5@JCdSE.qmhw\",\n  \"ewallet_success_redirect_url\": \"https://pdbadbu.xuspJz5rzhzNKbDi+R\"\n}",
+							"raw": "{\n  \"name\": \"{{$randomFullName}}\",\n  \"phone_number\": \"08912345678\",\n  \"amount\": 15000,\n  \"payment_method\": \"{{payment_method}}\",\n  \"payment_channel\": \"{{payment_channel}}\",\n  \"email\": \"{{$randomEmail}}\",\n  \"ewallet_success_redirect_url\": \"https://aprila.dev\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1808,9 +1872,6 @@
 					"name": "Dapatkan rincian transaksi",
 					"id": "41320f97-e0a5-45fa-b959-233572521825",
 					"request": {
-						"auth": {
-							"type": "oauth2"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -1830,9 +1891,8 @@
 							],
 							"variable": [
 								{
-									"id": "53e97b4c-0e56-4b2b-b35a-013a63fa7f09",
 									"key": "id",
-									"value": "ipsum d",
+									"value": "{{trx_id}}",
 									"description": "(Required) "
 								}
 							]
@@ -1937,9 +1997,6 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"auth": {
-							"type": "oauth2"
-						},
 						"method": "PUT",
 						"header": [
 							{
@@ -1972,9 +2029,8 @@
 							],
 							"variable": [
 								{
-									"id": "eb2e5909-80cc-4d57-b6f6-a5f63d5252ab",
 									"key": "id",
-									"value": "ipsum d",
+									"value": "{{trx_id}}",
 									"description": "(Required) "
 								}
 							]
@@ -2100,9 +2156,6 @@
 					"name": "Mendapatkan semua API Key",
 					"id": "b26c18f6-bc1b-4526-b757-17a92a9e129e",
 					"request": {
-						"auth": {
-							"type": "oauth2"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -2265,9 +2318,6 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"auth": {
-							"type": "oauth2"
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -2400,9 +2450,6 @@
 					"name": "Dapatkan rincian API Key",
 					"id": "e13d0381-a27a-4480-8db0-50c2ac08cc85",
 					"request": {
-						"auth": {
-							"type": "oauth2"
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -2526,9 +2573,6 @@
 					"name": "Hapus API Key",
 					"id": "82c6a705-6427-4e77-bd4a-df18f4ea3e0c",
 					"request": {
-						"auth": {
-							"type": "oauth2"
-						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -4037,7 +4081,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "239fbf1e-495e-4615-bbbc-cd0947d6b109",
+				"id": "7f0fe26a-b73a-4766-8ac2-ba8f2c08c016",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -4047,7 +4091,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "977ec5d1-c0c5-4f3a-a000-18087aacda89",
+				"id": "41259e35-3cd3-4eaf-a530-7f186c235960",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -4057,28 +4101,51 @@
 	],
 	"variable": [
 		{
-			"id": "89f830c1-70c0-4fab-8855-08329cdc8b54",
+			"id": "094a0b66-1d75-4c58-8b8a-abd83ca306e2",
 			"key": "baseUrl",
 			"value": "http://localhost:5000",
 			"type": "string"
 		},
 		{
-			"id": "c9e69d38-26ff-4e7a-8a41-806da91b6a8a",
+			"id": "6c0e2d51-8495-46cf-9b18-3d69447294f1",
 			"key": "email",
 			"value": "test@localhost.com",
 			"type": "string"
 		},
 		{
-			"id": "2d834bc5-c4d3-4b02-81e5-2f204c24712d",
+			"id": "5ff4e10e-58c9-4e8a-8fd8-86014a5d9206",
 			"key": "password",
 			"value": "test123456",
 			"type": "string"
 		},
 		{
-			"id": "ecfef501-6c23-4cf3-9a97-cc668fef184a",
+			"id": "4012ca40-ef05-467f-a7ab-d9b69b30763d",
 			"key": "access_token",
 			"value": "",
 			"type": "string"
+		},
+		{
+			"id": "2a14b3f1-3b32-4e0b-b207-c6adff399931",
+			"key": "payment_method",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "16110888-71c1-4920-a60f-27a6f2e08584",
+			"key": "payment_channel",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "7cc2cf2c-a878-458a-a7d5-f1ac2c4ff55f",
+			"key": "trx_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "c3ac8903-7549-44fb-bfef-42ce2600e364",
+			"key": "pg_id",
+			"value": ""
 		}
 	]
 }
