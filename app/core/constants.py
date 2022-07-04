@@ -46,9 +46,6 @@ IPAYMU_CONVENIENCE_STORES = CONVENIENCE_STORES.copy()
 IPAYMU_QRIS = {
     "qris": "QRIS",
 }
-IPAYMU_BANK_TRANSFER = {
-    "bca": "Bank Central Asia",
-}
 XENDIT_QRIS = IPAYMU_QRIS.copy()
 XENDIT_CONVENIENCE_STORES = CONVENIENCE_STORES.copy()
 XENDIT_EWALLET = {
@@ -105,7 +102,6 @@ MIN_AMOUNT_PAYMENT_METHODS = {
         PaymentMethod.va: {pc: 10000 for pc in IPAYMU_VIRTUAL_ACCOUNTS.keys()},
         PaymentMethod.cstore: {pc: 10000 for pc in IPAYMU_CONVENIENCE_STORES.keys()},
         PaymentMethod.qris: {pc: 10000 for pc in IPAYMU_QRIS.keys()},
-        PaymentMethod.bank_transfer: {pc: 10000 for pc in IPAYMU_BANK_TRANSFER.keys()},
     },
     PaymentGateway.xendit: {
         PaymentMethod.va: {
@@ -147,4 +143,10 @@ MIN_AMOUNT_PAYMENT_METHODS = {
         PaymentMethod.qris: {pc: 10000 for pc in DUITKU_QRIS.keys()},
         PaymentMethod.ewallet: {pc: 10000 for pc in DUITKU_EWALLET.keys()},
     },
+}
+
+UNUSED_PAYMENT_METHODS = {
+    PaymentGateway.ipaymu: {
+        PaymentMethod.bank_transfer: "bca"
+    }  # payment not available (ipaymu: direct payment)
 }

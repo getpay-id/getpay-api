@@ -23,7 +23,7 @@ from app.core.constants import (
     STATIC_ROOT,
 )
 from app.core.enums import PaymentGateway
-from app.core.setup import install_payment_gateway
+from app.core.setup import install_payment_gateway, unregister_payment_methods
 from app.extensions.mongodb import getpay_db
 
 
@@ -220,6 +220,7 @@ async def main():
     await create_admin()
     await create_payment_gateways()
     await init_payment_method_images()
+    await unregister_payment_methods()
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-from pymongo.results import InsertOneResult
+from pymongo.results import DeleteResult, InsertOneResult
 
 from app import collections, settings
 from app.core import timezone
@@ -7,12 +7,12 @@ from app.core.constants import (
     DUITKU_QRIS,
     DUITKU_RETAIL_OUTLET,
     DUITKU_VIRTUAL_ACCOUNTS,
-    IPAYMU_BANK_TRANSFER,
     IPAYMU_CONVENIENCE_STORES,
     IPAYMU_QRIS,
     IPAYMU_VIRTUAL_ACCOUNTS,
     MIN_AMOUNT_PAYMENT_METHODS,
     PAYMENT_METHODS,
+    UNUSED_PAYMENT_METHODS,
     XENDIT_CONVENIENCE_STORES,
     XENDIT_EWALLET,
     XENDIT_QRIS,
@@ -74,7 +74,7 @@ async def get_or_create_payment_method(pg_id: str, pm_code: PaymentMethod) -> st
 async def create_payment_methods(pg_id: str, name: PaymentGateway):
     for pm_code in PaymentMethod:
         if name == PaymentGateway.ipaymu:
-            if pm_code == PaymentMethod.ewallet:
+            if pm_code in (PaymentMethod.ewallet, PaymentMethod.bank_transfer):
                 continue
 
             pm_id = await get_or_create_payment_method(pg_id, pm_code)
@@ -87,9 +87,6 @@ async def create_payment_methods(pg_id: str, name: PaymentGateway):
 
             elif pm_code == PaymentMethod.qris:
                 payment_data = IPAYMU_QRIS
-
-            elif pm_code == PaymentMethod.bank_transfer:
-                payment_data = IPAYMU_BANK_TRANSFER
 
             for (
                 channel_code,
@@ -217,3 +214,25 @@ async def create_payment_channel(
             print(f"  * Payment channel: {channel_name} updated")
         else:
             print(f"  ! Payment channel: {channel_name} not updated")
+
+
+async def unregister_payment_methods():
+    for pg, pm_data in UNUSED_PAYMENT_METHODS.items():
+        pg_obj = await collections.payment_gateway.find_one({"name": pg})
+        pg_id = str(pg_obj["_id"])
+        for pm, channel_code in pm_data.items():
+            pm_obj = await collections.payment_method.find_one(
+                {"pg_id": pg_id, "code": pm.value}
+            )
+            pm_id = str(pm_obj["_id"])
+            print(f"  * Unregistering payment method: {pm.value} ({channel_code})")
+            pc_filter = {"pm_id": pm_id, "code": channel_code}
+            result: DeleteResult = await collections.payment_channel.delete_one(
+                pc_filter
+            )
+            msg = (
+                "   * Payment channel deleted"
+                if result.deleted_count > 0
+                else "   ! Payment channel already deleted"
+            )
+            print(msg)
