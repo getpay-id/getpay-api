@@ -15,9 +15,6 @@ DEBUG = os.environ.get("DEBUG", "1") == "1"
 
 MAX_UPLOAD_SIZE = 7000000  # 7MB
 
-ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME")
-ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD")
-
 JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY")
 if not JWT_SECRET_KEY:
     raise RuntimeError("JWT_SECRET_KEY is not set")
