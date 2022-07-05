@@ -29,12 +29,12 @@ MONGODB_PASSWORD = os.environ.get("MONGODB_PASSWORD")
 MONGODB_DATABASE = os.environ.get("MONGODB_DATABASE")
 MONGODB_HOST = os.environ.get("MONGODB_HOST")
 MONGODB_PORT = os.environ.get("MONGODB_PORT")
-MONGODB_URI = os.environ.get(
-    "MONGODB_URI",
+MONGODB_URL = os.environ.get(
+    "MONGODB_URL",
     f"mongodb://{quote_plus(MONGODB_USERNAME)}:{quote_plus(MONGODB_PASSWORD)}@{MONGODB_HOST}:{MONGODB_PORT}/{MONGODB_DATABASE}",
 )
-if not MONGODB_URI:
-    raise RuntimeError("MONGODB_URI is not set")
+if not MONGODB_URL:
+    raise RuntimeError("MONGODB_URL is not set")
 
 REDIS_USERNAME = os.environ.get("REDIS_USERNAME", "")
 REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
