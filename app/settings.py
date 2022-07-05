@@ -41,14 +41,14 @@ REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
 REDIS_DATABASE = os.environ.get("REDIS_DATABASE")
 REDIS_HOST = os.environ.get("REDIS_HOST")
 REDIS_PORT = os.environ.get("REDIS_PORT")
-REDIS_URI = os.environ.get("REDIS_URI")
-if not REDIS_URI:
-    REDIS_URI = f"redis://"
+REDIS_URL = os.environ.get("REDIS_URL")
+if not REDIS_URL:
+    REDIS_URL = f"redis://"
     if REDIS_PASSWORD:
-        REDIS_URI += (
+        REDIS_URL += (
             f"{quote(REDIS_USERNAME, safe='')}:{quote(REDIS_PASSWORD, safe='')}@"
         )
-    REDIS_URI += f"{REDIS_HOST}:{REDIS_PORT}/{REDIS_DATABASE}"
+    REDIS_URL += f"{REDIS_HOST}:{REDIS_PORT}/{REDIS_DATABASE}"
 
 # IPaymu
 IPAYMU_URL = os.environ.get("IPAYMU_URL")

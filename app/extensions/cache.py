@@ -79,4 +79,4 @@ class RedisCache(Cache):
         await self._redis.flushdb()
 
 
-redis_cache = RedisCache(settings.REDIS_URI)
+redis_cache = RedisCache(settings.REDIS_URL)
