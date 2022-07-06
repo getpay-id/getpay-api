@@ -204,16 +204,21 @@ async def create_payment_channel(
         print(f"  * Payment channel: {channel_name} created")
     else:
         print(f"  ! Payment channel: {channel_obj['name']} already exists")
-        print(f"  * added a new field to the payment channel collection...")
         new_fields = {"min_amount": min_amount}
-        channel_obj = await collections.payment_channel.update_one(
-            {"pm_id": pm_id, "code": channel_code},
-            {"$set": new_fields},
-        )
-        if channel_obj:
-            print(f"  * Payment channel: {channel_name} updated")
-        else:
-            print(f"  ! Payment channel: {channel_name} not updated")
+        for k, _ in new_fields.items():
+            if k in channel_obj:
+                new_fields.pop(k)
+
+        if new_fields:
+            print(f"  * added a new field to the payment channel collection...")
+            channel_obj = await collections.payment_channel.update_one(
+                {"pm_id": pm_id, "code": channel_code},
+                {"$set": new_fields},
+            )
+            if channel_obj:
+                print(f"  * Payment channel: {channel_name} updated")
+            else:
+                print(f"  ! Payment channel: {channel_name} not updated")
 
 
 async def unregister_payment_methods():
