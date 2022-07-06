@@ -5,6 +5,7 @@ import dotenv
 
 dotenv.load_dotenv(".env")
 
+import argparse
 import asyncio
 import os
 import shutil
@@ -28,18 +29,17 @@ from app.extensions.mongodb import getpay_db
 
 
 async def drop_collections(force: bool = False):
-    if "GETPAY_RESET" in os.environ or force:
-        y = input("Please confirm to reset the database (y/n): ")
-        if y.lower() != "y":
-            print("Aborting...")
-            exit(1)
+    y = input("Please confirm to reset the database (y/n): ")
+    if y.lower() != "y":
+        print("Aborting...")
+        exit(1)
 
-        for coll in MONGO_COLLECTIONS:
-            try:
-                await getpay_db[coll].drop_indexes()
-                await getpay_db.drop_collection(coll)
-            except CollectionInvalid:
-                pass
+    for coll in MONGO_COLLECTIONS:
+        try:
+            await getpay_db[coll].drop_indexes()
+            await getpay_db.drop_collection(coll)
+        except CollectionInvalid:
+            pass
 
 
 async def create_collections():
@@ -215,12 +215,28 @@ async def init_payment_method_images():
 
 
 async def main():
-    await drop_collections()
-    await create_collections()
-    await create_admin()
-    await create_payment_gateways()
-    await init_payment_method_images()
-    await unregister_payment_methods()
+    parser = argparse.ArgumentParser()
+    try:
+        subparsers = parser.add_subparsers(dest="command")
+        subparsers.add_parser("init", help="Data initialization")
+        subparsers.add_parser("create_user", help="Create user")
+        subparsers.add_parser("drop_collection", help="Drop collection")
+        args = parser.parse_args()
+        cmd = args.command
+        if cmd == "init":
+            await create_collections()
+            await create_payment_gateways()
+            await init_payment_method_images()
+            await unregister_payment_methods()
+        elif cmd == "create_user":
+            await create_admin()
+        elif cmd == "drop_collection":
+            await drop_collections()
+        else:
+            parser.print_help()
+
+    except argparse.ArgumentError as e:
+        parser.error(e)
 
 
 if __name__ == "__main__":
