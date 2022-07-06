@@ -28,13 +28,14 @@ jobs:
 
       - name: Build and push Docker image (app)
         env:
-          IMAGE_NAME: ${{ github.repository }}:latest
+          IMAGE_NAME: ${{ env.GITHUB_REGISTRY }}/${{ github.repository }}:latest
         run: |
           docker build -t ${{ env.IMAGE_NAME }} .
           docker push ${{ env.IMAGE_NAME }}
 
   deploy:
     runs-on: getpay-runner
+    needs: build
     environment: getpay-api
     steps:
       -   uses: actions/checkout@v2
