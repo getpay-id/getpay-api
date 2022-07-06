@@ -2,21 +2,18 @@ version: '3'
 services:
   app:
     restart: always
-    build:
-      context: .
-      dockerfile: ./docker/app/Dockerfile
+    build: .
     depends_on:
       - db
       - redis
     ports:
       - 5000:5000
-    expose:
-      - 5000
     env_file:
       -  .env
     environment:
       - MONGODB_HOST=db
       - REDIS_HOST=redis
+    command: uvicorn app.main:app --workers 2 --host "0.0.0.0" --port 5000
 
   db:
     restart: always
@@ -27,29 +24,24 @@ services:
       - db-data:/bitnami/mongodb
     ports:
       - 27017:27017
-    expose:
-      - 27017
 
   redis:
     image: redis:alpine
     restart: always
     ports:
       - 6379:6379
-    expose:
-      - 6379
     volumes:
       - redis-data:/data
 
   q1_worker:
     restart: always
-    build:
-      context: .
-      dockerfile: ./docker/q1_worker/Dockerfile
+    build: .
     depends_on:
       - redis
     environment:
       - MONGODB_HOST=db
       - REDIS_HOST=redis
+    command: python runworker.py app.settings.Q1_SETTINGS
 
 volumes:
   redis-data:
