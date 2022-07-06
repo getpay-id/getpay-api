@@ -1,0 +1,4 @@
+location /static/ {
+  alias /space/static/;
+  add_header Access-Control-Allow-Origin *;
+}

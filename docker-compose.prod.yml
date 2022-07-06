@@ -1,0 +1,85 @@
+version: '3'
+services:
+  app:
+    restart: always
+    image: ghcr.io/getpay-id/getpay-api:latest
+    depends_on:
+      - db
+      - redis
+    expose:
+      - 5000
+    env_file:
+      -  .env
+    environment:
+      - MONGODB_HOST=db
+      - REDIS_HOST=redis
+    command: uvicorn app.main:app --workers 2 --host "0.0.0.0" --port 5000
+
+  db:
+    restart: always
+    image: bitnami/mongodb
+    env_file:
+      - .env
+    volumes:
+      - db-data:/bitnami/mongodb
+    expose:
+      - 27017
+
+  redis:
+    image: redis:alpine
+    restart: always
+    expose:
+      - 6379
+    volumes:
+      - redis-data:/data
+
+  q1_worker:
+    restart: always
+    image: ghcr.io/getpay-id/getpay-api:latest
+    depends_on:
+      - redis
+    environment:
+      - MONGODB_HOST=db
+      - REDIS_HOST=redis
+    command: python runworker.py app.settings.Q1_SETTINGS
+
+  # NginX and LetsEncrypt setup reference can be found here:
+  # => https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/
+  # => https://testdriven.io/blog/django-lets-encrypt/
+  nginx-proxy:
+    container_name: nginx-proxy
+    build: nginx
+    restart: always
+    ports:
+      - 443:443
+      - 80:80
+    volumes:
+      - static_volume:/space/static
+      - certs:/etc/nginx/certs
+      - html:/usr/share/nginx/html
+      - vhost:/etc/nginx/vhost.d
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    depends_on:
+      - app
+  nginx-proxy-letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    env_file:
+      - ./.env.proxy-companion
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - certs:/etc/nginx/certs
+      - html:/usr/share/nginx/html
+      - vhost:/etc/nginx/vhost.d
+      - acme:/etc/acme.sh
+    depends_on:
+      - nginx-proxy
+
+volumes:
+  redis-data:
+  db-data:
+  static_volume:
+  media_volume:
+  certs:
+  html:
+  vhost:
+  acme:
