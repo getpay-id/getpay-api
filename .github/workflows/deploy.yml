@@ -51,7 +51,7 @@ jobs:
           password: ${{ github.token }}
 
       - name: Create environment file
-        run: printf '${{env.ENV_FILE}}' >> .env
+        run: printf '${{secrets.ENV_FILE}}' >> .env
 
       - name: Deployment
         run: |
