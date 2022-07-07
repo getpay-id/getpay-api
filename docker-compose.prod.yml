@@ -13,6 +13,8 @@ services:
     environment:
       - MONGODB_HOST=db
       - REDIS_HOST=redis
+    volumes:
+      - .:/space
     command: uvicorn app.main:app --workers 2 --host "0.0.0.0" --port 5000
 
   db:

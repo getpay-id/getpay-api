@@ -26,9 +26,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ github.token }}
 
-      - name: Create environment file
-        run: printf '${{secrets.ENV_FILE}}' >> .env
-
       - name: Build and push Docker image
         env:
           IMAGE_NAME: ${{ env.GITHUB_REGISTRY }}/${{ github.repository }}:latest
