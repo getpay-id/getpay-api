@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -18,8 +18,8 @@ init_routers(app)
 
 
 @app.route("/", methods=["GET", "HEAD"], include_in_schema=False)
-def index():
-    return {"detail": "ok!"}
+def index(request: Request):
+    return {"detail": "it's alive!"}
 
 
 @app.get("/rapidoc", response_class=HTMLResponse, include_in_schema=False)
