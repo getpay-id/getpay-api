@@ -36,6 +36,8 @@ services:
   q1_worker:
     restart: always
     image: ghcr.io/getpay-id/getpay-api:latest
+    env_file:
+      - .env
     depends_on:
       - redis
     environment:
