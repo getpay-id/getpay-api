@@ -5,6 +5,6 @@ ENV PYTHONUNBUFFERED 1
 ENV PIP_IGNORE_INSTALLED 1
 COPY . /space/
 WORKDIR /space
+RUN mkdir -p static
 RUN pip install -U pip pipenv
 RUN pipenv install --system --deploy --ignore-pipfile
-RUN python manage.py init
