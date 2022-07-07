@@ -59,4 +59,4 @@ jobs:
           docker-compose -f docker-compose.prod.yml pull app
           docker-compose -f docker-compose.prod.yml up -d
           docker-compose -f docker-compose.prod.yml exec -T app python manage.py init
-          python cleanup_docker.py
+          python3 cleanup_docker.py
