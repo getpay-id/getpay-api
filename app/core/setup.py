@@ -205,7 +205,7 @@ async def create_payment_channel(
     else:
         print(f"  ! Payment channel: {channel_obj['name']} already exists")
         new_fields = {"min_amount": min_amount}
-        for k, _ in new_fields.items():
+        for k in new_fields.copy().keys():
             if k in channel_obj:
                 new_fields.pop(k)
 
