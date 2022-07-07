@@ -20,6 +20,7 @@ faker = "*"
 typing-extensions = "*"
 saq = {extras = ["hiredis"], version = "*"}
 filetype = "*"
+gunicorn = "*"
 
 [dev-packages]
 black = "*"

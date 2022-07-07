@@ -16,7 +16,7 @@ services:
     volumes:
       - .:/space
       - static_volume:/space/static
-    command: uvicorn app.main:app --workers 2 --host "0.0.0.0" --port 5000
+    command: gunicorn app.main:app -k uvicorn.workers.UvicornWorker -b 0.0.0.0:5000 --access-logfile - --log-file - --log-level debug -t 120
 
   db:
     restart: always
