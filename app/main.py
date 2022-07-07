@@ -17,7 +17,7 @@ app.add_middleware(
 init_routers(app)
 
 
-@app.get("/", include_in_schema=False)
+@app.route("/", methods=["GET", "HEAD"], include_in_schema=False)
 def index():
     return {"detail": "ok!"}
 
