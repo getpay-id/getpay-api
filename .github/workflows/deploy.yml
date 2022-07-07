@@ -35,6 +35,8 @@ jobs:
 
   deploy:
     runs-on: getpay-runner
+    permissions:
+      packages: read
     needs: build
     environment: getpay-api
     steps:
