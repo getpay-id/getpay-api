@@ -7,3 +7,4 @@ COPY . /space/
 WORKDIR /space
 RUN pip install -U pip pipenv
 RUN pipenv install --system --deploy --ignore-pipfile
+RUN python manage.py init
