@@ -50,7 +50,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ github.token }}
 
-      -   name: Deployment
-          run: |
-            docker-compose -f docker-compose.prod.yml pull app
-            docker-compose -f docker-compose.prod.yml up -d
+      - name: Create environment file
+        run: printf ${{env.ENV_FILE}} >> .env
+
+      - name: Deployment
+        run: |
+          docker-compose -f docker-compose.prod.yml pull app
+          docker-compose -f docker-compose.prod.yml up -d
