@@ -55,5 +55,7 @@ jobs:
 
       - name: Deployment
         run: |
+          docker-compose -f docker-compose.prod.yml down
           docker-compose -f docker-compose.prod.yml pull app
           docker-compose -f docker-compose.prod.yml up -d
+          python cleanup_docker.py
