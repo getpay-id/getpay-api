@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 import app.settings  # noqa # muat semua konfigurasi dari file .env
@@ -19,7 +19,7 @@ init_routers(app)
 
 @app.route("/", methods=["GET", "HEAD"], include_in_schema=False)
 def index(request: Request):
-    return {"detail": "it's alive!"}
+    return JSONResponse({"detail": "it's alive!"})
 
 
 @app.get("/rapidoc", response_class=HTMLResponse, include_in_schema=False)
