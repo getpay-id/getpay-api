@@ -41,7 +41,7 @@ services:
     environment:
       - MONGODB_HOST=db
       - REDIS_HOST=redis
-    command: python runworker.py app.settings.Q1_SETTINGS
+    command: python runworker.py app.queue.q1.config.Q1_SETTINGS
 
 volumes:
   redis-data:
