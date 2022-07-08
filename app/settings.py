@@ -6,12 +6,11 @@ if "ENVFILE_LOADED" not in os.environ:
     load_dotenv(".env")
     os.environ["ENVFILE_LOADED"] = "1"
 
-from urllib.parse import quote, quote_plus
-
-from app.core.queue.q1.config import Q1_SETTINGS  # noqa
+from urllib.parse import quote_plus
 
 API_VERSION = os.environ.get("API_VERSION", "v1")
 DEBUG = os.environ.get("DEBUG", "1") == "1"
+DEMO = os.environ.get("DEMO", "1") == "1"
 
 MAX_UPLOAD_SIZE = 7000000  # 7MB
 
@@ -39,13 +38,6 @@ REDIS_DATABASE = os.environ.get("REDIS_DATABASE")
 REDIS_HOST = os.environ.get("REDIS_HOST")
 REDIS_PORT = os.environ.get("REDIS_PORT")
 REDIS_URL = os.environ.get("REDIS_URL")
-if not REDIS_URL:
-    REDIS_URL = f"redis://"
-    if REDIS_PASSWORD:
-        REDIS_URL += (
-            f"{quote(REDIS_USERNAME, safe='')}:{quote(REDIS_PASSWORD, safe='')}@"
-        )
-    REDIS_URL += f"{REDIS_HOST}:{REDIS_PORT}/{REDIS_DATABASE}"
 
 # IPaymu
 IPAYMU_URL = os.environ.get("IPAYMU_URL")

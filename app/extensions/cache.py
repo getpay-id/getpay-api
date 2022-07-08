@@ -5,6 +5,7 @@ from typing import Any, Optional
 from aioredis.client import PubSub
 
 from app import settings
+from app.core.utils import get_redis_url
 
 
 class PickleSerializer:
@@ -79,4 +80,5 @@ class RedisCache(Cache):
         await self._redis.flushdb()
 
 
-redis_cache = RedisCache(settings.REDIS_URL)
+url = settings.REDIS_URL or get_redis_url(db=0)
+redis_cache = RedisCache(url)
