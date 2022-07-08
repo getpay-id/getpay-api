@@ -3,7 +3,7 @@ from typing import Optional
 
 from bson import ObjectId
 from faker import Faker
-from fastapi import HTTPException, Query, status
+from fastapi import HTTPException, Query, Request, status
 from fastapi.responses import ORJSONResponse
 from pydantic import AnyHttpUrl, BaseModel, EmailStr, Field, validator
 from pymongo import ReturnDocument
@@ -20,9 +20,10 @@ from app.core.enums import (
 )
 from app.core.fields import ObjectID
 from app.core.pagination import paginate
-from app.core.queue import q1
 from app.core.thirdparty import duitku, ipaymu, xendit
 from app.core.utils import generate_random_string, serialize_data
+from app.extensions.limiter import limiter
+from app.queue import q1
 
 faker = Faker()
 
@@ -61,7 +62,7 @@ class UpdateTransactionIn(BaseModel):
     status: TransactionStatus
 
 
-async def create(body: TransactionIn):
+async def create(request: Request, body: TransactionIn):
     """
     Buat transaksi baru
 
@@ -328,6 +329,10 @@ async def create(body: TransactionIn):
         "update_transaction_status", trx_id=str(result.inserted_id), scheduled=scheduled
     )
     return data
+
+
+if settings.DEMO:
+    create = limiter.limit("1/10 minute")(create)
 
 
 async def get_one(id: ObjectID):

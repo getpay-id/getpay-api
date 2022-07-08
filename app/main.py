@@ -3,8 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
-import app.settings  # noqa # muat semua konfigurasi dari file .env
+from app import settings  # noqa # muat semua konfigurasi dari file .env
 from app.core.constants import STATIC_ROOT
+from app.extensions import limiter
 from app.routers import init_routers
 
 app = FastAPI(
@@ -15,6 +16,7 @@ app.add_middleware(
     CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"]
 )
 init_routers(app)
+limiter.setup(app)
 
 
 @app.route("/", methods=["GET", "HEAD"], include_in_schema=False)
