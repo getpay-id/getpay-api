@@ -12,7 +12,6 @@ from app.core.utils import serialize_data
 
 
 class BodyPaymentMethod(BaseModel):
-    pg_id: ObjectID
     status: PaymentStatus
 
 
@@ -39,15 +38,12 @@ async def get_all(
 
 async def get_one(
     id: ObjectID = Path(..., description="Payment method ID"),
-    pg_id: ObjectID = Query(..., description="Payment gateway ID"),
 ):
     """
     Mendapatkan rincian payment method.
     """
 
-    pm = await collections.payment_method.find_one(
-        {"_id": ObjectId(id), "pg_id": pg_id}
-    )
+    pm = await collections.payment_method.find_one({"_id": ObjectId(id)})
     if not pm:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found")
     data = serialize_data(pm)
@@ -62,13 +58,11 @@ async def update(
 
     Parameters:
 
-    * `pg_id`: ID payment gateway.
-
     * `status`: Status payment method. (0 = inactive, 1 = active)
     """
 
     pm = await collections.payment_method.find_one_and_update(
-        {"_id": ObjectId(id), "pg_id": body.pg_id},
+        {"_id": ObjectId(id)},
         {"$set": {"status": body.status, "date_updated": timezone.now()}},
         return_document=ReturnDocument.AFTER,
     )
