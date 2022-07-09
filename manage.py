@@ -89,20 +89,26 @@ async def create_user(username: str, password: str) -> str:
     return uid
 
 
-async def create_admin():
-    answer = input("Do you want to create an admin user? (y/n): ").lower()
-    if not answer.startswith("y"):
-        print("Skip...")
-        return
+async def create_admin(
+    username: str = None, password: str = None, skip_confirmation: bool = False
+):
+    try:
+        if not skip_confirmation:
+            answer = input("Do you want to create an admin user? (y/n): ").lower()
+            if not answer.startswith("y"):
+                print("Skip...")
+                return
 
-    print("Creating admin...")
-    username = input("Username: ")
-    password = getpass("Password: ")
-    if username and password:
-        await create_user(username, password)
-    else:
-        print("Username and password are required to create an admin user. Skip...")
-        return
+        print("Creating admin...")
+        username = username or input("Username: ")
+        password = password or getpass("Password: ")
+        if username and password:
+            await create_user(username, password)
+        else:
+            print("Username and password are required to create an admin user. Skip...")
+            return
+    except KeyboardInterrupt:
+        print("\nAborting...")
 
 
 async def create_payment_gateways():
@@ -219,7 +225,16 @@ async def main():
     try:
         subparsers = parser.add_subparsers(dest="command")
         subparsers.add_parser("init", help="Data initialization")
-        subparsers.add_parser("create_user", help="Create user")
+        create_user_parser = subparsers.add_parser("create_user", help="Create user")
+        create_user_parser.add_argument(
+            "-u", "--username", dest="username", help="Username (Email)"
+        )
+        create_user_parser.add_argument(
+            "-p", "--password", dest="password", help="Password (min 8 character)"
+        )
+        create_user_parser.add_argument(
+            "-y", "--yes", dest="yes", action="store_true", help="Skip confirmation"
+        )
         subparsers.add_parser("drop_collection", help="Drop collection")
         args = parser.parse_args()
         cmd = args.command
@@ -229,7 +244,7 @@ async def main():
             await init_payment_method_images()
             await unregister_payment_methods()
         elif cmd == "create_user":
-            await create_admin()
+            await create_admin(args.username, args.password, args.yes)
         elif cmd == "drop_collection":
             await drop_collections()
         else:
