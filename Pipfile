@@ -26,6 +26,9 @@ slowapi = "*"
 [dev-packages]
 black = "*"
 pre-commit = "*"
+tox = "*"
+pytest = "*"
+pytest-order = "*"
 
 [requires]
 python_version = "3.9"
