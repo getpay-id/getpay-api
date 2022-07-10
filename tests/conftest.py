@@ -1,0 +1,12 @@
+import warnings
+
+import pytest
+
+
+@pytest.fixture
+def auth_headers(request: pytest.FixtureRequest):
+    token = request.config.cache.get("jwt", None)
+    if not token:
+        warnings.warn("No JWT found.")
+
+    return {"Authorization": f"Bearer {token}"}
