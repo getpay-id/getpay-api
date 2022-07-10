@@ -23,7 +23,7 @@ class PaymentChannelIn(BaseModel):
 
 
 async def get_all(
-    id: ObjectID = Query(..., description="Payment Method ID"),
+    pm_id: ObjectID = Query(..., description="Payment Method ID"),
     page: int = Query(1, ge=1, description="Page number"),
     size: int = Query(10, ge=1, le=100, description="Page size"),
     sort_by: SortBy = Query(
@@ -37,7 +37,7 @@ async def get_all(
         collections.payment_channel,
         page,
         size,
-        query_filter={"pm_id": id},
+        query_filter={"pm_id": pm_id},
         sort_field=("date_updated", sort_by),
     )
 
