@@ -47,11 +47,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Setup python v${{ matrix.py }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.py }}
-
       - name: Create environment file
         run: printf '${{secrets.ENV_FILE}}' >> .env
 
