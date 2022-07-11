@@ -20,13 +20,6 @@ jobs:
           - "3.9"
           - "3.8"
 
-    env:
-      REDIS_HOST: redis
-      MONGODB_HOST: db
-      MONGODB_USERNAME: test_user
-      MONGODB_PASSWORD: test123
-      MONGODB_DATABASE: test_db
-
     container: python:${{ matrix.py }}
     services:
       db:
@@ -36,9 +29,9 @@ jobs:
         env:
           MONGODB_ROOT_USER: root
           MONGODB_ROOT_PASSWORD: root
-          MONGODB_USERNAME: ${{env.MONGODB_USERNAME}}
-          MONGODB_PASSWORD: ${{env.MONGODB_PASSWORD}}
-          MONGODB_DATABASE: ${{env.MONGODB_DATABASE}}
+          MONGODB_USERNAME: test_user
+          MONGODB_PASSWORD: test123
+          MONGODB_DATABASE: test_db
 
       redis:
         image: redis
@@ -64,13 +57,13 @@ jobs:
         run: |
           pip install -r all-requirements.txt
 
-      - name: Setup Environment
+      - name: Override environment variable
         run: |
-          export REDIS_HOST=${{ env.REDIS_HOST }}
-          export MONGODB_HOST=${{ env.MONGODB_HOST }}
-          export MONGODB_USERNAME=${{ env.MONGODB_USERNAME }}
-          export MONGODB_PASSWORD=${{ env.MONGODB_PASSWORD }}
-          export MONGODB_DATABASE=${{ env.MONGODB_DATABASE }}
+          export REDIS_HOST=redis
+          export MONGODB_HOST=db
+          export MONGODB_USERNAME=test_user
+          export MONGODB_PASSWORD=test123
+          export MONGODB_DATABASE=test_db
 
       - name: Initialize data
         run: |
