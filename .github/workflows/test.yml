@@ -66,10 +66,9 @@ jobs:
 
       - name: Initialize data
         run: |
-          env
-          # python3 manage.py init
-          # python3 manage.py create_user -u ${{env.USER_EMAIL}} -p ${{env.USER_PASSWORD}} -y
+          python3 manage.py init
+          python3 manage.py create_user -u ${{env.USER_EMAIL}} -p ${{env.USER_PASSWORD}} -y
 
-      # - name: Run tests
-      #   run: |
-      #     pytest -v --cache-clear
+      - name: Run tests
+        run: |
+          pytest -v --cache-clear
