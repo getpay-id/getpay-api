@@ -49,9 +49,9 @@ jobs:
         uses: supercharge/mongodb-github-action@1.7.0
         with:
           mongodb-version: 5.0
-          mongodb-username: $MONGODB_USERNAME
-          mongodb-password: $MONGO_PASSWORD
-          mongodb-db: $MONGODB_DATABASE
+          mongodb-username: ${{env.MONGODB_USERNAME}}
+          mongodb-password: ${{env.MONGO_PASSWORD}}
+          mongodb-db: ${{env.MONGODB_DATABASE}}
 
       - name: Install dependencies
         run: |
@@ -60,7 +60,7 @@ jobs:
       - name: Initialize data
         run: |
           python3 manage.py init
-          python3 manage.py create_user -u test@getpay.id -p test123456 -y
+          python3 manage.py create_user -u ${{env.USER_EMAIL}} -p ${{env.USER_PASSWORD}} -y
 
       - name: Run tests
         run: |
