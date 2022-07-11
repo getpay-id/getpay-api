@@ -20,6 +20,15 @@ jobs:
           - "3.9"
           - "3.8"
 
+    env:
+      REDIS_HOST: redis
+      MONGODB_ROOT_USER: root
+      MONGODB_ROOT_PASSWORD: root
+      MONGODB_USERNAME: test_user
+      MONGODB_PASSWORD: test123456
+      MONGODB_DATABASE: test_gpdb
+      MONGODB_HOST: db
+
     container: python:${{ matrix.py }}
     services:
       db:
@@ -30,8 +39,8 @@ jobs:
           MONGODB_ROOT_USER: root
           MONGODB_ROOT_PASSWORD: root
           MONGODB_USERNAME: test_user
-          MONGODB_PASSWORD: test123
-          MONGODB_DATABASE: test_db
+          MONGODB_PASSWORD: test123456
+          MONGODB_DATABASE: test_gpdb
 
       redis:
         image: redis
@@ -58,12 +67,6 @@ jobs:
           pip install -r all-requirements.txt
 
       - name: Initialize data
-        env:
-          REDIS_HOST: redis
-          MONGODB_HOST: db
-          MONGODB_USERNAME: test_user
-          MONGODB_PASSWORD: test123456
-          MONGODB_DATABASE: test_gpdb
         run: |
           env
           # python3 manage.py init
