@@ -34,7 +34,7 @@ if not MONGODB_URL:
 
 REDIS_USERNAME = os.environ.get("REDIS_USERNAME", "")
 REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
-REDIS_DATABASE = os.environ.get("REDIS_DATABASE")
+REDIS_DATABASE = os.environ.get("REDIS_DATABASE") or 0
 REDIS_HOST = os.environ.get("REDIS_HOST")
 REDIS_PORT = os.environ.get("REDIS_PORT")
 REDIS_URL = os.environ.get("REDIS_URL")
