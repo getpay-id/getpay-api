@@ -33,6 +33,7 @@ jobs:
         ports:
           - 27017/tcp
         env:
+          MONGODB_ROOT_PASSWORD: root
           MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}
           MONGODB_PASSWORD: ${{ env.MONGODB_PASSWORD }}
           MONGODB_DATABASE: ${{ env.MONGODB_DATABASE }}
