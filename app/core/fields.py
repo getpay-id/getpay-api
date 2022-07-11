@@ -2,8 +2,8 @@ import os
 from typing import Callable, Generator
 
 from bson import ObjectId as _ObjectId
-from pydantic import AnyUrl, BaseConfig
-from pydantic.fields import ModelField
+
+from app.core.constants import IMAGE_EXTENSIONS
 
 
 class ObjectID(str):
@@ -22,11 +22,9 @@ class ObjectID(str):
 
 class Image(str):
     @classmethod
-    def validate(
-        cls, value: str, field: "ModelField", config: "BaseConfig"
-    ) -> "AnyUrl":
+    def validate(cls, value: str) -> str:
         _, ext = os.path.splitext(os.path.basename(value))
-        if ext not in [".jpg", ".jpeg", ".png", ".svg"]:
+        if ext not in IMAGE_EXTENSIONS:
             raise ValueError("Image required")
 
         return value
