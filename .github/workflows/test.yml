@@ -77,7 +77,7 @@ jobs:
           REDIS_PORT: ${{job.services.redis.ports[6379]}}
 
         run: |
-          python -c "import app.settings as settings; for key in dir(settings): print('env %s=%s' % (key, getattr(settings, key)))"
+          python -c "import app.settings as settings; v = [f'{key}={getattr(settings, key)}' for key in dir(settings) if not key.startswith('__') and key.isupper()]; print('\n'.join(v))"
       #     python3 manage.py init
       #     python3 manage.py create_user -u ${{env.USER_EMAIL}} -p ${{env.USER_PASSWORD}} -y
 
