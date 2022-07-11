@@ -30,10 +30,15 @@ jobs:
       - name: Create environment file
         run: printf '${{secrets.ENV_FILE}}' >> .env
 
-      - name: Export environment variables
-        run: |
-          export $(cat .env | xargs)
-          export $(cat .env.testing | xargs)
+      - name: Export environment variables (app .env)
+        uses: cardinalby/export-env-action@1.0.0
+        with:
+          envFile: .env
+
+      - name: Export environment variables (testing .env)
+        uses: cardinalby/export-env-action@1.0.0
+        with:
+          envFile: .env.testing
 
       - name: Setup redis
         uses: shogo82148/actions-setup-redis@v1
