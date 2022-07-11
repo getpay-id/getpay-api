@@ -29,11 +29,13 @@ from app.extensions.mongodb import getpay_db
 
 
 async def drop_collections(force: bool = False):
-    y = input("Please confirm to reset the database (y/n): ")
-    if y.lower() != "y":
-        print("Aborting...")
-        exit(1)
+    if not force:
+        y = input("Please confirm to reset the database (y/n): ")
+        if y.lower() != "y":
+            print("Aborting...")
+            exit(1)
 
+    print("Dropping collections...")
     for coll in MONGO_COLLECTIONS:
         try:
             await getpay_db[coll].drop_indexes()
@@ -235,7 +237,12 @@ async def main():
         create_user_parser.add_argument(
             "-y", "--yes", dest="yes", action="store_true", help="Skip confirmation"
         )
-        subparsers.add_parser("drop_collection", help="Drop collection")
+        drop_collection_parser = subparsers.add_parser(
+            "drop_collection", help="Drop collection"
+        )
+        drop_collection_parser.add_argument(
+            "-f", "--force", dest="force", action="store_true", default=False
+        )
         args = parser.parse_args()
         cmd = args.command
         if cmd == "init":
@@ -246,7 +253,7 @@ async def main():
         elif cmd == "create_user":
             await create_admin(args.username, args.password, args.yes)
         elif cmd == "drop_collection":
-            await drop_collections()
+            await drop_collections(args.force)
         else:
             parser.print_help()
 
