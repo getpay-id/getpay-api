@@ -3,13 +3,18 @@ from typing import Tuple
 
 from bson import ObjectId
 from fastapi import File, HTTPException, Query, Request, UploadFile, status
-from filetype import is_image
+from filetype.match import match as file_matcher
 from pymongo.collection import ReturnDocument
 from pymongo.results import DeleteResult, InsertOneResult
 
 from app import collections, settings
 from app.core import timezone, utils
-from app.core.constants import BASE_PATH, STATIC_PAYMENT_IMAGES_PATH
+from app.core.constants import (
+    BASE_PATH,
+    IMAGE_EXTENSIONS,
+    IMAGE_MATCHERS,
+    STATIC_PAYMENT_IMAGES_PATH,
+)
 from app.core.enums import SortBy
 from app.core.fields import ObjectID
 from app.core.pagination import paginate
@@ -24,8 +29,18 @@ async def _validate_file(request: Request, file: UploadFile) -> Tuple[str, bytes
         raise HTTPException(status.HTTP_413_REQUEST_ENTITY_TOO_LARGE)
 
     buffer = await file.read()
-    if not is_image(buffer):
-        raise HTTPException(status.HTTP_415_UNSUPPORTED_MEDIA_TYPE)
+    _, ext = os.path.splitext(file.filename)
+    if ext not in IMAGE_EXTENSIONS:
+        raise HTTPException(
+            status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
+            detail=f"Invalid image type. Supported types: {IMAGE_EXTENSIONS}",
+        )
+
+    if not file_matcher(buffer, matchers=IMAGE_MATCHERS):
+        raise HTTPException(
+            status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
+            detail=f"Invalid image type. Supported types: {IMAGE_EXTENSIONS}",
+        )
 
     outfile = str(STATIC_PAYMENT_IMAGES_PATH / file.filename)
     if os.path.isfile(outfile):
