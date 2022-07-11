@@ -21,32 +21,28 @@ jobs:
           - "3.8"
 
     env:
-      REDIS_HOST: redis
+      REDIS_HOST: localhost
       MONGODB_USERNAME: test_user
       MONGODB_PASSWORD: test123456
       MONGODB_DATABASE: test_gpdb
-      MONGODB_HOST: db
+      MONGODB_HOST: localhost
 
-    container: python:${{ matrix.py }}
     services:
       db:
-        image: mongo
-        env:
-          MONGO_INITDB_ROOT_USERNAME: ${{ env.MONGODB_USERNAME }}
-          MONGO_INITDB_ROOT_PASSWORD: ${{ env.MONGODB_PASSWORD }}
-          MONGO_INITDB_DATABASE: ${{ env.MONGODB_DATABASE }}
-        options: >-
-          --health-cmd mongo
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+        image: bitnami/mongodb
         ports:
-          - 27017:27017
+          - 27017/tcp
+        env:
+          MONGODB_ROOT_USER: root
+          MONGODB_ROOT_PASSWORD: root
+          MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}
+          MONGODB_PASSWORD: ${{ env.MONGODB_PASSWORD }}
+          MONGODB_DATABASE: ${{ env.MONGODB_DATABASE }}
 
       redis:
         image: redis
         ports:
-          - 6379:6379
+          - 6379/tcp
         options: >-
           --health-cmd "redis-cli ping"
           --health-interval 10s
@@ -68,6 +64,9 @@ jobs:
           pip install -r all-requirements.txt
 
       - name: Initialize data
+        env:
+          MONGODB_PORT: ${{job.services.db.ports[27017]}}
+          REDIS_PORT: ${{job.services.redis.ports[6379]}}
         run: |
           python3 manage.py init
           python3 manage.py create_user -u ${{env.USER_EMAIL}} -p ${{env.USER_PASSWORD}} -y
