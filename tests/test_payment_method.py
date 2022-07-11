@@ -4,7 +4,7 @@ import pytest
 
 from app.core.enums import PaymentStatus
 
-from .lib.client import client
+from .core.client import client
 from .test_payment_gateway import wait_get_all as wait_get_all_payment_gateway
 
 wait_get_all = pytest.mark.order(
@@ -27,7 +27,6 @@ def test_get_all_payment_method(request: pytest.FixtureRequest, auth_headers: di
     pm_obj = random.choice(data)
     pm_id = pm_obj["id"]
     request.config.cache.set("pm_id", pm_id)
-    print("pm_id nih:", pm_id)
 
 
 @wait_get_all

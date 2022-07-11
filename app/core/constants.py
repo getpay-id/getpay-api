@@ -1,8 +1,12 @@
 import re
 from pathlib import Path
 
+from filetype.types.image import Jpeg, Png, Webp
+
 from .enums import PaymentGateway, PaymentMethod
 
+IMAGE_MATCHERS = [Webp(), Jpeg(), Png()]
+IMAGE_EXTENSIONS = [".png", ".jpg", ".jpeg", ".webp"]
 BASE_PATH = Path(__file__).parent.parent.parent
 PAYMENT_IMAGES_PATH = BASE_PATH / "images" / "payments"
 STATIC_ROOT = "static"

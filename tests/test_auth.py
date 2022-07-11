@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from .lib.client import client
+from .core.client import client
 
 USER_EMAIL = os.environ.get("USER_EMAIL")
 USER_PASSWORD = os.environ.get("USER_PASSWORD")
