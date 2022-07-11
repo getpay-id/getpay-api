@@ -57,8 +57,9 @@ jobs:
         run: |
           pip install -r all-requirements.txt
 
-      - name: Create dummy user
+      - name: Initialize data
         run: |
+          python3 manage.py init
           python3 manage.py create_user -u test@getpay.id -p test123456 -y
 
       - name: Run tests
