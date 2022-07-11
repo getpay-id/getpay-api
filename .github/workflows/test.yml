@@ -11,7 +11,7 @@ on:
 jobs:
   test_job:
     name: Run tests using python v${{ matrix.py }}
-    runs-on: ubuntu-latest
+    runs-on: getpay-runner
     environment: getpay-api
     strategy:
       fail-fast: false
@@ -20,6 +20,7 @@ jobs:
           - "3.9"
           - "3.8"
 
+    container: python:${{ matrix.py }}
     services:
       redis:
         image: redis
@@ -33,10 +34,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.py }}
-
       - name: Create environment file
         run: printf '${{secrets.ENV_FILE}}' > .env
 
