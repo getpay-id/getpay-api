@@ -33,5 +33,9 @@ media_router.add_api_route(
     response_model=schemas.MediaSchema,
 )
 media_router.add_api_route(
-    "/{id}", views.delete, methods=["DELETE"], summary="Hapus file"
+    "/{id}",
+    views.delete,
+    methods=["DELETE"],
+    summary="Hapus file",
+    response_model=schemas.SuccessDeleteMedia,
 )
