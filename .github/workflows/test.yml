@@ -59,8 +59,7 @@ jobs:
 
       - name: Create dummy user
         run: |
-          # username dan password harus sama dengan yang ada di .env.testing
-          python3 manage.py create_user python manage.py create_user -u test@getpay.id -p test123456 -y
+          python3 manage.py create_user -u test@getpay.id -p test123456 -y
 
       - name: Run tests
         run: |
