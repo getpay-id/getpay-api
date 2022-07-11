@@ -29,15 +29,18 @@ jobs:
 
     services:
       db:
-        image: bitnami/mongodb
+        image: mongo
         ports:
           - 27017/tcp
         env:
-          MONGODB_ROOT_USER: root
-          MONGODB_ROOT_PASSWORD: root
-          MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}
-          MONGODB_PASSWORD: ${{ env.MONGODB_PASSWORD }}
-          MONGODB_DATABASE: ${{ env.MONGODB_DATABASE }}
+          MONGO_INITDB_ROOT_USERNAME: ${{ env.MONGODB_USERNAME }}
+          MONGO_INITDB_ROOT_PASSWORD: ${{ env.MONGODB_PASSWORD }}
+          MONGO_INITDB_DATABASE: ${{ env.MONGODB_DATABASE }}
+        options: >-
+          --health-cmd mongo
+          --health-interval 15s
+          --health-timeout 10s
+          --health-retries 10
 
       redis:
         image: redis
@@ -52,7 +55,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Create environment file
-        run: printf '${{secrets.ENV_FILE}}' >> .env
+        run: printf '${{secrets.ENV_FILE}}' > .env
 
       - name: Export environment variables (testing .env)
         uses: cardinalby/export-env-action@1.0.0
@@ -67,6 +70,7 @@ jobs:
         env:
           MONGODB_PORT: ${{job.services.db.ports[27017]}}
           REDIS_PORT: ${{job.services.redis.ports[6379]}}
+
         run: |
           python3 manage.py init
           python3 manage.py create_user -u ${{env.USER_EMAIL}} -p ${{env.USER_PASSWORD}} -y
