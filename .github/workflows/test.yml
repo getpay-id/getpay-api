@@ -77,9 +77,10 @@ jobs:
           REDIS_PORT: ${{job.services.redis.ports[6379]}}
 
         run: |
-          python3 manage.py init
-          python3 manage.py create_user -u ${{env.USER_EMAIL}} -p ${{env.USER_PASSWORD}} -y
+          python -c "import app.settings as settings; for key in dir(settings): print('env %s=%s' % (key, getattr(settings, key)))"
+      #     python3 manage.py init
+      #     python3 manage.py create_user -u ${{env.USER_EMAIL}} -p ${{env.USER_PASSWORD}} -y
 
-      - name: Run tests
-        run: |
-          pytest -v --cache-clear
+      # - name: Run tests
+      #   run: |
+      #     pytest -v --cache-clear
