@@ -20,6 +20,31 @@ jobs:
           - "3.9"
           - "3.8"
 
+    env:
+      REDIS_HOST: redis
+      MONGODB_HOST: db
+      MONGODB_USERNAME: test_user
+      MONGODB_PASSWORD: test123
+      MONGODB_DATABASE: test_db
+
+    container: python:${{ matrix.py }}
+    services:
+      db:
+        image: bitnami/mongodb
+        ports:
+          - 27017:27017
+        env:
+          MONGODB_ROOT_USER: root
+          MONGODB_ROOT_PASSWORD: root
+          MONGODB_USERNAME: ${{env.MONGODB_USERNAME}}
+          MONGODB_PASSWORD: ${{env.MONGODB_PASSWORD}}
+          MONGODB_DATABASE: ${{env.MONGODB_DATABASE}}
+
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+
     steps:
       - uses: actions/checkout@v3
       - name: Setup python v${{ matrix.py }}
@@ -40,22 +65,17 @@ jobs:
         with:
           envFile: .env.testing
 
-      - name: Setup redis
-        uses: shogo82148/actions-setup-redis@v1
-        with:
-          redis-version: latest
-
-      - name: Setup MongoDB
-        uses: supercharge/mongodb-github-action@1.7.0
-        with:
-          mongodb-version: "5.0"
-          mongodb-username: ${{env.MONGODB_USERNAME}}
-          mongodb-password: ${{env.MONGO_PASSWORD}}
-          mongodb-db: ${{env.MONGODB_DATABASE}}
-
       - name: Install dependencies
         run: |
           pip install -r all-requirements.txt
+
+      - name: Setup Environment
+        run: |
+          export REDIS_HOST=${{ env.REDIS_HOST }}
+          export MONGODB_HOST=${{ env.MONGODB_HOST }}
+          export MONGODB_USERNAME=${{ env.MONGODB_USERNAME }}
+          export MONGODB_PASSWORD=${{ env.MONGODB_PASSWORD }}
+          export MONGODB_DATABASE=${{ env.MONGODB_DATABASE }}
 
       - name: Initialize data
         run: |
