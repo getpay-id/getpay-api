@@ -60,6 +60,12 @@ jobs:
       #   with:
       #     python-version: ${{ matrix.py }}
 
+      - name: Cleanup docker
+        run: |
+          docker kill $(docker ps -q)
+          docker rmi $(docker images -q)
+          docker volume prune -f
+
       - name: Create environment file
         run: printf '${{secrets.ENV_FILE}}' > .env
 
