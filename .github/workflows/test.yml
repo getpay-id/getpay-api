@@ -59,12 +59,8 @@ jobs:
           python3 manage.py create_user -u ${{env.USER_EMAIL}} -p ${{env.USER_PASSWORD}} -y
 
       - name: Run tests
-        env:
-          DEBUG: ${{ env.DEBUG }}
-          USER_EMAIL: ${{env.USER_EMAIL}}
-          USER_PASSWORD: ${{env.USER_PASSWORD}}
         run: |
-          pytest -v --cache-clear
+          pytest -sv --cache-clear
 
       - name: Cleanup Database
         run: |
