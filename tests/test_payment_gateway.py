@@ -4,8 +4,8 @@ import pytest
 
 from app.core.enums import PaymentStatus
 
-from .lib.client import client
-from .lib.marker import after_signin
+from .core.client import client
+from .core.marker import after_signin
 
 wait_get_all = pytest.mark.order(
     after=["test_payment_gateway.py::test_get_all_payment_gateway"]

@@ -4,7 +4,7 @@ import pytest
 
 from app.core.enums import PaymentStatus
 
-from .lib.client import client
+from .core.client import client
 from .test_payment_gateway import wait_get_all as wait_get_all_payment_gateway
 
 wait_get_all = pytest.mark.order(
