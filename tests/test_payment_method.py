@@ -27,7 +27,6 @@ def test_get_all_payment_method(request: pytest.FixtureRequest, auth_headers: di
     pm_obj = random.choice(data)
     pm_id = pm_obj["id"]
     request.config.cache.set("pm_id", pm_id)
-    print("pm_id nih:", pm_id)
 
 
 @wait_get_all
