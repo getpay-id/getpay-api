@@ -20,34 +20,11 @@ jobs:
           - "3.9"
           - "3.8"
 
-    env:
-      REDIS_HOST: redis
-      MONGODB_USERNAME: test_user
-      MONGODB_PASSWORD: test123456
-      MONGODB_DATABASE: test_gpdb
-      MONGODB_HOST: db
-
-    container: python:${{ matrix.py }}
     services:
-      db:
-        image: bitnami/mongodb
-        ports:
-          - 27017:27017
-        env:
-          MONGODB_ROOT_PASSWORD: root
-          MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}
-          MONGODB_PASSWORD: ${{ env.MONGODB_PASSWORD }}
-          MONGODB_DATABASE: ${{ env.MONGODB_DATABASE }}
-        options: >-
-          --health-cmd mongo
-          --health-interval 15s
-          --health-timeout 10s
-          --health-retries 10
-
       redis:
         image: redis
         ports:
-          - 6379:6379
+          - 6379/tcp
         options: >-
           --health-cmd "redis-cli ping"
           --health-interval 10s
@@ -56,15 +33,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      # - uses: actions/setup-python@v4
-      #   with:
-      #     python-version: ${{ matrix.py }}
-
-      - name: Cleanup docker
-        run: |
-          docker kill $(docker ps -q)
-          docker rmi $(docker images -q)
-          docker volume prune -f
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.py }}
 
       - name: Create environment file
         run: printf '${{secrets.ENV_FILE}}' > .env
@@ -80,14 +51,17 @@ jobs:
 
       - name: Initialize data
         env:
-          MONGODB_PORT: ${{job.services.db.ports[27017]}}
           REDIS_PORT: ${{job.services.redis.ports[6379]}}
+          MONGODB_URL: ${{ secrets.MONGODB_URL }}
 
         run: |
-          python -c "import app.settings as settings; v = [f'{key}={getattr(settings, key)}' for key in dir(settings) if not key.startswith('__') and key.isupper()]; print('\n'.join(v))"
           python3 manage.py init
           python3 manage.py create_user -u ${{env.USER_EMAIL}} -p ${{env.USER_PASSWORD}} -y
 
-      # - name: Run tests
-      #   run: |
-      #     pytest -v --cache-clear
+      - name: Run tests
+        run: |
+          pytest -v --cache-clear
+
+      - name: Cleanup Database
+        run: |
+          python3 manage.py drop_collection -f
