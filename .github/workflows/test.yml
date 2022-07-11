@@ -22,8 +22,6 @@ jobs:
 
     env:
       REDIS_HOST: redis
-      MONGODB_ROOT_USER: root
-      MONGODB_ROOT_PASSWORD: root
       MONGODB_USERNAME: test_user
       MONGODB_PASSWORD: test123456
       MONGODB_DATABASE: test_gpdb
@@ -38,9 +36,9 @@ jobs:
         env:
           MONGODB_ROOT_USER: root
           MONGODB_ROOT_PASSWORD: root
-          MONGODB_USERNAME: test_user
-          MONGODB_PASSWORD: test123456
-          MONGODB_DATABASE: test_gpdb
+          MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}
+          MONGODB_PASSWORD: ${{ env.MONGODB_PASSWORD }}
+          MONGODB_DATABASE: ${{ env.MONGODB_DATABASE }}
 
       redis:
         image: redis
