@@ -62,12 +62,13 @@ jobs:
           REDIS_HOST: redis
           MONGODB_HOST: db
           MONGODB_USERNAME: test_user
-          MONGODB_PASSWORD: test123
-          MONGODB_DATABASE: test_db
+          MONGODB_PASSWORD: test123456
+          MONGODB_DATABASE: test_gpdb
         run: |
-          python3 manage.py init
-          python3 manage.py create_user -u ${{env.USER_EMAIL}} -p ${{env.USER_PASSWORD}} -y
+          env
+          # python3 manage.py init
+          # python3 manage.py create_user -u ${{env.USER_EMAIL}} -p ${{env.USER_PASSWORD}} -y
 
-      - name: Run tests
-        run: |
-          pytest -v --cache-clear
+      # - name: Run tests
+      #   run: |
+      #     pytest -v --cache-clear
