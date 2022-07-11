@@ -32,5 +32,9 @@ apikey_router.add_api_route(
     response_model=Page[schemas.PublicAPIKey],
 )
 apikey_router.add_api_route(
-    "/{id}", views.delete, methods=["DELETE"], summary="Hapus API Key"
+    "/{id}",
+    views.delete,
+    methods=["DELETE"],
+    summary="Hapus API Key",
+    response_model=schemas.SuccessDeleteAPIKey,
 )
