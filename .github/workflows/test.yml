@@ -1,0 +1,62 @@
+name: Unit testing
+
+on:
+  push:
+    branches:
+      - next
+  pull_request:
+    branches:
+      - next
+
+jobs:
+  test_job:
+    name: Run tests using python v${{ matrix.py }}
+    runs-on: ubuntu-latest
+    environment: getpay-api
+    strategy:
+      fail-fast: false
+      matrix:
+        py:
+          - "3.9"
+          - "3.8"
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup python v${{ matrix.py }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.py }}
+
+      - name: Create environment file
+        run: printf '${{secrets.ENV_FILE}}' >> .env
+
+      - name: Export environment variables
+        run: |
+          export $(cat .env | xargs)
+          export $(cat .env.testing | xargs)
+
+      - name: Setup redis
+        uses: shogo82148/actions-setup-redis@v1
+        with:
+          redis-version: latest
+
+      - name: Setup MongoDB
+        uses: supercharge/mongodb-github-action@1.7.0
+        with:
+          mongodb-version: 5.0
+          mongodb-username: $MONGODB_USERNAME
+          mongodb-password: $MONGO_PASSWORD
+          mongodb-db: $MONGODB_DATABASE
+
+      - name: Install dependencies
+        run: |
+          pip install -r all-requirements.txt
+
+      - name: Create dummy user
+        run: |
+          # username dan password harus sama dengan yang ada di .env.testing
+          python3 manage.py create_user python manage.py create_user -u test@getpay.id -p test123456 -y
+
+      - name: Run tests
+        run: |
+          pytest -v --cache-clear

@@ -11,7 +11,9 @@ def test_upload_file(request: pytest.FixtureRequest, auth_headers: dict):
     files = {"file": open("images/getpay-logo.png", "rb")}
     response = client.post("/media/", files=files, headers=auth_headers)
     assert response.status_code == 200
-    request.config.cache.set("media_object", response.json())
+    data = response.json()
+    assert data["date_updated"] is None
+    request.config.cache.set("media_object", data)
 
 
 @wait_upload_file
