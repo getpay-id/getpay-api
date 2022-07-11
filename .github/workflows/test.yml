@@ -29,13 +29,13 @@ jobs:
 
     services:
       db:
-        image: mongo
+        image: bitnami/mongodb
         ports:
           - 27017/tcp
         env:
-          MONGO_INITDB_ROOT_USERNAME: ${{ env.MONGODB_USERNAME }}
-          MONGO_INITDB_ROOT_PASSWORD: ${{ env.MONGODB_PASSWORD }}
-          MONGO_INITDB_DATABASE: ${{ env.MONGODB_DATABASE }}
+          MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}
+          MONGODB_PASSWORD: ${{ env.MONGODB_PASSWORD }}
+          MONGODB_DATABASE: ${{ env.MONGODB_DATABASE }}
         options: >-
           --health-cmd mongo
           --health-interval 15s
@@ -54,6 +54,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.py }}
+
       - name: Create environment file
         run: printf '${{secrets.ENV_FILE}}' > .env
 
