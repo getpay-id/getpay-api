@@ -21,11 +21,11 @@ jobs:
           - "3.8"
 
     env:
-      REDIS_HOST: localhost
+      REDIS_HOST: redis
       MONGODB_USERNAME: test_user
       MONGODB_PASSWORD: test123456
       MONGODB_DATABASE: test_gpdb
-      MONGODB_HOST: localhost
+      MONGODB_HOST: db
 
     services:
       db:
