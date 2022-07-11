@@ -37,6 +37,11 @@ jobs:
         image: redis
         ports:
           - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - uses: actions/checkout@v3
@@ -52,15 +57,13 @@ jobs:
         run: |
           pip install -r all-requirements.txt
 
-      - name: Override environment variable
-        run: |
-          export REDIS_HOST=redis
-          export MONGODB_HOST=db
-          export MONGODB_USERNAME=test_user
-          export MONGODB_PASSWORD=test123
-          export MONGODB_DATABASE=test_db
-
       - name: Initialize data
+        env:
+          REDIS_HOST: redis
+          MONGODB_HOST: db
+          MONGODB_USERNAME: test_user
+          MONGODB_PASSWORD: test123
+          MONGODB_DATABASE: test_db
         run: |
           python3 manage.py init
           python3 manage.py create_user -u ${{env.USER_EMAIL}} -p ${{env.USER_PASSWORD}} -y
