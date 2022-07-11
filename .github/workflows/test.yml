@@ -21,12 +21,13 @@ jobs:
           - "3.8"
 
     env:
-      REDIS_HOST: 127.0.0.1
+      REDIS_HOST: redis
       MONGODB_USERNAME: test_user
       MONGODB_PASSWORD: test123456
       MONGODB_DATABASE: test_gpdb
-      MONGODB_HOST: 127.0.0.1
+      MONGODB_HOST: db
 
+    container: python:${{ matrix.py }}
     services:
       db:
         image: bitnami/mongodb
