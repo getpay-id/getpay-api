@@ -10,18 +10,28 @@ on:
 
 jobs:
   test_job:
-    name: Run tests using python v${{ matrix.py }}
+    name: Run tests using python v3.9
     runs-on: getpay-runner
     environment: getpay-api
-    strategy:
-      fail-fast: false
-      matrix:
-        py:
-          - "3.9"
-          - "3.8"
-
-    container: python:${{ matrix.py }}
+    env:
+      MONGODB_USERNAME: test_user
+      MONGODB_PASSWORD: test_password
+      MONGODB_DATABASE: test_database
     services:
+      db:
+        image: bitnami/mongodb
+        ports:
+          - 27017/tcp
+        env:
+          MONGODB_ROOT_PASSWORD: root
+          MONGODB_USERNAME: ${{env.MONGODB_USERNAME}}
+          MONGODB_PASSWORD: ${{env.MONGODB_PASSWORD}}
+          MONGODB_DATABASE: ${{env.MONGODB_DATABASE}}
+        options: >-
+          --health-cmd "mongo"
+          --health-interval 15s
+          --health-timeout 5s
+          --health-retries 7
       redis:
         image: redis
         ports:
@@ -34,6 +44,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
       - name: Create environment file
         run: printf '${{secrets.ENV_FILE}}' > .env
 
@@ -49,7 +62,7 @@ jobs:
       - name: Initialize data
         env:
           REDIS_PORT: ${{job.services.redis.ports[6379]}}
-          MONGODB_URL: ${{ secrets.MONGODB_URL }}
+          MONGODB_PORT: ${{ job.services.db.ports[27017] }}
 
         run: |
           python3 manage.py init
@@ -62,3 +75,6 @@ jobs:
       - name: Cleanup Database
         run: |
           python3 manage.py drop_collection -f
+
+      - name: Cleanup docker
+        run: python3 cleanup_docker.py
