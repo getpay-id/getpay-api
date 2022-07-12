@@ -11,7 +11,7 @@ on:
 jobs:
   test_job:
     name: Run tests using python v3.9
-    runs-on: getpay-runner
+    runs-on: ubuntu-latest
     environment: getpay-api
     env:
       MONGODB_USERNAME: test_user
