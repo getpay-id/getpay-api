@@ -24,7 +24,7 @@ jobs:
       MONGODB_USERNAME: gpuser
       MONGODB_PASSWORD: gppassword
       MONGODB_DATABASE: gpdatabase
-      MONGODB_URL: mongodb://$MONGODB_USERNAME:$MONGODB_PASSWORD@localhost:27017/$MONGODB_DATABASE?authSource=admin
+      MONGODB_URL: mongodb://${{MONGODB_USERNAME}}:${{MONGODB_PASSWORD}}@localhost:27017/${{MONGODB_DATABASE}}?authSource=admin
 
     steps:
       - uses: actions/checkout@v3
