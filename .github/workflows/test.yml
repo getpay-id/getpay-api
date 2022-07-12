@@ -21,9 +21,9 @@ jobs:
           - "3.8"
 
     env:
-      MONGODB_USERNAME: test_user
-      MONGODB_PASSWORD: test_password
-      MONGODB_DATABASE: test_database
+      MONGODB_USERNAME: gpuser
+      MONGODB_PASSWORD: gppassword
+      MONGODB_DATABASE: gpdatabase
 
     steps:
       - uses: actions/checkout@v3
@@ -61,7 +61,6 @@ jobs:
         env:
           MONGODB_URL: mongodb://${{env.MONGODB_USERNAME}}:${{env.MONGODB_PASSWORD}}@localhost:27017/${{env.MONGODB_DATABASE}}
         run: |
-          python -c "import app.settings as settings; v = [f'{key}={getattr(settings, key)}' for key in dir(settings) if not key.startswith('__') and key.isupper()]; print('\n'.join(v))"
           python3 manage.py init
           python3 manage.py create_user -u ${{env.USER_EMAIL}} -p ${{env.USER_PASSWORD}} -y
 
