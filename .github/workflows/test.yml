@@ -24,6 +24,7 @@ jobs:
       MONGODB_USERNAME: gpuser
       MONGODB_PASSWORD: gppassword
       MONGODB_DATABASE: gpdatabase
+      MONGODB_URL: mongodb://${{env.MONGODB_USERNAME}}:${{env.MONGODB_PASSWORD}}@localhost:27017/${{env.MONGODB_DATABASE}}?authSource=admin
 
     steps:
       - uses: actions/checkout@v3
@@ -58,8 +59,6 @@ jobs:
           pip install -r all-requirements.txt
 
       - name: Initialize data
-        env:
-          MONGODB_URL: mongodb://${{env.MONGODB_USERNAME}}:${{env.MONGODB_PASSWORD}}@localhost:27017/${{env.MONGODB_DATABASE}}?authSource=admin
         run: |
           python3 manage.py init
           python3 manage.py create_user -u ${{env.USER_EMAIL}} -p ${{env.USER_PASSWORD}} -y
