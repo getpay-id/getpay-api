@@ -2,6 +2,10 @@
 
 <img src="https://raw.githubusercontent.com/getpay-id/getpay-api/main/images/getpay-logo.png" alt="GetPay Logo">
 
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/getpay-id/getpay-api.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/getpay-id/getpay-api/alerts/)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/getpay-id/getpay-api.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/getpay-id/getpay-api/context:python)
+![Black Formatter](https://img.shields.io/badge/code%20style-black-000000.svg)
+
 GetPay adalah layanan gratis untuk menangani pembayaran dari beberapa payment gateway yg mendukung mata uang indonesia (IDR).
 
 Goal dari proyek ini adalah:
