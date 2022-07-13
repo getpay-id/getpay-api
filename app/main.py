@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 
 from app import settings  # noqa # muat semua konfigurasi dari file .env
 from app.core.constants import STATIC_ROOT
-from app.extensions import limiter
+from app.extensions import init_extensions
 from app.routers import init_routers
 
 app = FastAPI(
@@ -15,8 +15,9 @@ app.mount(f"/{STATIC_ROOT}", StaticFiles(directory=STATIC_ROOT), name=STATIC_ROO
 app.add_middleware(
     CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"]
 )
+app.state.settings = settings
+init_extensions(app)
 init_routers(app)
-limiter.setup(app)
 
 
 @app.route("/", methods=["GET", "HEAD"], include_in_schema=False)

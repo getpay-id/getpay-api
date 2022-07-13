@@ -22,6 +22,7 @@ saq = {extras = ["hiredis"], version = "*"}
 filetype = "*"
 gunicorn = "*"
 slowapi = "*"
+popol = "*"
 
 [dev-packages]
 black = "*"
