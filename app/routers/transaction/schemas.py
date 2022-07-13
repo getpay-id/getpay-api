@@ -8,6 +8,7 @@ from app.core.schema import Schema
 
 
 class TransactionPaymentChannelOut(BaseModel):
+    id: Optional[str] = None
     name: str
     fee: StrictInt
     fee_percent: StrictFloat
