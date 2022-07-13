@@ -61,6 +61,7 @@ def create_virtual_account_payment(
         name=name,
         expected_amount=expected_amount,
         expiration_date=expiration_date,
+        is_closed=True,
         **kwargs
     )
     return resp
