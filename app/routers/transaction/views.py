@@ -143,6 +143,7 @@ async def create(request: Request, body: TransactionIn):
         "status": TransactionStatus.pending,
         "date_created": timezone.now(),
         "date_updated": None,
+        "paid_date": None,
     }
     if pg_name == PaymentGateway.ipaymu:
         api_key = settings.IPAYMU_API_KEY

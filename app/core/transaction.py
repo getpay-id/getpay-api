@@ -17,7 +17,7 @@ async def paid(*, trx_id: str, message: str):
         {
             "$set": {
                 "status": status,
-                "date_updated": timezone.now(),
+                "paid_date": timezone.now(),
                 "__hit__": True,
             }
         },

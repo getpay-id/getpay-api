@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any
+from typing import Any, Optional
 
 from pydantic import BaseModel, EmailStr, StrictFloat, StrictInt
 
@@ -24,6 +24,7 @@ class TransactionOut(Schema):
     expiration_date: datetime
     status: TransactionStatus
     trx_id: str
+    paid_date: Optional[datetime]
 
 
 class UpdateTransactionOut(BaseModel):
