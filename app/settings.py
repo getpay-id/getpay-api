@@ -13,15 +13,17 @@ from urllib.parse import quote_plus
 API_VERSION = os.environ.get("API_VERSION", "v1")
 DEBUG = os.environ.get("DEBUG", "1") == "1"
 DEMO = os.environ.get("DEMO", "1") == "1"
-
 MAX_UPLOAD_SIZE = 7000000  # 7MB
-
 JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY")
 if not JWT_SECRET_KEY:
     raise RuntimeError("JWT_SECRET_KEY is not set")
 if len(JWT_SECRET_KEY) < 30:
     raise RuntimeError("JWT_SECRET_KEY is too short (30 chars minimum)")
 
+# Sentry
+SENTRY_DSN = os.environ.get("SENTRY_DSN")
+
+# MongoDB
 MONGODB_USERNAME = os.environ.get("MONGODB_USERNAME")
 MONGODB_PASSWORD = os.environ.get("MONGODB_PASSWORD")
 MONGODB_DATABASE = os.environ.get("MONGODB_DATABASE")
@@ -34,6 +36,7 @@ MONGODB_URL = os.environ.get(
 if not MONGODB_URL:
     raise RuntimeError("MONGODB_URL is not set")
 
+# Redis
 REDIS_USERNAME = os.environ.get("REDIS_USERNAME", "")
 REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
 REDIS_DATABASE = os.environ.get("REDIS_DATABASE") or 0

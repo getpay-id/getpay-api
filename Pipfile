@@ -22,6 +22,7 @@ gunicorn = "*"
 slowapi = "*"
 popol = ">=0.2.2"
 saq = {extras = ["hiredis"], version = "*"}
+sentry-sdk = "*"
 
 [dev-packages]
 black = "*"
