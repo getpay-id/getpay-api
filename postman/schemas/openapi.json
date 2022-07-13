@@ -2406,6 +2406,11 @@
           "trx_id": {
             "title": "Trx Id",
             "type": "string"
+          },
+          "paid_date": {
+            "title": "Paid Date",
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
@@ -2418,6 +2423,10 @@
         ],
         "type": "object",
         "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
           "name": {
             "title": "Name",
             "type": "string"
@@ -2429,6 +2438,14 @@
           "fee_percent": {
             "title": "Fee Percent",
             "type": "number"
+          },
+          "img": {
+            "title": "Img",
+            "type": "string"
+          },
+          "min_amount": {
+            "title": "Min Amount",
+            "type": "integer"
           }
         }
       },
