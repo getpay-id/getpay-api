@@ -4,6 +4,7 @@ from typing import Tuple
 from bson import ObjectId
 from fastapi import File, HTTPException, Query, Request, UploadFile, status
 from filetype.match import match as file_matcher
+from popol.cache.decorators import cached
 from pymongo.collection import ReturnDocument
 from pymongo.results import DeleteResult, InsertOneResult
 
@@ -107,6 +108,7 @@ async def update(request: Request, id: ObjectID, file: UploadFile = File(...)):
     return utils.serialize_data(data)
 
 
+@cached()
 async def get_all(
     request: Request,
     page: int = Query(1, ge=1, description="Page number"),
