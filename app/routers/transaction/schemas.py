@@ -11,6 +11,8 @@ class TransactionPaymentChannelOut(BaseModel):
     name: str
     fee: StrictInt
     fee_percent: StrictFloat
+    img: Optional[str]
+    min_amount: Optional[StrictInt]
 
 
 class TransactionOut(Schema):
