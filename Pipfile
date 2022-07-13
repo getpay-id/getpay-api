@@ -11,18 +11,17 @@ pydantic = {extras = ["email"], version = "*"}
 uvicorn = {extras = ["standard"], version = "*"}
 python-dotenv = "*"
 bcrypt = "*"
-fastapi = "*"
 xendit-python = "*"
 orjson = "*"
 ipython = "*"
 python-multipart = "*"
 faker = "*"
 typing-extensions = "*"
-saq = {extras = ["hiredis"], version = "*"}
 filetype = "*"
 gunicorn = "*"
 slowapi = "*"
-popol = "*"
+popol = ">=0.2.2"
+saq = {extras = ["hiredis"], version = "*"}
 
 [dev-packages]
 black = "*"

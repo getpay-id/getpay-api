@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
-from app import settings  # noqa # muat semua konfigurasi dari file .env
+from app import settings  # muat semua konfigurasi dari file .env
 from app.core.constants import STATIC_ROOT
 from app.extensions import init_extensions
 from app.routers import init_routers
