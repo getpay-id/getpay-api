@@ -285,7 +285,9 @@ async def create(request: Request, body: TransactionIn):
         resp_content: dict = resp.json()
         if resp.status_code == 200:
             payload["trx_id"] = trx_id
-            payload["amount"] = resp_content["amount"]
+            payload["amount"] = resp_content.get(
+                "amount", amount
+            )  # untuk metode pembayaran BRIVA tidak ada field amount.
             if body.payment_method in (PaymentMethod.va, PaymentMethod.cstore):
                 payload["payment_number"] = resp_content["vaNumber"]
             elif body.payment_method == PaymentMethod.ewallet:
