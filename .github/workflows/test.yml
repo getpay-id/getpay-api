@@ -55,8 +55,7 @@ jobs:
           mongodb-db: ${{env.MONGODB_DATABASE}}
 
       - name: Install dependencies
-        run: |
-          pip install -r all-requirements.txt
+        run: pip install -r all-requirements.txt
 
       - name: Initialize data
         run: |
@@ -64,9 +63,7 @@ jobs:
           python3 manage.py create_user -u ${{env.USER_EMAIL}} -p ${{env.USER_PASSWORD}} -y
 
       - name: Run tests
-        run: |
-          pytest -sv --cache-clear
+        run: bash scripts/runtests.sh
 
       - name: Cleanup Database
-        run: |
-          python3 manage.py drop_collection -f
+        run: python3 manage.py drop_collection -f
