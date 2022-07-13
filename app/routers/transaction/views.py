@@ -5,6 +5,8 @@ from bson import ObjectId
 from faker import Faker
 from fastapi import HTTPException, Query, Request, status
 from fastapi.responses import ORJSONResponse
+from popol.cache.decorators import cached
+from popol.jobs.saq.globals import saq_queue
 from pydantic import AnyHttpUrl, BaseModel, EmailStr, Field, validator
 from pymongo import ReturnDocument
 from pymongo.results import InsertOneResult
@@ -22,8 +24,7 @@ from app.core.fields import ObjectID
 from app.core.pagination import paginate
 from app.core.thirdparty import duitku, ipaymu, xendit
 from app.core.utils import generate_random_string, serialize_data
-from app.extensions.limiter import limiter
-from app.queue import q1
+from app.extensions.ratelimit import limiter
 
 faker = Faker()
 
@@ -325,7 +326,7 @@ async def create(request: Request, body: TransactionIn):
     obj = await collections.transactions.find_one({"_id": result.inserted_id})
     data = serialize_data(obj)
     scheduled = int((timezone.now() + exp_trx).timestamp())
-    await q1.queue.enqueue(
+    await saq_queue.enqueue(
         "update_transaction_status", trx_id=str(result.inserted_id), scheduled=scheduled
     )
     return data
@@ -349,6 +350,7 @@ async def get_one(id: ObjectID):
     return data
 
 
+@cached()
 async def get_all(
     page: int = Query(1, ge=1, description="Page number"),
     size: int = Query(10, ge=1, le=100, description="Page size"),

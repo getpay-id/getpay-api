@@ -1,9 +1,10 @@
+from aioredis.client import PubSub
+from popol.cache.globals import cache
 from starlette import status
 from starlette.websockets import WebSocket
 
 from app.core.constants import REDIS_PREFIX_TRANSACTION_CHANNEL
 from app.core.websocket import BaseWebSocket
-from app.extensions.cache import redis_cache
 
 
 class GetTransactionStatus(BaseWebSocket):
@@ -15,7 +16,7 @@ class GetTransactionStatus(BaseWebSocket):
         if not trans_id:
             await self.throw(websocket, status.WS_1003_UNSUPPORTED_DATA)
 
-        pubsub = redis_cache.pubsub()
+        pubsub: PubSub = cache.pubsub()
         async with pubsub as ps:
             channel = REDIS_PREFIX_TRANSACTION_CHANNEL + trans_id
             print("Subscribe to:", channel)

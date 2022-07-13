@@ -1,5 +1,7 @@
 import os
 
+from app.tasks import update_transaction_status
+
 if "ENVFILE_LOADED" not in os.environ:
     from dotenv import load_dotenv
 
@@ -38,6 +40,30 @@ REDIS_DATABASE = os.environ.get("REDIS_DATABASE") or 0
 REDIS_HOST = os.environ.get("REDIS_HOST")
 REDIS_PORT = os.environ.get("REDIS_PORT")
 REDIS_URL = os.environ.get("REDIS_URL")
+
+# popol cache
+CACHES = {
+    "default": {
+        "backend": "app.extensions.cache_backend.RedisCache",
+        "options": {
+            "host": REDIS_HOST,
+            "port": REDIS_PORT,
+            "db": REDIS_DATABASE,
+        },
+    },
+}
+
+# popol SAQ queue
+Q1_DB = os.environ.get("Q1_DB", "1")
+SAQ_QUEUES = {
+    "default": {
+        "url": f"redis://{REDIS_HOST}:{REDIS_PORT}/{Q1_DB}",
+        "functions": [update_transaction_status],
+        "concurrency": 10,
+        "cron_jobs": [],
+        "context": {},
+    }
+}
 
 # IPaymu
 IPAYMU_URL = os.environ.get("IPAYMU_URL")
