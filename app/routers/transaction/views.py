@@ -138,7 +138,7 @@ async def create(request: Request, body: TransactionIn):
         "email": email,
         "amount": amount,
         "payment_method": body.payment_method,
-        "payment_channel": pc_obj,
+        "payment_channel": serialize_data(pc_obj),
         "expiration_date": expiration_date,
         "status": TransactionStatus.pending,
         "date_created": timezone.now(),
