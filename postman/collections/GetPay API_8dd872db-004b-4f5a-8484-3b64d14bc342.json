@@ -239,7 +239,8 @@
 											"    var jsonData = pm.response.json();",
 											"    var payment_gateway = jsonData.data[jsonData.data.length * Math.random() | 0]",
 											"    pm.collectionVariables.set(\"pg_id\", payment_gateway.id)",
-											"});"
+											"});",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -559,6 +560,23 @@
 					"item": [
 						{
 							"name": "Daftar payment method",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "944d55f4-c0b0-46c6-b62b-eca07282984e",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"    var jsonData = pm.response.json();",
+											"    var payment_method = jsonData.data[jsonData.data.length * Math.random() | 0]",
+											"    pm.collectionVariables.set(\"pm_id\", payment_method.id)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"id": "216e3254-8f66-419e-b56b-ab74bfe9de56",
 							"request": {
 								"method": "GET",
@@ -569,7 +587,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/v1/payment/method/?pg_id=dolor Lorem do sint ut&page=1&size=10&sort_by=<integer>",
+									"raw": "{{baseUrl}}/v1/payment/method/?pg_id={{pg_id}}&page=1&size=10&sort_by=-1",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -582,7 +600,7 @@
 									"query": [
 										{
 											"key": "pg_id",
-											"value": "dolor Lorem do sint ut",
+											"value": "{{pg_id}}",
 											"description": "(Required) Payment gateway ID"
 										},
 										{
@@ -597,7 +615,7 @@
 										},
 										{
 											"key": "sort_by",
-											"value": "<integer>",
+											"value": "-1",
 											"description": "Sort by ASCENDING (1) or DESCENDING (-1)"
 										}
 									]
@@ -739,7 +757,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"pg_id\": \"nostrud\",\n  \"status\": 0\n}",
+									"raw": "{\n  \"status\": 0\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -759,9 +777,8 @@
 									],
 									"variable": [
 										{
-											"id": "98049d6d-6fc4-4da6-9343-09763bc95713",
 											"key": "id",
-											"value": "deserunt commodo Duis",
+											"value": "{{pm_id}}",
 											"description": "(Required) Payment method ID"
 										}
 									]
@@ -880,7 +897,7 @@
 							]
 						},
 						{
-							"name": "Dapaatkan rincian payment method",
+							"name": "Dapatkan rincian payment method",
 							"id": "ba6c0de7-1c04-41ad-afd5-44a9ba6c9534",
 							"request": {
 								"method": "GET",
@@ -891,7 +908,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/v1/payment/method/:id?pg_id=dolor Lorem do sint ut",
+									"raw": "{{baseUrl}}/v1/payment/method/:id",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -901,18 +918,10 @@
 										"method",
 										":id"
 									],
-									"query": [
-										{
-											"key": "pg_id",
-											"value": "dolor Lorem do sint ut",
-											"description": "(Required) Payment gateway ID"
-										}
-									],
 									"variable": [
 										{
-											"id": "592392df-2d64-413b-934f-cfd1d6c8a53f",
 											"key": "id",
-											"value": "deserunt commodo Duis",
+											"value": "{{pm_id}}",
 											"description": "(Required) Payment method ID"
 										}
 									]
@@ -1032,6 +1041,23 @@
 					"item": [
 						{
 							"name": "Daftar payment channel",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ec99dcf2-33e5-497b-b899-93b313e230f2",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"    var jsonData = pm.response.json();",
+											"    var payment_channel = jsonData.data[jsonData.data.length * Math.random() | 0]",
+											"    pm.collectionVariables.set(\"pc_id\", payment_channel.id)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"id": "a07ea5d7-82f2-49f9-bea3-1af23b9786e1",
 							"request": {
 								"method": "GET",
@@ -1042,7 +1068,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/v1/payment/channel/?id=tempor laboris pariatur dolore&page=1&size=10&sort_by=<integer>",
+									"raw": "{{baseUrl}}/v1/payment/channel/?id={{pm_id}}&page=1&size=10&sort_by=-1",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -1055,7 +1081,7 @@
 									"query": [
 										{
 											"key": "id",
-											"value": "tempor laboris pariatur dolore",
+											"value": "{{pm_id}}",
 											"description": "(Required) Payment Method ID"
 										},
 										{
@@ -1070,7 +1096,7 @@
 										},
 										{
 											"key": "sort_by",
-											"value": "<integer>",
+											"value": "-1",
 											"description": "Sort by ASCENDING (1) or DESCENDING (-1)"
 										}
 									]
@@ -1216,9 +1242,8 @@
 									],
 									"variable": [
 										{
-											"id": "15c99413-74cb-41c8-93c7-863a01ea8099",
 											"key": "id",
-											"value": "anim ullamco incididu",
+											"value": "{{pc_id}}",
 											"description": "(Required) Payment Channel ID"
 										}
 									]
@@ -1338,7 +1363,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"status\": 0,\n  \"name\": \"exercitation\",\n  \"fee\": 15222984,\n  \"fee_percent\": -41436460.176815346,\n  \"img\": \"http://NPNbKyUdymKTCZLMw.gmbek2f+F.n8N\",\n  \"min_amount\": -19561805\n}",
+									"raw": "{\n  \"status\": 0,\n  \"name\": \"Indomaret\",\n  \"fee\": 3000,\n  \"fee_percent\": 0.5,\n  \"img\": \"https://aprila.dev\",\n  \"min_amount\": 1000\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1358,9 +1383,8 @@
 									],
 									"variable": [
 										{
-											"id": "a5ce372a-aa1c-4130-b9e1-b8909efd6f8a",
 											"key": "id",
-											"value": "anim ullamco incididu",
+											"value": "{{pc_id}}",
 											"description": "(Required) Payment Channel ID"
 										}
 									]
@@ -2164,7 +2188,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/v1/apikey/?page=1&size=10&sort_by=<integer>&q=eiusmod veniam",
+							"raw": "{{baseUrl}}/v1/apikey/?page=1&size=10&sort_by=-1",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -2186,13 +2210,14 @@
 								},
 								{
 									"key": "sort_by",
-									"value": "<integer>",
+									"value": "-1",
 									"description": "Sort by ASCENDING (1) or DESCENDING (-1)"
 								},
 								{
 									"key": "q",
-									"value": "eiusmod veniam",
-									"description": "Search query"
+									"value": "",
+									"description": "Search query",
+									"disabled": true
 								}
 							]
 						},
@@ -2313,6 +2338,22 @@
 				},
 				{
 					"name": "Buat API Key baru",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d80363f1-8201-4cc0-a1f5-d787e634c24b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.collectionVariables.set(\"access_token\", jsonData.api_key)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"id": "a378b141-c335-432a-b8b1-a915c5d05cc6",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -2331,7 +2372,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"dolor\",\n  \"description\": \"dolor nulla\",\n  \"expiration_time\": -48097642,\n  \"expiration_type\": \"months\"\n}",
+							"raw": "{\n  \"name\": \"dolor\",\n  \"description\": \"dolor nulla\",\n  \"expiration_time\": 1,\n  \"expiration_type\": \"months\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4081,7 +4122,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "7f0fe26a-b73a-4766-8ac2-ba8f2c08c016",
+				"id": "c309775a-e554-4d6b-8bc2-b24ae73281ee",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -4091,7 +4132,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "41259e35-3cd3-4eaf-a530-7f186c235960",
+				"id": "de333edb-0612-4660-ade1-e20c6d45c6fe",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -4101,51 +4142,63 @@
 	],
 	"variable": [
 		{
-			"id": "094a0b66-1d75-4c58-8b8a-abd83ca306e2",
+			"id": "264e4794-54bd-4129-a046-18344f07b855",
 			"key": "baseUrl",
-			"value": "http://localhost:5000",
+			"value": "https://api.getpay.id",
 			"type": "string"
 		},
 		{
-			"id": "6c0e2d51-8495-46cf-9b18-3d69447294f1",
+			"id": "10e05cf9-6f20-49b3-ad67-7b8f968db1cc",
 			"key": "email",
-			"value": "test@localhost.com",
+			"value": "test@getpay.id",
 			"type": "string"
 		},
 		{
-			"id": "5ff4e10e-58c9-4e8a-8fd8-86014a5d9206",
+			"id": "c9193fdd-7cf0-49f3-95be-c29000393fc4",
 			"key": "password",
 			"value": "test123456",
 			"type": "string"
 		},
 		{
-			"id": "4012ca40-ef05-467f-a7ab-d9b69b30763d",
+			"id": "eeb0282b-e662-4a8a-baec-a9c49719ef3a",
 			"key": "access_token",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "2a14b3f1-3b32-4e0b-b207-c6adff399931",
+			"id": "7e6011f5-303a-4cba-90e2-5255c5a8e073",
 			"key": "payment_method",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "16110888-71c1-4920-a60f-27a6f2e08584",
+			"id": "abbe2c93-cdd7-492c-b9ce-fee71a758001",
 			"key": "payment_channel",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "7cc2cf2c-a878-458a-a7d5-f1ac2c4ff55f",
+			"id": "3bcd8d3f-b131-4c75-be69-4f1ca1fe7a56",
 			"key": "trx_id",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "c3ac8903-7549-44fb-bfef-42ce2600e364",
+			"id": "24fd7f8d-212b-498a-907d-7bec1fd95759",
 			"key": "pg_id",
 			"value": ""
+		},
+		{
+			"id": "242a7a02-b50a-4532-8c74-a8d2081149da",
+			"key": "pm_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "412de9e4-40b3-40c4-904e-62b5a7b11e3b",
+			"key": "pc_id",
+			"value": "",
+			"type": "string"
 		}
 	]
 }
