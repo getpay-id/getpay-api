@@ -42,6 +42,25 @@ def test_get_detail_apikey(auth_headers: dict, request: pytest.FixtureRequest):
 
 
 @wait_create_apikey
+def test_update_apikey(auth_headers: dict, request: pytest.FixtureRequest):
+    apikey_object = request.config.cache.get("apikey_object", None)
+    if not apikey_object:
+        pytest.fail("No API Key found.")
+
+    apikey_id = apikey_object["id"]
+    ganti_nama_str = "ganti nama"
+    ganti_deskripsi_str = "ganti deskripsi"
+    payload = {
+        "name": ganti_nama_str,
+        "description": ganti_deskripsi_str,
+    }
+    response = client.put(f"/apikey/{apikey_id}", json=payload, headers=auth_headers)
+    assert response.status_code == 200
+    data = response.json()
+    assert data["name"] == ganti_nama_str and data["description"] == ganti_deskripsi_str
+
+
+@wait_create_apikey
 def test_delete_apikey(auth_headers: dict, request: pytest.FixtureRequest):
     apikey_object = request.config.cache.get("apikey_object", None)
     if not apikey_object:
