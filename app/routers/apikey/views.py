@@ -1,7 +1,8 @@
 from bson import ObjectId, Regex
 from dateutil.relativedelta import relativedelta
-from fastapi import Query, Request
+from fastapi import HTTPException, Query, Request, status
 from pydantic import BaseModel, validator
+from pymongo import ReturnDocument
 from pymongo.results import DeleteResult, InsertOneResult
 
 from app import collections
@@ -26,6 +27,11 @@ class APIKeyIn(BaseModel):
         elif v == ExpirationType.unlimited and values["expiration_time"] > 0:
             raise ValueError("expiration_time must be 0")
         return v
+
+
+class UpdateAPIKey(BaseModel):
+    name: str
+    description: str
 
 
 async def create(request: Request, body: APIKeyIn):
@@ -104,6 +110,30 @@ async def get_all(
         query_filter=qs,
         sort_field=("date_created", sort_by),
     )
+
+
+async def update(id: ObjectID, body: UpdateAPIKey):
+    """
+    Perbarui API Key
+
+    Parameters:
+
+    * `name`: Nama API Key
+
+    * `description`: Deskripsi API Key
+
+    """
+
+    payload = body.dict()
+    payload["date_updated"] = timezone.now()
+    obj = await collections.api_keys.find_one_and_update(
+        {"_id": ObjectId(id)}, {"$set": payload}, return_document=ReturnDocument.AFTER
+    )
+    if not obj:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "API Key not found")
+
+    data = serialize_data(obj)
+    return data
 
 
 async def delete(id: ObjectID):

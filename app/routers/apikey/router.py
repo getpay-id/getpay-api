@@ -33,6 +33,13 @@ apikey_router.add_api_route(
 )
 apikey_router.add_api_route(
     "/{id}",
+    views.update,
+    methods=["PUT"],
+    summary="Perbarui API Key",
+    response_model=schemas.PublicAPIKey,
+)
+apikey_router.add_api_route(
+    "/{id}",
     views.delete,
     methods=["DELETE"],
     summary="Hapus API Key",
