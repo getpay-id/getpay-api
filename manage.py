@@ -207,14 +207,19 @@ async def init_payment_method_images():
                     shutil.copyfile(src_img, dst_img)
 
                 img_path = f"/{STATIC_ROOT}/payments/{logo}"
-                print(" + Creating media file:", name, logo)
-                await collections.media.insert_one(
-                    {
-                        "file": img_path,
-                        "date_created": timezone.now(),
-                        "date_updated": None,
-                    }
-                )
+                media_obj = await collections.media.find_one({"file": img_path})
+                if not media_obj:
+                    print(" + Creating media file:", name, logo)
+                    await collections.media.insert_one(
+                        {
+                            "file": img_path,
+                            "date_created": timezone.now(),
+                            "date_updated": None,
+                        }
+                    )
+                else:
+                    print(" + Media file already exists:", name, logo)
+
                 await collections.payment_channel.update_one(
                     {"_id": channel["_id"]}, {"$set": {"img": img_path}}
                 )
