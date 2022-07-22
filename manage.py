@@ -15,7 +15,7 @@ from pymongo.errors import CollectionInvalid
 from pymongo.results import InsertOneResult
 
 from app import collections, settings
-from app.core import passwd, timezone
+from app.core import aggregations, passwd, timezone
 from app.core.constants import (
     MONGO_COLLECTIONS,
     MONGO_TEXT_INDEXES,
@@ -218,13 +218,22 @@ async def init_payment_method_images():
                         }
                     )
                 else:
-                    print(" + Media file already exists:", name, logo)
+                    print(" ! Media file already exists:", name, logo)
 
                 await collections.payment_channel.update_one(
                     {"_id": channel["_id"]}, {"$set": {"img": img_path}}
                 )
             else:
                 print(f"! Payment method image for {name} not found")
+
+    await remove_duplicate_images()
+
+
+async def remove_duplicate_images():
+    aggr = aggregations.find_duplicate_data("$file")
+    async for doc in collections.media.aggregate(aggr):
+        print("Removing duplicate media file:", doc["id"])
+        await collections.media.delete_one({"_id": doc["id"]})
 
 
 async def main():
