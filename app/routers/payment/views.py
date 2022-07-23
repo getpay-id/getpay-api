@@ -1,6 +1,7 @@
 from app import collections
+from app.core.enums import PaymentStatus
 
-from .aggregations import GET_ALL_ACTIVE_PAYMENT_METHODS
+from . import aggregations
 
 
 async def get_all_active_payment_methods():
@@ -9,15 +10,19 @@ async def get_all_active_payment_methods():
     """
 
     data = []
-    async for pm_obj in collections.payment_method.aggregate(
-        GET_ALL_ACTIVE_PAYMENT_METHODS
+    async for pg_obj in collections.payment_gateway.find(
+        {"status": PaymentStatus.active}
     ):
-        append = True
-        for d in data:
-            if pm_obj.get("name") == d.get("name"):
-                d["channels"].extend(pm_obj.get("channels"))
-                append = False
-                break
-        if append:
-            data.append(pm_obj)
+        pg_id = str(pg_obj["_id"])
+        async for pm_obj in collections.payment_method.aggregate(
+            aggregations.get_all_active_payment_methods(pg_id)
+        ):
+            append = True
+            for d in data:
+                if pm_obj.get("name") == d.get("name"):
+                    d["channels"].extend(pm_obj.get("channels"))
+                    append = False
+                    break
+            if append:
+                data.append(pm_obj)
     return data
