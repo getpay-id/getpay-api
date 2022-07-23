@@ -1,4 +1,5 @@
 from popol.cache.globals import cache
+from popol.jobs.saq.globals import saq_queue
 from pymongo import ReturnDocument
 
 from app import collections
@@ -26,5 +27,8 @@ async def paid(*, trx_id: str, message: str):
     if trans_obj and "__hit__" in trans_obj:
         print(message + ": Success.", trans_obj)
         await cache.publish(REDIS_PREFIX_TRANSACTION_CHANNEL + trx_id, status)
+        await saq_queue.enqueue(
+            "forward_callback", transaction_id=trx_id, status=TransactionStatus.paid
+        )
     else:
         print(message + ": Fail.", trans_obj, trx_id)
