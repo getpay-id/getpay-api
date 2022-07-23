@@ -1,6 +1,6 @@
 import os
 
-from app.tasks import update_transaction_status
+from app.tasks import forward_callback, update_transaction_status
 
 if "ENVFILE_LOADED" not in os.environ:
     from dotenv import load_dotenv
@@ -19,6 +19,8 @@ if not JWT_SECRET_KEY:
     raise RuntimeError("JWT_SECRET_KEY is not set")
 if len(JWT_SECRET_KEY) < 30:
     raise RuntimeError("JWT_SECRET_KEY is too short (30 chars minimum)")
+
+NOTIFICATION_URL = os.environ.get("NOTIFICATION_URL")
 
 # Sentry
 SENTRY_DSN = os.environ.get("SENTRY_DSN")
@@ -60,7 +62,7 @@ Q1_DB = os.environ.get("Q1_DB", "1")
 SAQ_QUEUES = {
     "default": {
         "url": f"redis://{REDIS_HOST}:{REDIS_PORT}/{Q1_DB}",
-        "functions": [update_transaction_status],
+        "functions": [update_transaction_status, forward_callback],
         "concurrency": 10,
         "cron_jobs": [],
         "context": {},
