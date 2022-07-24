@@ -1,5 +1,5 @@
 """
-Skrip ini untuk membuat transaksi dengan semua payment method yang aktif.
+Skrip ini untuk membuat transaksi menggunakan semua payment method yang aktif.
 Ini bertujuan untuk mencari respon yang tidak sesuai dengan yang diharapkan.
 """
 

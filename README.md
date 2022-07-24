@@ -63,7 +63,7 @@ Kami juga sudah menyediakan API untuk menerima callback (status payment) dari pa
 
 ### API Keys
 
-Kami menyediakan API Key untuk mengakses Getpay API. Tujuan dari API Key ini adalah untuk mengimplementasikan integrasi antara GetPay API dan Service lain.
+Kami menyediakan API Key untuk mengakses Getpay API. Tujuan dari API Key ini adalah untuk mengimplementasikan integrasi antara GetPay API dengan service lain.
 
 
 ### Websocket
@@ -76,7 +76,7 @@ Untuk lebih rinci, silahkan lihat https://getpay.id/dashboard.
 
 Untuk repository dashboard juga bisa dilihat di https://github.com/getpay-id/dashboard
 
-## Documentation
+## Documentation (WIP)
 
 Lihat disini: https://github.com/getpay-id/getpay-api/wiki
 
