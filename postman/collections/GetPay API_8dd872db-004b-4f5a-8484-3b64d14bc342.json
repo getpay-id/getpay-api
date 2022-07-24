@@ -1068,7 +1068,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/v1/payment/channel/?id={{pm_id}}&page=1&size=10&sort_by=-1",
+									"raw": "{{baseUrl}}/v1/payment/channel/?pm_id={{pm_id}}&page=1&size=10&sort_by=-1",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -1080,7 +1080,7 @@
 									],
 									"query": [
 										{
-											"key": "id",
+											"key": "pm_id",
 											"value": "{{pm_id}}",
 											"description": "(Required) Payment Method ID"
 										},
@@ -4142,60 +4142,60 @@
 	],
 	"variable": [
 		{
-			"id": "264e4794-54bd-4129-a046-18344f07b855",
+			"id": "0a0a9d2b-97f2-4c8f-9b26-53aa9041cfd0",
 			"key": "baseUrl",
 			"value": "https://api.getpay.id",
 			"type": "string"
 		},
 		{
-			"id": "10e05cf9-6f20-49b3-ad67-7b8f968db1cc",
+			"id": "eda28e99-dc67-4771-85c4-9c2c5544e9ef",
 			"key": "email",
 			"value": "test@getpay.id",
 			"type": "string"
 		},
 		{
-			"id": "c9193fdd-7cf0-49f3-95be-c29000393fc4",
+			"id": "b076ff13-14b5-4f53-a640-237d180e0351",
 			"key": "password",
 			"value": "test123456",
 			"type": "string"
 		},
 		{
-			"id": "eeb0282b-e662-4a8a-baec-a9c49719ef3a",
+			"id": "3fecafc0-805a-4bc3-b492-266e9bcfcc3f",
 			"key": "access_token",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "7e6011f5-303a-4cba-90e2-5255c5a8e073",
+			"id": "42bd9eee-2a18-44b9-89fb-38b20e9bd354",
 			"key": "payment_method",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "abbe2c93-cdd7-492c-b9ce-fee71a758001",
+			"id": "80271987-bb12-43b0-a5b4-17777384baee",
 			"key": "payment_channel",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "3bcd8d3f-b131-4c75-be69-4f1ca1fe7a56",
+			"id": "5b3bd2f0-5be1-40cb-9dbc-6a98ffb8fc5e",
 			"key": "trx_id",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "24fd7f8d-212b-498a-907d-7bec1fd95759",
+			"id": "2a9e4e26-330e-42b2-a421-83ef330e34c4",
 			"key": "pg_id",
 			"value": ""
 		},
 		{
-			"id": "242a7a02-b50a-4532-8c74-a8d2081149da",
+			"id": "2373ea26-c255-4c6a-8519-aca623fd2e1c",
 			"key": "pm_id",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "412de9e4-40b3-40c4-904e-62b5a7b11e3b",
+			"id": "26c3d288-5001-4f0a-af7e-cb0bece58991",
 			"key": "pc_id",
 			"value": "",
 			"type": "string"
