@@ -70,16 +70,7 @@ Kami menyediakan API Key untuk mengakses Getpay API. Tujuan dari API Key ini ada
 
 Kami juga menyediakan websocket untuk mendapatkan status transaksi secara real time.
 
-### Dashboard
-
-Saat ini kami sedang membuat dashboard untuk mengelola:
-
-* Payment Gateway
-* Payment Method
-* Payment Channel
-* API Keys
-* Media Files
-* Dan masih banyak lagi.
+### Dashboard (WIP)
 
 Untuk lebih rinci, silahkan lihat https://getpay.id/dashboard.
 
