@@ -2,7 +2,7 @@ from typing import Optional
 
 from bson import ObjectId
 from fastapi import HTTPException, Path, Query, status
-from pydantic import BaseModel, StrictFloat, StrictInt
+from pydantic import BaseModel
 from pymongo import ReturnDocument
 
 from app import collections
@@ -14,8 +14,8 @@ from app.core.utils import serialize_data
 
 
 class PaymentChannelIn(BaseModel):
-    fee: Optional[StrictInt]
-    fee_percent: Optional[StrictFloat]
+    fee: Optional[int]
+    fee_percent: Optional[float]
     status: PaymentStatus
     name: str
     img: Optional[Image]
