@@ -1032,6 +1032,62 @@
           }
         ]
       },
+      "put": {
+        "tags": [
+          "API Key"
+        ],
+        "summary": "Perbarui API Key",
+        "description": "Perbarui API Key\n\nParameters:\n\n* `name`: Nama API Key\n\n* `description`: Deskripsi API Key",
+        "operationId": "update_v1_apikey__id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAPIKey"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicAPIKey"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      },
       "delete": {
         "tags": [
           "API Key"
@@ -2458,6 +2514,24 @@
         ],
         "type": "integer",
         "description": "An enumeration."
+      },
+      "UpdateAPIKey": {
+        "title": "UpdateAPIKey",
+        "required": [
+          "name",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          }
+        }
       },
       "UpdateTransactionIn": {
         "title": "UpdateTransactionIn",
