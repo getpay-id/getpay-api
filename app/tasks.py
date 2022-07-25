@@ -3,7 +3,6 @@ from bson import ObjectId
 from popol.jobs.saq.globals import saq_queue
 from pymongo import ReturnDocument
 
-from app import settings
 from app.core import timezone
 from app.core.enums import TransactionStatus
 
@@ -33,6 +32,8 @@ async def forward_callback(ctx: dict, transaction_id: str, status: TransactionSt
     """
     Teruskan callback dari payment gateway ke server anda.
     """
+
+    from app import settings
 
     url = settings.NOTIFICATION_URL
     if url:
