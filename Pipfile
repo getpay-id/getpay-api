@@ -30,6 +30,7 @@ pre-commit = "*"
 tox = "*"
 pytest = "*"
 pytest-order = "*"
+qrcode = {extras = ["pil"], version = "*"}
 
 [requires]
 python_version = "3.9"
