@@ -1,5 +1,5 @@
 from starlette.endpoints import WebSocketEndpoint
-from starlette.websockets import WebSocket, WebSocketDisconnect
+from starlette.websockets import WebSocket
 
 from app.core.dependencies import get_current_user_ws
 from app.core.models import User
@@ -10,10 +10,6 @@ class BaseWebSocket(WebSocketEndpoint):
 
     async def on_connect(self, websocket: WebSocket):
         await websocket.accept()
-
-    async def throw(self, websocket: WebSocket, code: int):
-        await websocket.close(code)
-        raise WebSocketDisconnect(code)
 
 
 class AuthWebSocket(BaseWebSocket):
