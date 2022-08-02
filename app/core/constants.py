@@ -104,7 +104,10 @@ MIN_AMOUNT_PAYMENT_METHODS = {
     PaymentGateway.ipaymu: {
         # reference: https://documenter.getpostman.com/view/7508947/SWLfanD1?version=latest#79e948f6-66b0-4d45-be63-6320f020c834
         PaymentMethod.va: {pc: 10000 for pc in IPAYMU_VIRTUAL_ACCOUNTS.keys()},
-        PaymentMethod.cstore: {pc: 10000 for pc in IPAYMU_CONVENIENCE_STORES.keys()},
+        PaymentMethod.cstore: {
+            "indomaret": 15000,
+            "alfamart": 10000,
+        },
         PaymentMethod.qris: {pc: 10000 for pc in IPAYMU_QRIS.keys()},
     },
     PaymentGateway.xendit: {
