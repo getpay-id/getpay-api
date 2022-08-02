@@ -10,6 +10,7 @@ class PublicPaymentChannelOut(BaseModel):
     code: str
     fee: Optional[StrictInt]
     fee_percent: Optional[StrictFloat]
+    min_amount: Optional[int]
     img: Optional[Image]
 
 

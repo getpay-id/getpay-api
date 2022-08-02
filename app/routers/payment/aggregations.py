@@ -28,6 +28,7 @@ def get_all_active_payment_methods(pg_id: str):
                             "fee": "$fee",
                             "fee_percent": "$fee_percent",
                             "img": "$img",
+                            "min_amount": "$min_amount",
                         }
                     },
                 ],
