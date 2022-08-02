@@ -336,7 +336,7 @@ async def create(request: Request, body: TransactionIn):
 
 
 if settings.DEMO:
-    create = limiter.limit("1/10 minute")(create)
+    create = limiter.limit("1/minute")(create)
 
 
 async def get_one(id: ObjectID):
