@@ -1,14 +1,7 @@
 from typing import Awaitable
 
 from bson import ObjectId
-from fastapi import (
-    Depends,
-    HTTPException,
-    Request,
-    WebSocket,
-    WebSocketDisconnect,
-    status,
-)
+from fastapi import Depends, HTTPException, Request, WebSocket, status
 from fastapi.security.utils import get_authorization_scheme_param
 from jose import ExpiredSignatureError, JWTError
 
@@ -63,15 +56,15 @@ async def get_current_user_ws(
     scheme, token = get_authorization_scheme_param(authorization)
     if not authorization or scheme.lower() != "bearer":
         print("Invalid request")
-        raise WebSocketDisconnect(status.WS_1005_ABNORMAL_CLOSURE)
+        await ws.close(status.WS_1007_INVALID_FRAME_PAYLOAD_DATA)
 
     async def on_invalid():
         print("Invalid:", ws)
-        raise WebSocketDisconnect(status.WS_1005_ABNORMAL_CLOSURE)
+        await ws.close(status.WS_1007_INVALID_FRAME_PAYLOAD_DATA)
 
     async def on_expired():
         print("Expired:", ws)
-        raise WebSocketDisconnect(status.WS_1005_ABNORMAL_CLOSURE)
+        await ws.close(status.WS_1007_INVALID_FRAME_PAYLOAD_DATA)
 
     return await _find_user(token, on_invalid, on_expired, jwt_required=True)
 
