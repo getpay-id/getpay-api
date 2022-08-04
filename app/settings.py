@@ -12,7 +12,6 @@ from urllib.parse import quote_plus
 
 API_VERSION = os.environ.get("API_VERSION", "v1")
 DEBUG = os.environ.get("DEBUG", "1") == "1"
-DEMO = os.environ.get("DEMO", "1") == "1"
 MAX_UPLOAD_SIZE = 7000000  # 7MB
 JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY")
 if not JWT_SECRET_KEY:
