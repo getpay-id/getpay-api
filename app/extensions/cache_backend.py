@@ -1,7 +1,7 @@
 from typing import Optional
 
-from aioredis.client import PubSub
-from popol.cache.backends.aioredis import AsyncRedisBackend
+from popol.cache.backends.redis import AsyncRedisBackend
+from redis.asyncio.client import PubSub
 
 
 class RedisCache(AsyncRedisBackend):
