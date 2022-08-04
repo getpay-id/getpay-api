@@ -1,14 +1,17 @@
 import asyncio
 
 import async_timeout
-from aioredis.client import PubSub
 from bson import ObjectId
 from popol.cache.globals import cache
+from redis.asyncio.client import PubSub
 from starlette import status
 from starlette.websockets import WebSocket
 
 from app.core.constants import REDIS_PREFIX_TRANSACTION_CHANNEL
 from app.core.websocket import BaseWebSocket
+from app.extensions.cache_backend import RedisCache
+
+cache: RedisCache
 
 
 async def _get_trx_id(websocket: WebSocket) -> str:
@@ -26,7 +29,7 @@ class GetTransactionStatus(BaseWebSocket):
     async def on_connect(self, websocket: WebSocket):
         await websocket.accept()
         trx_id = await _get_trx_id(websocket)
-        pubsub: PubSub = cache.pubsub()
+        pubsub = cache.pubsub()
         channel = REDIS_PREFIX_TRANSACTION_CHANNEL + trx_id
         await pubsub.subscribe(channel)
         websocket.state.pubsub = pubsub
