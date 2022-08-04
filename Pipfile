@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 motor = "*"
 python-jose = {extras = ["cryptography"], version = "*"}
-aioredis = "*"
 pydantic = {extras = ["email"], version = "*"}
 uvicorn = {extras = ["standard"], version = "*"}
 python-dotenv = "*"
@@ -19,9 +18,8 @@ faker = "*"
 typing-extensions = "*"
 filetype = "*"
 gunicorn = "*"
-slowapi = "*"
-popol = ">=0.2.2"
-saq = {extras = ["hiredis"], version = "*"}
+popol = ">=0.4.0"
+saq = {version = ">=0.8.0", extras = ["hiredis"]}
 sentry-sdk = "*"
 
 [dev-packages]

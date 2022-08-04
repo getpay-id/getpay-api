@@ -24,7 +24,6 @@ from app.core.fields import ObjectID
 from app.core.pagination import paginate
 from app.core.thirdparty import duitku, ipaymu, xendit
 from app.core.utils import generate_random_string, serialize_data
-from app.extensions.ratelimit import limiter
 
 faker = Faker()
 
@@ -333,10 +332,6 @@ async def create(request: Request, body: TransactionIn):
         "update_transaction_status", trx_id=str(result.inserted_id), scheduled=scheduled
     )
     return data
-
-
-if settings.DEMO:
-    create = limiter.limit("1/minute")(create)
 
 
 async def get_one(id: ObjectID):
