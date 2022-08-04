@@ -18,8 +18,9 @@ typing-extensions = "*"
 filetype = "*"
 gunicorn = "*"
 popol = ">=0.4.0"
-saq = {version = ">=0.8.0", extras = ["hiredis"]}
+saq = {extras = ["hiredis"], version = "*"}
 sentry-sdk = "*"
+redis = "==4.3.4"
 
 [dev-packages]
 black = "*"
