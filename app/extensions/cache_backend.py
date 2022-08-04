@@ -17,6 +17,3 @@ class RedisCache(AsyncRedisBackend):
 
     async def publish(self, channel: str, message: str):
         return await self.client.publish(channel, message)
-
-    async def clear(self):
-        await self.client.flushdb()
