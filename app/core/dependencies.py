@@ -123,7 +123,7 @@ async def validate_xendit_payment(request: Request):
     if not secret_key:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "Invalid request")
 
-    if not secret_key != settings.XENDIT_SECRET_KEY:
+    if secret_key != settings.XENDIT_SECRET_KEY:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "Invalid request")
 
     print("Xendit request valid")
