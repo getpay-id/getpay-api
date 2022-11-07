@@ -18,11 +18,8 @@ async def virtual_account(request: Request):
     """
 
     request_body = await load_body(request)
-    trx_id = request_body.get("id")
-    if not trx_id:
-        return {"detail": "ok"}
-
     if "callback_virtual_account_id" in request_body:
+        trx_id = request_body["callback_virtual_account_id"]
         msg_prefix = "Xendit(virtual account)"
         await transaction.paid(trx_id=trx_id, message=msg_prefix)
 
@@ -40,7 +37,7 @@ async def ewallet(request: Request):
     if not trx_id:
         return {"detail": "ok"}
 
-    if request_body.get("status") == "SUCCEEDED":
+    if info.get("status") == "SUCCEEDED":
         msg_prefix = "Xendit(ewallet)"
         await transaction.paid(trx_id=trx_id, message=msg_prefix)
 
@@ -53,7 +50,7 @@ async def convenience_store(request: Request):
     """
 
     request_body = await load_body(request)
-    trx_id = request_body.get("id")
+    trx_id = request_body.get("fixed_payment_code_id")
     if not trx_id:
         return {"detail": "ok"}
 
@@ -71,7 +68,8 @@ async def qris(request: Request):
     """
 
     request_body = await load_body(request)
-    trx_id = request_body.get("id")
+    qrcode_data = request_body.get("qr_code", {})
+    trx_id = qrcode_data.get("id")
     if not trx_id:
         return {"detail": "ok"}
 
